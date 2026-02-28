@@ -2,10 +2,17 @@
 """
 Vercel project management utilities for aetheris-vision-website.
 
-Usage:
-  python3 scripts/vercel.py status
-  python3 scripts/vercel.py pause
-  python3 scripts/vercel.py resume
+Repo : https://github.com/marstonsward/aetheris-vision-website
+File : scripts/vercel.py
+
+Prerequisites:
+  npm install -g vercel   # install CLI (one-time)
+  vercel login            # authenticate (one-time)
+
+Usage (run from the repo root):
+  python3 scripts/vercel.py status    # check whether the site is live or paused
+  python3 scripts/vercel.py pause     # take the site offline
+  python3 scripts/vercel.py resume    # bring the site back online
 """
 
 import json
