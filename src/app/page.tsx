@@ -88,7 +88,7 @@ export default function Home() {
               </h3>
               
               <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-6">
-                Derived from the ancient Latin and Greek word <span className="text-white italic">aetheris</span>—meaning &quot;the clear sky&quot; or &quot;the pure, fresh air breathed by the gods&quot;—our name reflects a profound commitment to mapping the unknown.
+                Derived from the ancient Latin and Greek word <span className="text-white italic">aetheris</span>—meaning "the clear sky" or "the pure, fresh air breathed by the gods"—our name reflects a profound commitment to mapping the unknown.
               </p>
               
               <div className="h-px w-12 bg-blue-500/50 mb-6"></div>
