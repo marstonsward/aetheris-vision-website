@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
 
   const auth = request.headers.get("authorization");
   if (auth?.startsWith("Basic ")) {
-    const decoded = Buffer.from(auth.slice(6), "base64").toString();
+    const decoded = atob(auth.slice(6));
     const password = decoded.includes(":") ? decoded.split(":")[1] : decoded;
     if (password === PASSWORD) return NextResponse.next();
   }
