@@ -113,9 +113,17 @@ export default function Home() {
             <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-12">Core Competencies</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {/* Card 1 */}
-              <div className="group rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col justify-between">
-                <div>
+              {/* Card 1 — Operational Meteorology */}
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col justify-between overflow-hidden">
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1527482937786-6608f6f73e1c?q=80&w=1200"
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                  />
+                </div>
+                <div className="relative z-10">
                   <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
                     🌍
                   </div>
@@ -126,37 +134,67 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Card 2 */}
-              <div className="group rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10">
-                <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                  ⚙️
+              {/* Card 2 — AI / ML Integration */}
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?q=80&w=1200"
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                  />
                 </div>
-                <h3 className="text-xl md:text-2xl font-medium text-white mb-3">AI / ML Integration</h3>
-                <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                  Pioneering machine learning techniques tailored for complex, large-scale meteorological datasets to increase predictive accuracy and mission readiness.
-                </p>
+                <div className="relative z-10">
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
+                    ⚙️
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">AI / ML Integration</h3>
+                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                    Pioneering machine learning techniques tailored for complex, large-scale meteorological datasets to increase predictive accuracy and mission readiness.
+                  </p>
+                </div>
               </div>
 
-              {/* Card 3 */}
-              <div className="group rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10">
-                <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                  🏛️
+              {/* Card 3 — State & Federal Contracting */}
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1504608524841-42f1e38e80e0?q=80&w=1200"
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover opacity-[0.10] mix-blend-screen group-hover:opacity-[0.15] transition-opacity duration-500"
+                  />
                 </div>
-                <h3 className="text-xl md:text-2xl font-medium text-white mb-3">State & Federal Contracting</h3>
-                <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                  Specialized guidance for state agencies and federal programs. We maintain Active Secret Clearance and operate via VOSB and 8(a) ready pathways for simplified procurement.
-                </p>
+                <div className="relative z-10">
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
+                    🏛️
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">State & Federal Contracting</h3>
+                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                    Specialized guidance for state agencies and federal programs. We maintain Active Secret Clearance and operate via VOSB and 8(a) ready pathways for simplified procurement.
+                  </p>
+                </div>
               </div>
 
-              {/* Card 4 */}
-              <div className="group rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10">
-                <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                  📊
+              {/* Card 4 — Technical Advisory */}
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1200"
+                    alt=""
+                    aria-hidden="true"
+                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                  />
                 </div>
-                <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Technical Advisory</h3>
-                <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                  Bridging the gap between deep environmental science (PhD level) and scalable software engineering architecture for government and enterprise.
-                </p>
+                <div className="relative z-10">
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
+                    📊
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Technical Advisory</h3>
+                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                    Bridging the gap between deep environmental science (PhD level) and scalable software engineering architecture for government and enterprise.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

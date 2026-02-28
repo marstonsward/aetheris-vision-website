@@ -34,7 +34,16 @@ export default async function BlogPost({ params }: Props) {
       <Navbar />
 
       <main className="flex-1 pt-32 pb-24 bg-[#050505] relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0e1726]/40 via-black to-black -z-10" />
+        {/* Background */}
+        <div className="absolute inset-0 -z-20">
+          <img
+            src="https://images.unsplash.com/photo-1504608524841-42f1e38e80e0?q=80&w=2500"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-[0.12] mix-blend-screen"
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0e1726]/60 via-black/90 to-black -z-10" />
 
         <div className="mx-auto max-w-3xl px-6">
           {/* Back link */}

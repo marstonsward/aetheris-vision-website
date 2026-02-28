@@ -1,3 +1,9 @@
+export type Author = {
+  name: string;
+  title: string;
+  initials: string;
+};
+
 export type Post = {
   id: number;
   slug: string;
@@ -7,6 +13,8 @@ export type Post = {
   summary: string;
   readTime: string;
   content: string;
+  featured?: boolean;
+  author: Author;
 };
 
 export const posts: Post[] = [
@@ -16,6 +24,12 @@ export const posts: Post[] = [
     title: "The Future of AI in Operational Meteorology",
     date: "Feb 28, 2026",
     category: "AI / ML Integration",
+    featured: true,
+    author: {
+      name: "Marston Ward",
+      title: "Founder & Chief Meteorologist, Aetheris Vision",
+      initials: "MW",
+    },
     summary:
       "How deep-learning models are transforming raw satellite data into actionable mission-critical insights faster than traditional numerical weather prediction (NWP) models.",
     readTime: "5 min read",
@@ -55,6 +69,11 @@ Aetheris Vision is positioned to help government and defense clients navigate th
     title: "Navigating 8(a) and VOSB Pathways for Defense Contracts",
     date: "Jan 15, 2026",
     category: "Contracting",
+    author: {
+      name: "Marston Ward",
+      title: "Founder & Chief Meteorologist, Aetheris Vision",
+      initials: "MW",
+    },
     summary:
       "A strategic overview of how state and federal agencies can leverage Veteran-Owned Small Business (VOSB) statuses to streamline tech procurement and architecture advisement.",
     readTime: "4 min read",
@@ -89,4 +108,16 @@ The goal is to remove friction from access to specialized expertise. The contrac
 
 export function getPostBySlug(slug: string): Post | undefined {
   return posts.find((p) => p.slug === slug);
+}
+
+export function getPrevNextPosts(slug: string): { prev: Post | null; next: Post | null } {
+  const idx = posts.findIndex((p) => p.slug === slug);
+  return {
+    prev: idx > 0 ? posts[idx - 1] : null,
+    next: idx < posts.length - 1 ? posts[idx + 1] : null,
+  };
+}
+
+export function getCategories(): string[] {
+  return Array.from(new Set(posts.map((p) => p.category)));
 }
