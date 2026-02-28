@@ -22,10 +22,18 @@ export default function Home() {
 
       {/* Hero Section */}
       <main className="flex-1">
-        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-          <div className="absolute top-[-20%] left-[-10%] w-[120%] h-[120%] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-800/20 via-black to-black -z-10" />
+        <section className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
+          {/* Background Image & Gradient Overlay */}
+          <div className="absolute inset-0 -z-20">
+            <img 
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2500" 
+              alt="Earth Horizon from Space" 
+              className="w-full h-full object-cover opacity-50 contrast-125"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/90 to-[#050505] -z-10" />
           
-          <div className="mx-auto max-w-5xl px-6">
+          <div className="mx-auto max-w-5xl px-6 relative z-10">
             <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300 mb-8 backdrop-blur-sm">
               <span className="flex h-2 w-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
               VOSB, 8(a) Ready & Active Secret Clearance
@@ -59,10 +67,57 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Expertise Grid */}
-        <section id="expertise" className="py-24 bg-black border-t border-white/5">
+        {/* About Our Name & Philosophy Section */}
+        <section id="about" className="py-24 bg-[#0a0a0a] border-t border-white/5 relative overflow-hidden">
+          {/* Subtle atmospheric background */}
+          <div className="absolute inset-0 -z-20">
+            <img 
+              src="https://images.unsplash.com/photo-1534152011036-7cbdb43088ac?q=80&w=2500" 
+              alt="Atmospheric Weather Patterns" 
+              className="w-full h-full object-cover opacity-[0.15] mix-blend-screen"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent -z-10" />
+
           <div className="mx-auto max-w-5xl px-6">
-            <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-12">Core Competencies</h2>
+            <div className="max-w-2xl">
+              <h2 className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-3">Our Philosophy</h2>
+              <h3 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-6">
+                The <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">Aetheris</span> Vision
+              </h3>
+              
+              <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-6">
+                Derived from the ancient Latin and Greek word <span className="text-white italic">aetheris</span>—meaning &quot;the clear sky&quot; or &quot;the pure, fresh air breathed by the gods&quot;—our name reflects a profound commitment to mapping the unknown.
+              </p>
+              
+              <div className="h-px w-12 bg-blue-500/50 mb-6"></div>
+              
+              <p className="text-base text-gray-400 font-light leading-relaxed mb-8">
+                In ancient philosophy, aether was the fifth element that filled the universe above the terrestrial sphere. For our business, it represents 35 years of deep operational meteorology expertise paired with a vision for the future: bringing clarity, structure, and advanced AI/ML capabilities to highly complex government and enterprise systems charting the skies, space, and earth.
+              </p>
+              
+              <div className="flex items-center gap-4 text-sm text-gray-500">
+                <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> Meteorology</span>
+                <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> AI Integration</span>
+                <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> Defense Tech</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Expertise Grid */}
+        <section id="expertise" className="py-24 bg-[#050505] border-t border-white/5 relative overflow-hidden">
+          <div className="absolute inset-0 -z-20">
+            <img 
+              src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=2500" 
+              alt="Deep Space Weather" 
+              className="w-full h-full object-cover opacity-10 mix-blend-screen sepia-[0.2] hue-rotate-180"
+            />
+          </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-[#050505]/95 to-black/80 -z-10" />
+
+          <div className="mx-auto max-w-5xl px-6 relative z-10">
+            <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-12">Core Competencies</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Card 1 */}
