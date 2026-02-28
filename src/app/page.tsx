@@ -15,6 +15,7 @@ export default function Home() {
           <nav className="hidden md:flex gap-6 text-sm text-gray-400">
             <a href="#expertise" className="hover:text-white transition">Expertise</a>
             <a href="#about" className="hover:text-white transition">About</a>
+            <a href="/blog" className="hover:text-white transition">Blog</a>
             <a href="mailto:contact@aetherisvision.com" className="hover:text-white transition">Contact</a>
           </nav>
         </div>
@@ -121,14 +122,16 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Card 1 */}
-              <div className="group rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10">
-                <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                  🌍
+              <div className="group rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col justify-between">
+                <div>
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
+                    🌍
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Operational Meteorology</h3>
+                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                    Over 35 years of global atmospheric modeling and operational forecasting. Expertise honed through extensive unclassified strategic deployments with the <strong className="text-gray-200">United States Air Force (USAF)</strong> and research collaborations with <strong className="text-gray-200">Stockholm University</strong> and <strong className="text-gray-200">Chalmers University of Technology</strong>.
+                  </p>
                 </div>
-                <h3 className="text-xl font-medium text-white mb-3">Operational Meteorology</h3>
-                <p className="text-gray-400 font-light leading-relaxed">
-                  Over 35 years of global atmospheric modeling and operational forecasting, including strategic deployments across USAF and SMHI initiatives.
-                </p>
               </div>
 
               {/* Card 2 */}

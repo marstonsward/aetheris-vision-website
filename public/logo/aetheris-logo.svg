@@ -2,7 +2,7 @@
   <!-- Glowing effects for dark mode -->
   <defs>
     <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feGaussianBlur stdDeviation="4" result="blur" />
       <feMerge>
         <feMergeNode in="blur" />
         <feMergeNode in="SourceGraphic" />
@@ -10,20 +10,15 @@
     </filter>
     <linearGradient id="blade-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#a1a1aa"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
     </linearGradient>
     <linearGradient id="atmospheric-arch" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" stop-color="#60a5fa" stop-opacity="1"/>
-      <stop offset="100%" stop-color="#1e1b4b" stop-opacity="0.2"/>
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.8"/>
     </linearGradient>
   </defs>
 
-  <!-- Central "A" / Delta Wing - Brightened -->
   <path d="M100 40 L160 160 H130 L100 95 L70 160 H40 Z" fill="url(#blade-gradient)" filter="url(#glow)"/>
-  
-  <!-- Predictive / Vision Element - Brightened Blue -->
   <path d="M40 160 C 70 120, 130 120, 160 160 C 130 140, 70 140, 40 160" fill="url(#atmospheric-arch)" filter="url(#glow)"/>
-  
-  <!-- Focus core (Data point) - Bright cyan -->
-  <circle cx="100" cy="115" r="5" fill="#38bdf8" filter="url(#glow)"/>
+  <circle cx="100" cy="115" r="6" fill="#00e5ff" filter="url(#glow)"/>
 </svg>
