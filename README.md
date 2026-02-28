@@ -29,6 +29,21 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
+## Development Workflow
+
+When making changes to the website:
+
+1. Edit the relevant files in `src/app/`
+2. Test locally with `npm run dev` and visit [http://localhost:3000](http://localhost:3000)
+3. Commit and push changes to GitHub
+4. **Verify deployment**: After Vercel builds (usually 30-60 seconds), check that changes are live by visiting [https://aetherisvision.com](https://aetherisvision.com) or running:
+
+```bash
+curl -I https://aetherisvision.com
+```
+
+A successful response (HTTP 200) confirms the changes are deployed successfully.
+
 ## Deploy on Vercel
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
