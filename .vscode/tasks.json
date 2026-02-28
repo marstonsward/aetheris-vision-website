@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Next.js Dev (Node 20)",
+			"type": "shell",
+			"command": "source ~/.nvm/nvm.sh && nvm use 20 && npm run dev",
+			"isBackground": true,
+			"problemMatcher": []
+		}
+	]
+}

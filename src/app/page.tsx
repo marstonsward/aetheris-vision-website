@@ -1,25 +1,17 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
+export const metadata = {
+  title: "Aetheris Vision | Predictive Clarity at the Highest Level",
+  description:
+    "Advanced AI/ML weather prediction, operational meteorology, and specialized technical consulting for state and federal defense missions via VOSB and 8(a) pathways.",
+};
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      {/* Navbar Minimal */}
-      <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-md">
-        <div className="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/logo/aetheris-logo.svg" alt="Aetheris Logo" className="h-10 w-10 md:h-12 md:w-12" />
-            <div className="text-xl md:text-2xl font-bold tracking-tight text-white">
-              <span className="font-light text-gray-400">Aetheris</span>Vision
-            </div>
-          </div>
-          <nav className="hidden md:flex gap-6 text-sm text-gray-400">
-            <a href="#expertise" className="hover:text-white transition">Expertise</a>
-            <a href="#about" className="hover:text-white transition">About</a>
-            <a href="/blog" className="hover:text-white transition">Blog</a>
-            <a href="mailto:contact@aetherisvision.com" className="hover:text-white transition">Contact</a>
-          </nav>
-        </div>
-      </header>
+      <Navbar />
 
       {/* Hero Section */}
       <main className="flex-1">
@@ -171,17 +163,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* Footer */}
-      <footer className="border-t border-white/5 py-12 pb-24">
-        <div className="mx-auto max-w-5xl px-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500">
-          <div>
-            &copy; {new Date().getFullYear()} Aetheris Vision LLC. All rights reserved.
-          </div>
-          <div className="mt-4 md:mt-0 space-x-4">
-            <span>Veteran-Owned Small Business (VOSB)</span>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
