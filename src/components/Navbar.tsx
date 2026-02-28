@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 
 const navLinks = [
   { label: "Expertise", href: "/#expertise" },
@@ -12,16 +14,48 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => setMobileOpen(false), [pathname]);
+
+  function isActive(href: string) {
+    if (href.startsWith("mailto:")) return false;
+    if (href === "/blog") return pathname.startsWith("/blog");
+    return false;
+  }
 
   return (
-    <header className="fixed top-0 w-full z-50 border-b border-white/5 bg-black/50 backdrop-blur-md">
-      <div className="mx-auto max-w-5xl px-6 h-16 flex items-center justify-between">
+    <header
+      className={clsx(
+        "fixed top-0 w-full z-50 border-b transition-all duration-300",
+        scrolled
+          ? "border-white/10 bg-black/80 backdrop-blur-md shadow-[0_1px_30px_rgba(0,0,0,0.6)]"
+          : "border-white/5 bg-black/40 backdrop-blur-sm"
+      )}
+    >
+      <div
+        className={clsx(
+          "mx-auto max-w-5xl px-6 flex items-center justify-between transition-all duration-300",
+          scrolled ? "h-14" : "h-16"
+        )}
+      >
         {/* Logo */}
         <a href="/" className="flex items-center gap-3">
           <img
             src="/logo/aetheris-logo.svg"
             alt="Aetheris Vision Logo"
-            className="h-10 w-10 md:h-12 md:w-12"
+            className={clsx(
+              "transition-all duration-300",
+              scrolled ? "h-8 w-8 md:h-9 md:w-9" : "h-10 w-10 md:h-12 md:w-12"
+            )}
           />
           <div className="text-xl md:text-2xl font-bold tracking-tight text-white">
             <span className="font-light text-gray-400">Aetheris</span>Vision
@@ -29,14 +63,22 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm text-gray-400">
+        <nav className="hidden md:flex gap-6 text-sm">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="hover:text-white transition"
+              className={clsx(
+                "transition-colors flex flex-col items-center",
+                isActive(link.href)
+                  ? "text-white font-medium"
+                  : "text-gray-400 hover:text-white"
+              )}
             >
               {link.label}
+              {isActive(link.href) && (
+                <span className="block h-px w-full bg-blue-500 mt-0.5 rounded-full" />
+              )}
             </a>
           ))}
         </nav>
@@ -57,14 +99,19 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-white/5 bg-black/90 backdrop-blur-md">
+        <div className="md:hidden border-t border-white/5 bg-black/95 backdrop-blur-md">
           <nav className="mx-auto max-w-5xl px-6 py-4 flex flex-col gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="py-3 px-2 text-sm text-gray-400 hover:text-white transition border-b border-white/5 last:border-0"
+                className={clsx(
+                  "py-3 px-2 text-sm transition border-b border-white/5 last:border-0",
+                  isActive(link.href)
+                    ? "text-white font-medium"
+                    : "text-gray-400 hover:text-white"
+                )}
               >
                 {link.label}
               </a>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import BackToTop from "@/components/BackToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,6 +27,7 @@ export default function RootLayout({
         className={`${inter.className} bg-black text-gray-100 antialiased min-h-screen selection:bg-gray-800 selection:text-white`}
       >
         {children}
+        <BackToTop />
       </body>
     </html>
   );

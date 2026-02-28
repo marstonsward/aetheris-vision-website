@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import FadeIn from "@/components/FadeIn";
 
 export const metadata = {
   title: "Aetheris Vision | Predictive Clarity at the Highest Level",
@@ -27,36 +28,44 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/90 to-[#050505] -z-10" />
           
           <div className="mx-auto max-w-5xl px-6 relative z-10">
-            <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300 mb-8 backdrop-blur-sm">
-              <span className="flex h-2 w-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
-              VOSB, 8(a) Ready & Active Secret Clearance
-            </div>
+            <FadeIn delay={0.1}>
+              <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300 mb-8 backdrop-blur-sm">
+                <span className="flex h-2 w-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
+                VOSB, 8(a) Ready & Active Secret Clearance
+              </div>
+            </FadeIn>
             
-            <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter text-white mb-6 leading-[1.1]">
-              Predictive Clarity <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
-                At The Highest Level.
-              </span>
-            </h1>
+            <FadeIn delay={0.2}>
+              <h1 className="text-5xl md:text-7xl font-semibold tracking-tighter text-white mb-6 leading-[1.1]">
+                Predictive Clarity <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">
+                  At The Highest Level.
+                </span>
+              </h1>
+            </FadeIn>
             
-            <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed font-light">
-              Providing advanced AI/ML weather prediction algorithms, deep operational meteorology insight, and specialized technical consulting for state agencies and federal defense missions via 8(a) and VOSB pathways.
-            </p>
+            <FadeIn delay={0.3}>
+              <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed font-light">
+                Providing advanced AI/ML weather prediction algorithms, deep operational meteorology insight, and specialized technical consulting for state agencies and federal defense missions via 8(a) and VOSB pathways.
+              </p>
+            </FadeIn>
             
-            <div className="flex flex-col sm:flex-row gap-4">
-              <a 
-                href="mailto:contact@aetherisvision.com"
-                className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-gray-200"
-              >
-                Engage Our Services
-              </a>
-              <a 
-                href="#expertise"
-                className="inline-flex h-12 items-center justify-center rounded-md border border-white/10 bg-black px-8 text-sm font-medium text-white transition-colors hover:bg-white/5"
-              >
-                View Expertise <ArrowRightIcon className="ml-2 h-4 w-4" />
-              </a>
-            </div>
+            <FadeIn delay={0.4}>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a 
+                  href="mailto:contact@aetherisvision.com"
+                  className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-gray-200"
+                >
+                  Engage Our Services
+                </a>
+                <a 
+                  href="#expertise"
+                  className="inline-flex h-12 items-center justify-center rounded-md border border-white/10 bg-black px-8 text-sm font-medium text-white transition-colors hover:bg-white/5"
+                >
+                  View Expertise <ArrowRightIcon className="ml-2 h-4 w-4" />
+                </a>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
@@ -74,26 +83,34 @@ export default function Home() {
 
           <div className="mx-auto max-w-5xl px-6">
             <div className="max-w-2xl">
-              <h2 className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-3">Our Philosophy</h2>
-              <h3 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-6">
-                The <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">Aetheris</span> Vision
-              </h3>
+              <FadeIn delay={0}>
+                <h2 className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-3">Our Philosophy</h2>
+                <h3 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-6">
+                  The <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-200 to-gray-500">Aetheris</span> Vision
+                </h3>
+              </FadeIn>
               
-              <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-6">
-                Derived from the ancient Latin and Greek word <span className="text-white italic">aetheris</span>—meaning "the clear sky" or "the pure, fresh air breathed by the gods"—our name reflects a profound commitment to mapping the unknown.
-              </p>
+              <FadeIn delay={0.15}>
+                <p className="text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-6">
+                  Derived from the ancient Latin and Greek word <span className="text-white italic">aetheris</span>—meaning "the clear sky" or "the pure, fresh air breathed by the gods"—our name reflects a profound commitment to mapping the unknown.
+                </p>
+              </FadeIn>
               
-              <div className="h-px w-12 bg-blue-500/50 mb-6"></div>
+              <FadeIn delay={0.2}>
+                <div className="h-px w-12 bg-blue-500/50 mb-6"></div>
+                
+                <p className="text-base text-gray-400 font-light leading-relaxed mb-8">
+                  In ancient philosophy, aether was the fifth element that filled the universe above the terrestrial sphere. For our business, it represents 35 years of deep operational meteorology expertise paired with a vision for the future: bringing clarity, structure, and advanced AI/ML capabilities to highly complex government and enterprise systems charting the skies, space, and earth.
+                </p>
+              </FadeIn>
               
-              <p className="text-base text-gray-400 font-light leading-relaxed mb-8">
-                In ancient philosophy, aether was the fifth element that filled the universe above the terrestrial sphere. For our business, it represents 35 years of deep operational meteorology expertise paired with a vision for the future: bringing clarity, structure, and advanced AI/ML capabilities to highly complex government and enterprise systems charting the skies, space, and earth.
-              </p>
-              
-              <div className="flex items-center gap-4 text-sm text-gray-500">
-                <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> Meteorology</span>
-                <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> AI Integration</span>
-                <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> Defense Tech</span>
-              </div>
+              <FadeIn delay={0.25}>
+                <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> Meteorology</span>
+                  <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> AI Integration</span>
+                  <span className="flex items-center gap-2"><div className="h-1.5 w-1.5 rounded-full bg-blue-500"></div> Defense Tech</span>
+                </div>
+              </FadeIn>
             </div>
           </div>
         </section>
@@ -110,10 +127,13 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-t from-black via-[#050505]/95 to-black/80 -z-10" />
 
           <div className="mx-auto max-w-5xl px-6 relative z-10">
-            <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-12">Core Competencies</h2>
+            <FadeIn>
+              <h2 className="text-3xl md:text-5xl font-semibold text-white tracking-tight mb-12">Core Competencies</h2>
+            </FadeIn>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Card 1 — Operational Meteorology */}
+              <FadeIn delay={0.05} direction="up">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col justify-between overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
@@ -133,8 +153,10 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+              </FadeIn>
 
               {/* Card 2 — AI / ML Integration */}
+              <FadeIn delay={0.1} direction="up">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
@@ -154,8 +176,10 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+              </FadeIn>
 
               {/* Card 3 — State & Federal Contracting */}
+              <FadeIn delay={0.15} direction="up">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
@@ -175,8 +199,10 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+              </FadeIn>
 
               {/* Card 4 — Technical Advisory */}
+              <FadeIn delay={0.2} direction="up">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
@@ -196,6 +222,7 @@ export default function Home() {
                   </p>
                 </div>
               </div>
+              </FadeIn>
             </div>
           </div>
         </section>
