@@ -66,6 +66,10 @@ def pause():
     print("Project paused. The site is now offline.")
 
 def resume():
+    # Note: if the project has never had a production deployment (i.e. was paused
+    # before first deploy), the API returns 404. In that case, go to the Vercel
+    # dashboard, open the project, and click the "Resume Service" button that
+    # appears at the top of the page.
     api("POST", f"/v1/projects/{PROJECT_ID}/resume", body=b"{}")
     print("Project resumed. The site is live.")
 
