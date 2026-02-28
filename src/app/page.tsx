@@ -138,10 +138,10 @@ export default function Home() {
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1569025743873-ea3a9ade89f9?q=80&w=1200"
+                    src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    className="w-full h-full object-cover opacity-[0.15] mix-blend-screen group-hover:opacity-[0.22] transition-opacity duration-500"
                   />
                 </div>
                 <div className="relative z-10">
@@ -159,10 +159,10 @@ export default function Home() {
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1504608524841-42f1e38e80e0?q=80&w=1200"
+                    src="https://images.unsplash.com/photo-1562408590-e32931084e23?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-cover opacity-[0.10] mix-blend-screen group-hover:opacity-[0.15] transition-opacity duration-500"
+                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
                   />
                 </div>
                 <div className="relative z-10">
