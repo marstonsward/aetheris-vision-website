@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, GlobeAltIcon, CpuChipIcon, ShieldCheckIcon, ChartBarIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
@@ -133,8 +133,8 @@ export default function Home() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               {/* Card 1 — Operational Meteorology */}
-              <FadeIn delay={0.05} direction="up">
-              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col justify-between overflow-hidden">
+              <FadeIn delay={0.05} direction="up" className="h-full">
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1527482937786-6608f6f73e1c?q=80&w=1200"
@@ -144,8 +144,8 @@ export default function Home() {
                   />
                 </div>
                 <div className="relative z-10">
-                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                    🌍
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
+                    <GlobeAltIcon className="h-6 w-6 text-blue-400" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Operational Meteorology</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
@@ -156,8 +156,8 @@ export default function Home() {
               </FadeIn>
 
               {/* Card 2 — AI / ML Integration */}
-              <FadeIn delay={0.1} direction="up">
-              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
+              <FadeIn delay={0.1} direction="up" className="h-full">
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1200"
@@ -167,8 +167,8 @@ export default function Home() {
                   />
                 </div>
                 <div className="relative z-10">
-                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                    ⚙️
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
+                    <CpuChipIcon className="h-6 w-6 text-blue-400" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">AI / ML Integration</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
@@ -179,8 +179,8 @@ export default function Home() {
               </FadeIn>
 
               {/* Card 3 — State & Federal Contracting */}
-              <FadeIn delay={0.15} direction="up">
-              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
+              <FadeIn delay={0.15} direction="up" className="h-full">
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1562408590-e32931084e23?q=80&w=1200"
@@ -190,20 +190,20 @@ export default function Home() {
                   />
                 </div>
                 <div className="relative z-10">
-                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                    🏛️
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
+                    <ShieldCheckIcon className="h-6 w-6 text-blue-400" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">State & Federal Contracting</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                    Specialized guidance for state agencies and federal programs. We maintain Active Secret Clearance and operate via VOSB and 8(a) ready pathways for simplified procurement.
+                    Registered in SAM.gov with Active Secret Clearance, VOSB certification, and active 8(a) pathway pursuit. Purpose-built to work directly with state and federal agencies on specialized weather, AI, and defense system requirements.
                   </p>
                 </div>
               </div>
               </FadeIn>
 
               {/* Card 4 — Technical Advisory */}
-              <FadeIn delay={0.2} direction="up">
-              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 overflow-hidden">
+              <FadeIn delay={0.2} direction="up" className="h-full">
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1200"
@@ -213,8 +213,8 @@ export default function Home() {
                   />
                 </div>
                 <div className="relative z-10">
-                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6 text-xl">
-                    📊
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
+                    <ChartBarIcon className="h-6 w-6 text-blue-400" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Technical Advisory</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
@@ -224,6 +224,46 @@ export default function Home() {
               </div>
               </FadeIn>
             </div>
+          </div>
+        </section>
+
+        {/* Contact CTA Section */}
+        <section className="py-24 bg-[#0a0a0a] border-t border-white/5">
+          <div className="mx-auto max-w-5xl px-6">
+            <FadeIn>
+              <div className="rounded-2xl border border-white/5 bg-white/[0.02] p-10 md:p-14 flex flex-col md:flex-row md:items-center justify-between gap-10 relative overflow-hidden">
+                {/* Glow */}
+                <div className="absolute -bottom-20 -right-20 w-72 h-72 rounded-full bg-blue-600/10 blur-3xl pointer-events-none" />
+
+                <div className="relative z-10 max-w-xl">
+                  <div className="flex items-center gap-2 text-blue-400 text-sm font-semibold tracking-widest uppercase mb-4">
+                    <span className="h-px w-6 bg-blue-500"></span> Work With Us
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
+                    Ready to discuss your mission requirements?
+                  </h2>
+                  <p className="text-gray-400 font-light leading-relaxed">
+                    We engage directly with program offices, contracting officers, and technical leads. Reach out to start a conversation about your weather, AI, or defense technology needs.
+                  </p>
+                </div>
+
+                <div className="relative z-10 flex flex-col gap-4 shrink-0">
+                  <a
+                    href="mailto:contact@aetherisvision.com"
+                    className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-white px-8 text-sm font-medium text-black hover:bg-gray-200 transition"
+                  >
+                    <EnvelopeIcon className="h-4 w-4" />
+                    Engage Our Services
+                  </a>
+                  <a
+                    href="/blog"
+                    className="inline-flex h-12 items-center justify-center rounded-md border border-white/10 bg-transparent px-8 text-sm font-medium text-white hover:bg-white/5 transition"
+                  >
+                    Read Our Insights
+                  </a>
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </section>
       </main>
