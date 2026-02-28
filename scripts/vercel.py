@@ -16,6 +16,7 @@ Usage (run from the repo root):
 """
 
 import json
+import subprocess
 import sys
 import urllib.request
 import urllib.error
@@ -66,12 +67,31 @@ def pause():
     print("Project paused. The site is now offline.")
 
 def resume():
-    # Note: if the project has never had a production deployment (i.e. was paused
-    # before first deploy), the API returns 404. In that case, go to the Vercel
-    # dashboard, open the project, and click the "Resume Service" button that
-    # appears at the top of the page.
-    api("POST", f"/v1/projects/{PROJECT_ID}/resume", body=b"{}")
-    print("Project resumed. The site is live.")
+    # The /resume API endpoint requires an existing production deployment.
+    # If the project was paused before its first successful deploy (404 response),
+    # we fall back to `vercel deploy --prod` which both builds and resumes.
+    token = get_token()
+    url = f"https://api.vercel.com/v1/projects/{PROJECT_ID}/resume?teamId={TEAM_ID}"
+    req = urllib.request.Request(url, data=b"{}", method="POST")
+    req.add_header("Authorization", f"Bearer {token}")
+    req.add_header("Content-Type", "application/json")
+    try:
+        with urllib.request.urlopen(req) as r:
+            r.read()
+            print("Project resumed. The site is live.")
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            print("No prior production deployment found — triggering a fresh deploy...")
+            result = subprocess.run(
+                ["vercel", "deploy", "--prod", "--yes"],
+                capture_output=False,
+            )
+            if result.returncode == 0:
+                print("Deployed and resumed successfully.")
+            else:
+                sys.exit("Deploy failed. Check the output above.")
+        else:
+            sys.exit(f"API error {e.code}: {e.read().decode()}")
 
 # ── Entrypoint ────────────────────────────────────────────────────────────────
 
