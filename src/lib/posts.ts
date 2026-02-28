@@ -106,6 +106,46 @@ The goal is to remove friction from access to specialized expertise. The contrac
   },
 ];
 
+// ── Draft posts (not yet published) ──────────────────────────────────────────
+//
+// TODO: Turbulence / Richardson post
+//
+// Visual concept: full-width turbulence image (e.g. Karman vortex street satellite
+// photo or LES simulation render) with Richardson's poem as an overlay or epigraph.
+//
+// Poem:
+//   Big whorls have little whorls
+//   That feed on their velocity,
+//   And little whorls have lesser whorls
+//   And so on to viscosity.
+//   -- Lewis F. Richardson
+//
+// Possible angles:
+//   • The poem as a lens on the turbulence closure problem in NWP
+//   • Richardson's 1922 "Weather Prediction by Numerical Process" and its modern legacy
+//   • How AI/ML is attacking the sub-grid turbulence parameterisation problem
+//
+// To publish: uncomment the entry below, add to the posts array above, and
+// supply a turbulence background image URL.
+//
+// {
+//   id: 3,
+//   slug: "turbulence-richardsons-poem",
+//   title: "Big Whorls Have Little Whorls",
+//   date: "TBD",
+//   category: "Atmospheric Science",
+//   featured: false,
+//   author: {
+//     name: "Marston Ward",
+//     title: "Founder & Chief Meteorologist, Aetheris Vision",
+//     initials: "MW",
+//   },
+//   summary:
+//     "Lewis Richardson's century-old poem captures something modern supercomputers still struggle to fully resolve. A look at turbulence, numerical weather prediction, and where machine learning enters the cascade.",
+//   readTime: "7 min read",
+//   content: `TODO`,
+// },
+
 export function getPostBySlug(slug: string): Post | undefined {
   return posts.find((p) => p.slug === slug);
 }
