@@ -36,16 +36,31 @@ When making changes to the website:
 1. Edit the relevant files in `src/app/`
 2. Test locally with `npm run dev` and visit [http://localhost:3000](http://localhost:3000)
 3. Commit and push changes to GitHub
-4. **Verify deployment**: After Vercel builds (usually 30-60 seconds), check that changes are live by visiting [https://aetherisvision.com](https://aetherisvision.com) or running:
+4. **Verify deployment**: After Vercel builds (usually 30–60 seconds), check status:
 
 ```bash
-curl -I https://aetherisvision.com
+python3 scripts/vercel.py status
 ```
 
-A successful response (HTTP 200) confirms the changes are deployed successfully.
+## Vercel Management
+
+Use `scripts/vercel.py` to manage the deployment without logging into the dashboard.
+Requires the Vercel CLI to be installed and authenticated (`vercel login`).
+
+```bash
+# Check whether the site is live or paused
+python3 scripts/vercel.py status
+
+# Take the site offline (e.g. while company registration is pending)
+python3 scripts/vercel.py pause
+
+# Bring the site back online
+python3 scripts/vercel.py resume
+```
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The site deploys automatically on every push to `main` via the [Vercel GitHub integration](https://vercel.com/docs/deployments/git).
+Node.js is pinned to `20.x` in `package.json` (`engines` field) for build compatibility.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
