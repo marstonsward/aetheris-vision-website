@@ -78,7 +78,7 @@ export default function BlogIndex() {
                     {post.summary}
                   </p>
                   <div className="text-sm font-medium text-white inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    Read Article &rarr;
+                    Read Article &#8594;
                   </div>
                 </div>
               </article>
