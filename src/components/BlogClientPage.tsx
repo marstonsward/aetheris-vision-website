@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import type { Post } from "@/lib/posts";
+import BlogSubscribeCard from "@/components/BlogSubscribeCard";
 
 export default function BlogClientPage({
   posts,
@@ -32,6 +33,8 @@ export default function BlogClientPage({
           Executive perspectives on atmospheric modeling, machine learning architecture, and technical defense contracting.
         </p>
       </div>
+
+      <BlogSubscribeCard />
 
       {/* Featured post */}
       {featured && (

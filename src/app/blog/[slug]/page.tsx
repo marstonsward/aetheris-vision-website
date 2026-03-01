@@ -3,6 +3,7 @@ import { posts, getPostBySlug, getPrevNextPosts } from "@/lib/posts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ArticleRenderer from "@/components/ArticleRenderer";
+import BlogComments from "@/components/BlogComments";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 
 type Props = {
@@ -85,6 +86,8 @@ export default async function BlogPost({ params }: Props) {
 
           {/* Article Body */}
           <ArticleRenderer content={post.content} />
+
+          <BlogComments />
 
           <div className="h-px w-full bg-white/5 mt-16 mb-10" />
 
