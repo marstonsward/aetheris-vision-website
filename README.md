@@ -98,6 +98,38 @@ vercel env add NEXT_PUBLIC_GISCUS_CATEGORY production
 vercel env add NEXT_PUBLIC_GISCUS_CATEGORY_ID production
 ```
 
+## Booking (Cal.com)
+
+Consultation booking is embedded via [Cal.com](https://cal.com) on the `/book` page.
+
+- Event URL: `https://cal.com/aetherisvision/30min`
+- Component: `src/components/CalBooking.tsx`
+- Page: `src/app/book/page.tsx`
+- All "Engage Our Services" CTAs site-wide now link to `/book`
+
+No environment variables are required — the Cal.com username and event slug are hardcoded in `CalBooking.tsx`.
+
+### Adding or updating event types
+
+1. Log into [cal.com/aetherisvision](https://app.cal.com) and create or edit an event type.
+2. Update the `calLink` prop in `src/components/CalBooking.tsx` if the slug changes.
+3. Commit and push; Vercel will redeploy automatically.
+
+### Removing Cal.com branding
+
+Upgrade to the Cal.com **Teams plan** ($12/month) in your Cal.com account settings to remove the "Powered by Cal.com" watermark on the hosted booking page.
+
+## Vercel CLI Setup
+
+The Vercel CLI must be authenticated and linked to the correct project to use `scripts/vercel.py`.
+
+```bash
+vercel login          # authenticate (opens browser)
+vercel link --project aetheris-vision-website  # link this directory to the correct project
+```
+
+The `.vercel/` directory is gitignored. Re-run `vercel link` on any new machine or after deleting `.vercel/`.
+
 ## Vercel Management
 
 Use `scripts/vercel.py` to manage the deployment without logging into the dashboard.
@@ -123,20 +155,20 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Deployment Checklist
 
-Before pushing changes that affect blog subscription or comments:
+Before pushing changes that affect blog subscription, comments, or booking:
 
-1. Confirm Vercel environment variables are set:
+1. Confirm Vercel environment variables are set (if using blog features):
    - `NEXT_PUBLIC_BLOG_SUBSCRIBE_URL`
    - `NEXT_PUBLIC_GISCUS_REPO`
    - `NEXT_PUBLIC_GISCUS_REPO_ID`
    - `NEXT_PUBLIC_GISCUS_CATEGORY`
    - `NEXT_PUBLIC_GISCUS_CATEGORY_ID`
 2. Ensure the variables are added to the correct Vercel environments (`Production`, `Preview`, and/or `Development`).
-3. Deploy to Vercel and open one blog post page.
-4. Verify:
-   - The subscription block appears and submits to the expected endpoint.
-   - The comments section loads with GitHub Discussions.
-5. If values were changed in Vercel, trigger a redeploy so static pages pick up updated `NEXT_PUBLIC_*` values.
+3. Deploy to Vercel and verify:
+   - The subscription block appears on `/blog` and submits to the expected endpoint.
+   - The comments section loads on blog post pages.
+   - The `/book` page loads and displays the Cal.com calendar embed.
+4. If values were changed in Vercel, trigger a redeploy so static pages pick up updated `NEXT_PUBLIC_*` values.
 
 ## Environment Health Check
 
