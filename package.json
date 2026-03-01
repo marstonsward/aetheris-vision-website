@@ -17,7 +17,6 @@
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.3",
-    "lightningcss-darwin-arm64": "^1.31.1",
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
@@ -32,5 +31,9 @@
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "lightningcss-darwin-arm64": "1.31.1",
+    "lightningcss-darwin-x64": "1.31.1"
   }
 }
