@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Expertise", href: "/#expertise" },
   { label: "About", href: "/#about" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "mailto:contact@aetherisvision.com" },
+  { label: "Book a Call", href: "/book" },
 ];
 
 export default function Navbar() {
@@ -27,8 +27,8 @@ export default function Navbar() {
   useEffect(() => setMobileOpen(false), [pathname]);
 
   function isActive(href: string) {
-    if (href.startsWith("mailto:")) return false;
     if (href === "/blog") return pathname.startsWith("/blog");
+    if (href === "/book") return pathname === "/book";
     return false;
   }
 

@@ -53,10 +53,10 @@ export default function Home() {
             <FadeIn delay={0.4}>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="mailto:contact@aetherisvision.com"
+                  href="/book"
                   className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-gray-200"
                 >
-                  Engage Our Services
+                  Book a Consultation
                 </a>
                 <a 
                   href="#expertise"
@@ -249,11 +249,11 @@ export default function Home() {
 
                 <div className="relative z-10 flex flex-col gap-4 shrink-0">
                   <a
-                    href="mailto:contact@aetherisvision.com"
+                    href="/book"
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-white px-8 text-sm font-medium text-black hover:bg-gray-200 transition"
                   >
                     <EnvelopeIcon className="h-4 w-4" />
-                    Engage Our Services
+                    Book a Consultation
                   </a>
                   <a
                     href="/blog"
