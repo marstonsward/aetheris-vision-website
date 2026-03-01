@@ -44,6 +44,26 @@ When making changes to the website:
 python3 scripts/vercel.py status
 ```
 
+## Contact Form (Formspree)
+
+The `/contact` page includes a structured intake form backed by [Formspree](https://formspree.io).
+
+1. Sign up at [formspree.io](https://formspree.io) and create a new form.
+2. Copy the form ID from the form's endpoint URL (e.g. `https://formspree.io/f/xpwzabcd` → `xpwzabcd`).
+3. Add it to `.env.local`:
+
+```bash
+NEXT_PUBLIC_FORMSPREE_ID="xpwzabcd"
+```
+
+For Vercel production:
+
+```bash
+vercel env add NEXT_PUBLIC_FORMSPREE_ID production
+```
+
+If `NEXT_PUBLIC_FORMSPREE_ID` is not set, the form falls back to opening the user's mail client with `mailto:contact@aetherisvision.com`.
+
 ## Blog Subscription Setup
 
 The blog page includes a subscription form component.

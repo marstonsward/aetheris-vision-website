@@ -1,9 +1,10 @@
 const footerLinks = [
   { label: "Expertise", href: "/#expertise" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
+  { label: "Capabilities", href: "/capabilities" },
   { label: "Blog", href: "/blog" },
   { label: "Book a Call", href: "/book" },
-  { label: "Contact", href: "mailto:contact@aetherisvision.com" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {

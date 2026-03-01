@@ -7,9 +7,9 @@ import clsx from "clsx";
 
 const navLinks = [
   { label: "Expertise", href: "/#expertise" },
-  { label: "About", href: "/#about" },
+  { label: "About", href: "/about" },
+  { label: "Capabilities", href: "/capabilities" },
   { label: "Blog", href: "/blog" },
-  { label: "Book a Call", href: "/book" },
 ];
 
 export default function Navbar() {
@@ -28,7 +28,8 @@ export default function Navbar() {
 
   function isActive(href: string) {
     if (href === "/blog") return pathname.startsWith("/blog");
-    if (href === "/book") return pathname === "/book";
+    if (href === "/about") return pathname === "/about";
+    if (href === "/capabilities") return pathname === "/capabilities";
     return false;
   }
 
@@ -63,25 +64,33 @@ export default function Navbar() {
         </a>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={clsx(
-                "transition-colors flex flex-col items-center",
-                isActive(link.href)
-                  ? "text-white font-medium"
-                  : "text-gray-400 hover:text-white"
-              )}
-            >
-              {link.label}
-              {isActive(link.href) && (
-                <span className="block h-px w-full bg-blue-500 mt-0.5 rounded-full" />
-              )}
-            </a>
-          ))}
-        </nav>
+        <div className="hidden md:flex items-center gap-6 text-sm">
+          <nav className="flex gap-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={clsx(
+                  "transition-colors flex flex-col items-center",
+                  isActive(link.href)
+                    ? "text-white font-medium"
+                    : "text-gray-400 hover:text-white"
+                )}
+              >
+                {link.label}
+                {isActive(link.href) && (
+                  <span className="block h-px w-full bg-blue-500 mt-0.5 rounded-full" />
+                )}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="/book"
+            className="inline-flex h-8 items-center justify-center rounded-md bg-white px-4 text-xs font-medium text-black hover:bg-gray-200 transition"
+          >
+            Book a Call
+          </a>
+        </div>
 
         {/* Mobile Hamburger */}
         <button
