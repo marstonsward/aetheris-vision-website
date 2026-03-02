@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import BackToTop from "@/components/BackToTop";
 
@@ -16,11 +17,13 @@ export const viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  void nonce; // available for explicit <Script nonce={nonce}> usage if needed
   return (
     <html lang="en" className="dark scroll-smooth">
       <body
