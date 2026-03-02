@@ -54,6 +54,10 @@ export default function Footer() {
             >
               contact@aetherisvision.com
             </a>
+            <span className="text-white/10">·</span>
+            <a href="/privacy" className="hover:text-gray-400 transition">
+              Privacy Policy
+            </a>
           </div>
         </div>
       </div>
