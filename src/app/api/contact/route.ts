@@ -19,10 +19,13 @@ export async function POST(req: NextRequest) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Referer: "https://aetherisvision.com",
+      Origin: "https://aetherisvision.com",
     },
   });
 
   const body = await res.json().catch(() => ({}));
+  console.log("Formspree response:", res.status, JSON.stringify(body));
 
   return NextResponse.json(body, { status: res.status });
 }
