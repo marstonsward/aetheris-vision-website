@@ -16,6 +16,7 @@ const requirementTypes = [
 
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorDetail, setErrorDetail] = useState<string>("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -25,6 +26,7 @@ export default function ContactForm() {
     }
 
     setStatus("submitting");
+    setErrorDetail("");
     const form = e.currentTarget;
     const data = new FormData(form);
 
@@ -38,9 +40,15 @@ export default function ContactForm() {
         setStatus("success");
         form.reset();
       } else {
+        const body = await res.json().catch(() => ({}));
+        const msg = body?.errors?.map((err: { message: string }) => err.message).join(", ")
+          || body?.error
+          || `HTTP ${res.status}`;
+        setErrorDetail(msg);
         setStatus("error");
       }
-    } catch {
+    } catch (err) {
+      setErrorDetail(err instanceof Error ? err.message : "Network error");
       setStatus("error");
     }
   }
@@ -140,7 +148,7 @@ export default function ContactForm() {
 
         {status === "error" && (
           <p className="text-sm text-red-400">
-            Something went wrong. Please try again or email us directly at{" "}
+            Something went wrong{errorDetail ? `: ${errorDetail}` : ""}. Please try again or email us directly at{" "}
             <a href="mailto:contact@aetherisvision.com" className="underline">
               contact@aetherisvision.com
             </a>.
