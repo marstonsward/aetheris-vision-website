@@ -10,6 +10,7 @@ const navLinks = [
   { label: "About", href: "/about" },
   { label: "Capabilities", href: "/capabilities" },
   { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -30,6 +31,7 @@ export default function Navbar() {
     if (href === "/blog") return pathname.startsWith("/blog");
     if (href === "/about") return pathname === "/about";
     if (href === "/capabilities") return pathname === "/capabilities";
+    if (href === "/contact") return pathname === "/contact";
     return false;
   }
 
