@@ -8,11 +8,18 @@ export async function POST(req: NextRequest) {
   }
 
   const formData = await req.formData();
+  const data: Record<string, string> = {};
+  formData.forEach((value, key) => {
+    data[key] = value.toString();
+  });
 
   const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
     method: "POST",
-    body: formData,
-    headers: { Accept: "application/json" },
+    body: JSON.stringify(data),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
   });
 
   const body = await res.json().catch(() => ({}));
