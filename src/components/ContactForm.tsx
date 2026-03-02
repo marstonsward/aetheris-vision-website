@@ -38,6 +38,9 @@ export default function ContactForm() {
       if (res.ok) {
         setStatus("success");
         form.reset();
+      } else if (res.status === 429) {
+        setErrorDetail("Too many submissions — please wait a few minutes and try again.");
+        setStatus("error");
       } else {
         const body = await res.json().catch(() => ({}));
         const msg = body?.errors?.map((err: { message: string }) => err.message).join(", ")
@@ -153,6 +156,9 @@ export default function ContactForm() {
             </a>.
           </p>
         )}
+
+        {/* Honeypot — hidden from humans, bots fill it in automatically */}
+        <input type="text" name="_gotcha" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
 
         <button
           type="submit"
