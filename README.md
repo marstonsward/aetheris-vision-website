@@ -1,52 +1,196 @@
 # Aetheris Vision Website
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## What Is This?
 
-## Getting Started
+This is the **source code** for the Aetheris Vision company website. Think of it like the blueprint for a building — all the instructions that tell the internet what to display when someone visits [aetherisvision.com](https://aetherisvision.com).
 
-First, run the development server:
+**Aetheris Vision LLC** is a Veteran-Owned Small Business (VOSB) that provides AI/ML weather prediction, operational meteorology consulting, and federal contracting services.
+
+**Why does the website exist?** It's the company's public storefront — like a digital business card that also shows off work samples, lets people schedule meetings, and handles contact form submissions.
+
+---
+
+## Tech Stack — What We Use and Why
+
+Every tool we use was chosen for a reason. Here's what's in the toolbox:
+
+| Tool | What It Does | Why We Picked It |
+|---|---|---|
+| **Next.js 16** | The framework (skeleton) of the website. Handles pages, routing, and server-side logic. | It's the most popular React framework. It makes websites fast because pages are built on the server before the user sees them (better for Google search rankings too). |
+| **TypeScript** | A stricter version of JavaScript that catches mistakes while you type. | Without it, bugs hide until a real user finds them. TypeScript is like spell-check for code. |
+| **React 19** | A library for building the visual parts of the website (buttons, menus, cards). | It lets you build reusable "components" — build a button once, use it everywhere. |
+| **Tailwind CSS 4** | A styling system that lets you design directly in your HTML instead of separate style files. | Much faster than writing traditional CSS. You add classes like `text-blue-500` right on the element. |
+| **Framer Motion** | Adds smooth animations (fade-ins, slide-ups). | Makes the site feel polished and professional instead of static. |
+| **Heroicons v2** | A set of pre-made icons (checkmarks, arrows, phones, etc.). | Consistent, sharp icons without hiring a designer. |
+| **Vercel** | The hosting service that puts our website on the internet. | Built by the same team that makes Next.js, so they work perfectly together. Free for small sites. Deploys automatically when we push code. |
+| **Vitest** | Runs automated tests to make sure nothing is broken. | Like a robot that checks every page and feature for you, every time you change something. |
+| **ESLint 9** | A linter that checks your code for common mistakes and style issues. | Catches problems before they reach users — like having a proofreader for your code. |
+| **GitHub Actions** | Runs our tests and builds automatically when code is pushed. | No human has to remember to run tests. The computer does it for us every time. |
+| **GitHub + GitLab** | Where the code is stored (like Google Drive for code). | Two copies in two places — if one goes down, we still have the other. |
+
+---
+
+## Quick Start — How to Run the Website on Your Computer
+
+**What you need first:** A Mac or Linux computer with [fnm](https://github.com/Schniz/fnm) installed (fnm manages Node.js versions for you).
+
+Here's what each command does and why you run it:
 
 ```bash
+# Step 1: Tell fnm to use the right version of Node.js
+# WHY: The project was built with Node.js 20. Using a different version could cause errors.
+fnm use
+
+# Step 2: Install all the project's dependencies (libraries it needs)
+# WHY: The code uses tools made by other developers (React, Tailwind, etc.).
+#       This command downloads them all into a folder called node_modules/.
+npm install
+
+# Step 3: Start the development server
+# WHY: This runs the website on your own computer at http://localhost:3000
+#       so you can see your changes live as you edit code.
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Step 4: Run the test suite (optional, but recommended before deploying)
+# WHY: Runs 82 automated checks to make sure nothing is broken.
+npm test
+
+# Step 5: Build the production version (optional, for deployment checks)
+# WHY: This creates the optimized version of the site that Vercel actually serves.
+#       If this fails, the website won't deploy.
+npm run build
+
+# Step 6: Run the full CI pipeline (what GitHub Actions runs)
+# WHY: Does everything — linting + testing + building — in one command.
+#       If this passes, your code is ready to push.
+npm run ci
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure — How the Code Is Organized
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Think of the project like a filing cabinet. Each drawer (folder) has a specific purpose:
 
-## Learn More
+```
+src/
+  app/                    # 📄 PAGES — Each folder here becomes a page on the website
+    layout.tsx            #   The "wrapper" around every page (fonts, metadata, navbar)
+    page.tsx              #   The home page (what you see at aetherisvision.com/)
+    error.tsx             #   What shows when something goes wrong (a friendly error message)
+    not-found.tsx         #   What shows when someone types a bad URL (custom 404 page)
+    loading.tsx           #   A spinner that shows while a page is loading
+    sitemap.ts            #   Tells Google about all our pages so they appear in search
+    robots.ts             #   Tells search engine crawlers which pages to index
+    opengraph-image.tsx   #   Generates the preview image when you share a link on social media
+    about/                #   The About page
+    blog/                 #   Blog index + individual blog post pages
+    book/                 #   Cal.com booking page (schedule a consultation)
+    capabilities/         #   Government contracting capabilities (NAICS codes, past performance)
+    contact/              #   Contact form page
+    portfolio/            #   Portfolio page + 4 live demo websites
+    privacy/              #   Privacy policy page
+    api/contact/          #   Server-side code that processes contact form submissions
 
-To learn more about Next.js, take a look at the following resources:
+  components/             # 🧩 REUSABLE PARTS — Build once, use on many pages
+    Navbar.tsx            #   The navigation bar at the top of every page
+    Footer.tsx            #   The footer at the bottom of every page
+    ContactForm.tsx       #   The contact form (name, email, message fields)
+    CalBooking.tsx        #   Embedded Cal.com scheduling widget
+    FadeIn.tsx            #   Wraps any element to make it fade in smoothly
+    BackToTop.tsx         #   The little arrow button that scrolls back to the top
+    ArticleRenderer.tsx   #   Turns blog post data into formatted HTML
+    BlogClientPage.tsx    #   The blog listing page (client-side for filtering)
+    BlogComments.tsx      #   Comment section under blog posts (powered by Giscus)
+    BlogSubscribeCard.tsx #   "Subscribe to our blog" card
+    CtaButton.tsx         #   A reusable "Call to Action" button
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  lib/                    # 📚 SHARED DATA & UTILITIES — Things multiple files need
+    constants.ts          #   Company name, email, URLs — the single source of truth
+    jsonld.ts             #   Structured data that helps Google understand our site
+    portfolio-data.ts     #   All the portfolio page data (pricing tiers, features, FAQs)
+    posts.ts              #   Blog post content and helper functions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+tests/                    # ✅ AUTOMATED TESTS — Our robot quality-checkers
+  unit/                   #   Tests individual functions: "Does this return the right value?"
+  integration/            #   Tests features end-to-end: "Does the contact API actually work?"
+  regression/             #   Guards against accidents: "Is the data still correct?"
+  features/               #   BDD tests in plain English: "Given X, When Y, Then Z"
+```
 
-## Development Workflow
+---
 
-When making changes to the website:
+## Architecture Principles — The Rules We Follow (and Why They Matter)
 
-1. Edit the relevant files in `src/app/`
-2. Test locally with `npm run dev` and visit [http://localhost:3000](http://localhost:3000)
-3. Commit and push changes to GitHub
-4. **Verify deployment**: After Vercel builds (usually 30–60 seconds), check status:
+### DRY — Don't Repeat Yourself
+
+**What it means:** Never write the same information in two places.
+
+**Why it matters:** Imagine you wrote "Aetheris Vision" in 30 different files. If the company rebrands, you'd have to find and update all 30. Miss one? Now the website shows the wrong name somewhere. DRY means you write it *once* and every file points to that one place.
+
+**How we do it:**
+- **Brand strings** → All stored in `src/lib/constants.ts` (the `SITE` object). Every page imports `SITE.name` instead of typing "Aetheris Vision" directly.
+- **Structured data** → Google needs special metadata about our company. It's defined once in `src/lib/jsonld.ts` and imported wherever needed.
+- **Reusable components** → The `Navbar`, `Footer`, `CtaButton`, and `FadeIn` components are built once and shared across all pages.
+
+### SRP — Single Responsibility Principle
+
+**What it means:** Each file should do ONE thing well.
+
+**Why it matters:** If a file does too many things, it becomes hard to read, hard to test, and hard to fix when something breaks. Think of it like a restaurant kitchen — the chef doesn't also wash dishes and greet customers. Each person has one job.
+
+**How we do it:**
+- **Data vs. display** → The pricing tiers, FAQ questions, and process steps live in `src/lib/portfolio-data.ts` (data only). The portfolio page (`src/app/portfolio/page.tsx`) just renders that data. If you want to change a price, you edit the data file — you don't have to dig through rendering code.
+- **API routes** → Server logic (processing forms, talking to external services) stays in `src/app/api/`. Page components never do server-side work directly.
+- **Middleware** → Security headers and auth checks run in `src/middleware.ts`, separate from page logic.
+
+---
+
+## Testing — How We Know the Website Works
+
+**Why do we test?** Because humans make mistakes. Every time you change one thing, you might accidentally break something else. Automated tests catch these mistakes in seconds, before they reach real users.
 
 ```bash
-python3 scripts/vercel.py status
+npm test              # Run ALL 82 tests at once (the full safety check)
+npm run test:unit     # Unit tests only — "Do individual functions work correctly?"
+npm run test:integration  # Integration tests — "Do features work end-to-end?"
+npm run test:regression   # Regression tests — "Is critical data still intact?"
+npm run test:bdd      # BDD tests — "Does the site behave as expected in English scenarios?"
+npm run test:watch    # Watch mode — re-runs tests automatically when you save a file
 ```
 
-## Contact Form (Formspree)
+**What each test type catches:**
+| Type | What It Checks | Example |
+|---|---|---|
+| **Unit** | Individual functions return correct values | "Does `SITE.name` equal 'Aetheris Vision'?" |
+| **Integration** | Features work from start to finish | "Does the contact API reject a message that's too short?" |
+| **Regression** | Nothing that used to work got broken | "Does every page still have required SEO metadata?" |
+| **BDD** | Behavior described in plain English | "Given a visitor on the portfolio page, When they see pricing, Then all three tiers are shown" |
 
-The `/contact` page includes a structured intake form backed by [Formspree](https://formspree.io).
+---
+
+## Security — How We Keep the Website Safe (and Why Each Protection Matters)
+
+| Protection | What It Does | Why It Matters |
+|---|---|---|
+| **CSP (Content Security Policy)** | Tells the browser which scripts are allowed to run on our pages. Uses a one-time "nonce" (random code) for each request. | Prevents hackers from injecting malicious scripts into our website. |
+| **HSTS** | Forces all connections to use HTTPS (the padlock in your browser). | Stops attackers from intercepting data between the user and our server. |
+| **X-Content-Type-Options** | Tells browsers not to guess what type of file something is. | Prevents a sneaky attack where a harmful file pretends to be an image. |
+| **X-Frame-Options** | Prevents other websites from embedding our site inside a frame. | Stops "clickjacking" — where a malicious site puts ours in an invisible frame to steal clicks. |
+| **Rate Limiting** | Blocks anyone who sends more than 5 contact form submissions in 10 minutes. | Stops bots from flooding our inbox with spam. |
+| **Honeypot Field** | A hidden field in the contact form that humans can't see but bots fill in. | If the field has a value, we know it's a bot, not a real person. |
+| **Input Validation** | Checks that the name, email, and message are the right format and length before processing. | Prevents garbage data and potential injection attacks. |
+| **Basic Auth** | Preview deployments (test versions) require a password. | Keeps unfinished work private so only the team can see it. |
+
+---
+
+## Services Setup — How Each Feature Works
+
+### Contact Form (Formspree)
+
+**What:** The contact page has a form where visitors can send us a message (their name, email, and what they need).
+
+**Why Formspree?** We don't want to build our own email server — that's complicated and error-prone. Formspree handles receiving the form data and forwarding it to our email inbox. It's free for small volumes and takes 5 minutes to set up.
 
 1. Sign up at [formspree.io](https://formspree.io) and create a new form.
 2. Copy the form ID from the form's endpoint URL (e.g. `https://formspree.io/f/xpwzabcd` → `xpwzabcd`).
@@ -64,9 +208,11 @@ vercel env add NEXT_PUBLIC_FORMSPREE_ID production
 
 If `NEXT_PUBLIC_FORMSPREE_ID` is not set, the form falls back to opening the user's mail client with `mailto:contact@aetherisvision.com`.
 
-## Blog Subscription Setup
+### Blog Subscription
 
-The blog page includes a subscription form component.
+**What:** A form on the blog page where readers can enter their email to get notified about new posts.
+
+**Why?** If someone likes our content, we want an easy way for them to stay connected. This builds our audience over time.
 
 1. Create `.env.local` from `.env.example`.
 2. Add a `NEXT_PUBLIC_BLOG_SUBSCRIBE_URL` value.
@@ -90,9 +236,11 @@ For production deployments on Vercel, set this variable in your Vercel project e
 vercel env add NEXT_PUBLIC_BLOG_SUBSCRIBE_URL production
 ```
 
-## Blog Comments (Giscus)
+### Blog Comments (Giscus)
 
-Comments are supported on blog post pages via [Giscus](https://giscus.app).
+**What:** A comment section at the bottom of each blog post where readers can discuss the article.
+
+**Why Giscus?** It uses GitHub Discussions as the comment database, so we don't need to build a comment system or worry about spam databases. It's free and the comments live right alongside our code in GitHub.
 
 1. Enable GitHub Discussions on the repository.
 2. Configure Giscus and copy the values below.
@@ -118,9 +266,11 @@ vercel env add NEXT_PUBLIC_GISCUS_CATEGORY production
 vercel env add NEXT_PUBLIC_GISCUS_CATEGORY_ID production
 ```
 
-## Booking (Cal.com)
+### Booking (Cal.com)
 
-Consultation booking is embedded via [Cal.com](https://cal.com) on the `/book` page.
+**What:** An embedded calendar on the `/book` page where visitors can schedule a 30-minute consultation.
+
+**Why Cal.com?** Instead of going back and forth over email to find a meeting time, Cal.com shows our available slots and the visitor picks one. It automatically handles time zones, sends calendar invites, and avoids double-bookings. The free plan covers everything we need.
 
 - Event URL: `https://cal.com/aetherisvision/30min`
 - Component: `src/components/CalBooking.tsx`
@@ -139,9 +289,15 @@ No environment variables are required — the Cal.com username and event slug ar
 
 Upgrade to the Cal.com **Teams plan** ($12/month) in your Cal.com account settings to remove the "Powered by Cal.com" watermark on the hosted booking page.
 
-## Vercel CLI Setup
+---
 
-The Vercel CLI must be authenticated and linked to the correct project to use `scripts/vercel.py`.
+## Deployment — How the Website Goes Live
+
+### Vercel CLI Setup
+
+**What:** The Vercel CLI is a command-line tool that lets you manage your website deployment from the Terminal.
+
+**Why?** So you can check if the site is up, pause it, or resume it without logging into a website dashboard.
 
 ```bash
 vercel login          # authenticate (opens browser)
@@ -150,10 +306,11 @@ vercel link --project aetheris-vision-website  # link this directory to the corr
 
 The `.vercel/` directory is gitignored. Re-run `vercel link` on any new machine or after deleting `.vercel/`.
 
-## Vercel Management
+### Vercel Management
 
-Use `scripts/vercel.py` to manage the deployment without logging into the dashboard.
-Requires the Vercel CLI to be installed and authenticated (`vercel login`).
+**What:** A Python script (`scripts/vercel.py`) that lets you pause or resume the live website with one command.
+
+**Why?** If the company registration is pending, or you need to take the site offline temporarily, this makes it instant.
 
 ```bash
 # Check whether the site is live or paused
@@ -166,14 +323,19 @@ python3 scripts/vercel.py pause
 python3 scripts/vercel.py resume
 ```
 
-## Deploy on Vercel
+### How Deployment Works
 
-The site deploys automatically on every push to `main` via the [Vercel GitHub integration](https://vercel.com/docs/deployments/git).
+**What:** Every time we push code to the `main` branch on GitHub, Vercel automatically builds and publishes the new version of the website.
+
+**Why automatic deployment?** No human has to remember to "upload the website." Push your code, and within a couple of minutes, the live site is updated. If the build fails (tests don't pass, code has errors), the old version stays live — nothing breaks.
+
 Node.js is pinned to `20.x` in `package.json` (`engines` field) for build compatibility.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Deployment Checklist
+### Deployment Checklist
+
+**Why a checklist?** Environment variables (secret values stored on Vercel) must be set for certain features to work. If you forget to set one, that feature silently won't appear — no error, it just vanishes. This checklist prevents that.
 
 Before pushing changes that affect blog subscription, comments, or booking:
 
