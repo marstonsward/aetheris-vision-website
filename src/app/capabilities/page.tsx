@@ -2,9 +2,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
-  title: "Capabilities Statement | Aetheris Vision",
+  title: `Capabilities Statement | ${SITE.name}`,
   description:
     "Aetheris Vision capabilities statement — NAICS codes, contract vehicles, core competencies, and past performance for state and federal procurement.",
 };
@@ -66,7 +67,7 @@ export default function CapabilitiesPage() {
     <div className="flex flex-col min-h-[100dvh] bg-[#050505]">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
+      <main id="main" className="flex-1 pt-28 pb-20">
         <div className="mx-auto max-w-5xl px-6">
 
           {/* Header */}
@@ -79,7 +80,7 @@ export default function CapabilitiesPage() {
                 Capabilities Statement
               </h1>
               <a
-                href="mailto:contact@aetherisvision.com?subject=Capabilities Statement PDF Request"
+                href={`mailto:${SITE.email}?subject=Capabilities Statement PDF Request`}
                 className="inline-flex h-10 items-center gap-2 rounded-md border border-white/10 bg-white/[0.03] px-5 text-sm text-gray-300 hover:bg-white/[0.07] transition shrink-0"
               >
                 <ArrowDownTrayIcon className="h-4 w-4" />
@@ -93,12 +94,12 @@ export default function CapabilitiesPage() {
           <FadeIn delay={0.05}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-14">
               {[
-                { label: "Legal Name", value: "Aetheris Vision LLC" },
+                { label: "Legal Name", value: SITE.legalName },
                 { label: "Business Type", value: "Veteran-Owned Small Business (VOSB)" },
                 { label: "SAM.gov", value: "Active Registration" },
                 { label: "8(a) Status", value: "Pathway Active" },
                 { label: "Security Clearance", value: "Active Secret" },
-                { label: "Primary Contact", value: "contact@aetherisvision.com" },
+                { label: "Primary Contact", value: SITE.email },
               ].map((item) => (
                 <div key={item.label} className="rounded-lg border border-white/5 bg-white/[0.02] p-4">
                   <p className="text-xs text-gray-500 mb-1 uppercase tracking-widest">{item.label}</p>
@@ -208,7 +209,7 @@ export default function CapabilitiesPage() {
                 Book a Consultation
               </a>
               <a
-                href="mailto:contact@aetherisvision.com?subject=Capabilities Statement PDF Request"
+                href={`mailto:${SITE.email}?subject=Capabilities Statement PDF Request`}
                 className="inline-flex h-12 items-center justify-center rounded-md border border-white/10 px-8 text-sm font-medium text-white hover:bg-white/5 transition"
               >
                 Request Capabilities PDF

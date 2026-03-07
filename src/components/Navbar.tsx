@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
@@ -54,9 +55,11 @@ export default function Navbar() {
       >
         {/* Logo */}
         <a href="/" className="flex items-center gap-3">
-          <img
+          <Image
             src="/logo/aetheris-logo.svg"
             alt="Aetheris Vision Logo"
+            width={48}
+            height={48}
             className={clsx(
               "transition-all duration-300",
               scrolled ? "h-8 w-8 md:h-9 md:w-9" : "h-10 w-10 md:h-12 md:w-12"

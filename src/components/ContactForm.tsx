@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import FadeIn from "@/components/FadeIn";
+import { SITE } from "@/lib/constants";
 
 const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 
@@ -21,7 +22,7 @@ export default function ContactForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!FORMSPREE_ID) {
-      window.location.href = "mailto:contact@aetherisvision.com";
+      window.location.href = `mailto:${SITE.email}`;
       return;
     }
 
@@ -151,8 +152,8 @@ export default function ContactForm() {
         {status === "error" && (
           <p className="text-sm text-red-400">
             Something went wrong{errorDetail ? `: ${errorDetail}` : ""}. Please try again or email us directly at{" "}
-            <a href="mailto:contact@aetherisvision.com" className="underline">
-              contact@aetherisvision.com
+            <a href={`mailto:${SITE.email}`} className="underline">
+              {SITE.email}
             </a>.
           </p>
         )}

@@ -2,9 +2,10 @@ import { posts, getCategories } from "@/lib/posts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogClientPage from "@/components/BlogClientPage";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
-  title: "Blog | Aetheris Vision",
+  title: `Blog | ${SITE.name}`,
   description: "Insights on AI, meteorology, and defense consulting from Aetheris Vision.",
 };
 
@@ -15,7 +16,7 @@ export default function BlogIndex() {
     <div className="flex flex-col min-h-[100dvh]">
       <Navbar />
 
-      <main className="flex-1 pt-32 pb-24 bg-[#050505] relative overflow-hidden">
+      <main id="main" className="flex-1 pt-32 pb-24 bg-[#050505] relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 -z-20">
           <img

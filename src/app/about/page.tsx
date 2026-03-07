@@ -2,9 +2,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import { ShieldCheckIcon, AcademicCapIcon, GlobeAltIcon, CpuChipIcon } from "@heroicons/react/24/outline";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
-  title: "About | Aetheris Vision",
+  title: `About | ${SITE.name}`,
   description:
     "Meet the team behind Aetheris Vision — 35 years of operational meteorology, USAF expertise, and AI/ML integration for defense and government missions.",
 };
@@ -37,7 +38,7 @@ export default function AboutPage() {
     <div className="flex flex-col min-h-[100dvh] bg-[#050505]">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
+      <main id="main" className="flex-1 pt-28 pb-20">
         <div className="mx-auto max-w-5xl px-6">
 
           {/* Header */}

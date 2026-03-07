@@ -17,7 +17,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <main className="flex-1">
+      <main id="main" className="flex-1">
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
           {/* Background Image & Gradient Overlay */}
           <div className="absolute inset-0 -z-20">

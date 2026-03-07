@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Aetheris Vision",
+  title: `Privacy Policy | ${SITE.name}`,
   description: "How Aetheris Vision LLC collects, uses, and protects your personal information.",
 };
 
@@ -13,7 +14,7 @@ export default function PrivacyPage() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <Navbar />
-      <main className="flex-1 mx-auto max-w-3xl px-6 pt-36 pb-24">
+      <main id="main" className="flex-1 mx-auto max-w-3xl px-6 pt-36 pb-24">
         <h1 className="text-4xl font-semibold tracking-tight text-white mb-3">
           Privacy Policy
         </h1>

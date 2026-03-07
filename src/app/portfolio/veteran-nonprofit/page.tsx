@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
-  title: "Veterans Forward Oklahoma — Nonprofit Demo | Aetheris Vision Portfolio",
+  title: `Veterans Forward Oklahoma — Nonprofit Demo | ${SITE.name} Portfolio`,
 };
 
 const programs = [
@@ -40,7 +41,7 @@ export default function VeteranNonprofitPage() {
       {/* Demo Banner */}
       <div className="bg-black py-2 text-center text-xs font-semibold text-gray-300">
         ✦ DEMO SITE — built by{" "}
-        <Link href="/portfolio" className="text-blue-400 underline hover:text-blue-300">Aetheris Vision</Link>
+        <Link href="/portfolio" className="text-blue-400 underline hover:text-blue-300">{SITE.name}</Link>
         {" "}·{" "}
         <Link href="/portfolio" className="text-gray-400 hover:text-white transition-colors">← Back to Portfolio</Link>
       </div>
@@ -161,7 +162,7 @@ export default function VeteranNonprofitPage() {
         <p className="mt-1 text-xs">501(c)(3) Non-Profit · Donations are tax-deductible</p>
         <p className="mt-4 text-xs text-zinc-600">
           Demo site built by{" "}
-          <Link href="/portfolio" className="text-blue-400 hover:underline">Aetheris Vision LLC</Link>
+          <Link href="/portfolio" className="text-blue-400 hover:underline">{SITE.legalName}</Link>
           {" "}· <Link href="/portfolio" className="text-zinc-500 hover:text-white transition-colors">See all demos →</Link>
         </p>
       </footer>

@@ -3,9 +3,10 @@ import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import FadeIn from "@/components/FadeIn";
 import { EnvelopeIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
-  title: "Contact | Aetheris Vision",
+  title: `Contact | ${SITE.name}`,
   description:
     "Contact Aetheris Vision to discuss your weather, AI/ML, or defense technology requirements. We engage directly with program offices and contracting officers.",
 };
@@ -15,7 +16,7 @@ export default function ContactPage() {
     <div className="flex flex-col min-h-[100dvh] bg-[#050505]">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
+      <main id="main" className="flex-1 pt-28 pb-20">
         <div className="mx-auto max-w-5xl px-6">
 
           {/* Header */}

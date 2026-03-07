@@ -1,3 +1,6 @@
+import Image from "next/image";
+import { SITE } from "@/lib/constants";
+
 const footerLinks = [
   { label: "Expertise", href: "/#expertise" },
   { label: "About", href: "/about" },
@@ -16,9 +19,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10">
           {/* Logo */}
           <a href="/" className="flex items-center gap-3 shrink-0">
-            <img
+            <Image
               src="/logo/aetheris-logo.svg"
-              alt="Aetheris Vision Logo"
+              alt={`${SITE.name} Logo`}
+              width={32}
+              height={32}
               className="h-8 w-8"
             />
             <div className="text-lg font-bold tracking-tight text-white">
@@ -45,15 +50,15 @@ export default function Footer() {
 
         {/* Bottom row */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-gray-600">
-          <span>&copy; {new Date().getFullYear()} Aetheris Vision LLC. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} {SITE.legalName}. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <span>Veteran-Owned Small Business (VOSB)</span>
             <span className="text-white/10">·</span>
             <a
-              href="mailto:contact@aetherisvision.com"
+              href={`mailto:${SITE.email}`}
               className="hover:text-gray-400 transition"
             >
-              contact@aetherisvision.com
+              {SITE.email}
             </a>
             <span className="text-white/10">·</span>
             <a href="/privacy" className="hover:text-gray-400 transition">

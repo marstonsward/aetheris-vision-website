@@ -37,7 +37,7 @@ export default async function BlogPost({ params }: Props) {
     <div className="flex flex-col min-h-[100dvh]">
       <Navbar />
 
-      <main className="flex-1 pt-32 pb-24 bg-[#050505] relative overflow-hidden">
+      <main id="main" className="flex-1 pt-32 pb-24 bg-[#050505] relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 -z-20">
           <img
@@ -138,7 +138,7 @@ export default async function BlogPost({ params }: Props) {
               </p>
             </div>
             <a
-              href="mailto:contact@aetherisvision.com"
+              href={`mailto:${SITE.email}`}
               className="shrink-0 inline-flex h-10 items-center justify-center rounded-md bg-white px-6 text-sm font-medium text-black hover:bg-gray-200 transition"
             >
               Contact Us

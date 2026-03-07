@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { SITE } from "@/lib/constants";
 
 // ---------------------------------------------------------------------------
 // In-memory rate limiter
@@ -56,6 +57,32 @@ export async function POST(req: NextRequest) {
   }
   delete data._gotcha;
 
+  // ── Input validation ───────────────────────────────────────────────────────
+  const name = data.name?.trim();
+  const email = data.email?.trim();
+  const message = data.message?.trim();
+
+  if (!name || name.length < 2 || name.length > 200) {
+    return NextResponse.json(
+      { error: "Name must be between 2 and 200 characters." },
+      { status: 400 }
+    );
+  }
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return NextResponse.json(
+      { error: "A valid email address is required." },
+      { status: 400 }
+    );
+  }
+
+  if (!message || message.length < 10 || message.length > 5000) {
+    return NextResponse.json(
+      { error: "Message must be between 10 and 5000 characters." },
+      { status: 400 }
+    );
+  }
+
   // ── Forward to Formspree ───────────────────────────────────────────────────
   const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
     method: "POST",
@@ -63,8 +90,8 @@ export async function POST(req: NextRequest) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Referer: "https://aetherisvision.com",
-      Origin: "https://aetherisvision.com",
+      Referer: SITE.url,
+      Origin: SITE.url,
     },
   });
 

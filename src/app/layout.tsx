@@ -13,6 +13,11 @@ export const metadata: Metadata = {
   title: `${SITE.name} | High-End Technical Consulting`,
   description: SITE.description,
   metadataBase: new URL(SITE.url),
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/logo/aetheris-logo.svg",
+    apple: "/logo/aetheris-logo.png",
+  },
   openGraph: {
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.ogDescription,
@@ -55,6 +60,13 @@ export default async function RootLayout({
       <body
         className={`${inter.className} bg-black text-gray-100 antialiased min-h-screen selection:bg-gray-800 selection:text-white`}
       >
+        {/* Skip to main content — accessibility */}
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-black"
+        >
+          Skip to main content
+        </a>
         {children}
         <BackToTop />
         <Analytics />

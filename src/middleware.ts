@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { SITE } from "@/lib/constants";
 
 const PASSWORD = process.env.PREVIEW_PASSWORD ?? "marston-av";
 
@@ -39,7 +40,7 @@ export function middleware(request: NextRequest) {
     return new NextResponse("Authentication required", {
       status: 401,
       headers: {
-        "WWW-Authenticate": 'Basic realm="Aetheris Vision Preview"',
+        "WWW-Authenticate": `Basic realm="${SITE.name} Preview"`,
       },
     });
   }

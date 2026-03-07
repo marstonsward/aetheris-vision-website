@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE } from "@/lib/constants";
 
 const practiceAreas = [
   { title: "Personal Injury", desc: "Accidents, slip & fall, wrongful death" },
@@ -16,7 +17,7 @@ const attorneys = [
 ];
 
 export const metadata = {
-  title: "Mitchell & Associates — Law Firm Demo | Aetheris Vision Portfolio",
+  title: `Mitchell & Associates — Law Firm Demo | ${SITE.name} Portfolio`,
 };
 
 export default function LawFirmPage() {
@@ -26,7 +27,7 @@ export default function LawFirmPage() {
       <div className="bg-black py-2 text-center text-xs font-semibold text-gray-300">
         ✦ DEMO SITE — built by{" "}
         <Link href="/portfolio" className="text-blue-400 underline hover:text-blue-300">
-          Aetheris Vision
+          {SITE.name}
         </Link>{" "}
         ·{" "}
         <Link href="/portfolio" className="text-gray-400 hover:text-white transition-colors">
@@ -134,7 +135,7 @@ export default function LawFirmPage() {
         <p className="mt-1">123 N Broadway Ave, Oklahoma City, OK 73102 · (405) 555-0100</p>
         <p className="mt-4 text-xs text-zinc-600">
           Demo site built by{" "}
-          <Link href="/portfolio" className="text-blue-400 hover:underline">Aetheris Vision LLC</Link>
+          <Link href="/portfolio" className="text-blue-400 hover:underline">{SITE.legalName}</Link>
           {" "}· <Link href="/portfolio" className="text-zinc-500 hover:text-white transition-colors">See all demos →</Link>
         </p>
       </footer>

@@ -64,7 +64,7 @@ describe("POST /api/contact", () => {
     const req = makeRequest({
       name: "John",
       email: "john@agency.gov",
-      message: "Need consulting",
+      message: "Need consulting services for our agency",
     });
     const res = await POST(req);
     expect(res.status).toBe(200);
@@ -95,16 +95,40 @@ describe("POST /api/contact", () => {
 
     // Send 5 requests (should all succeed)
     for (let i = 0; i < 5; i++) {
-      const req = makeRequest({ name: "Test", email: "t@t.com", message: `msg${i}` }, testIp);
+      const req = makeRequest({ name: "Test", email: "t@t.com", message: `Message number ${i} with enough length` }, testIp);
       const res = await localPOST(req);
       expect(res.status).toBe(200);
     }
 
     // 6th request should be rate limited
-    const req = makeRequest({ name: "Test", email: "t@t.com", message: "too many" }, testIp);
+    const req = makeRequest({ name: "Test", email: "t@t.com", message: "This message is long enough now" }, testIp);
     const res = await localPOST(req);
     expect(res.status).toBe(429);
 
     vi.unstubAllGlobals();
+  });
+
+  it("rejects empty name", async () => {
+    const req = makeRequest({ name: "", email: "a@b.com", message: "Valid message here" });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+    const body = await res.json();
+    expect(body.error).toMatch(/name/i);
+  });
+
+  it("rejects invalid email", async () => {
+    const req = makeRequest({ name: "John", email: "not-an-email", message: "Valid message here" });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+    const body = await res.json();
+    expect(body.error).toMatch(/email/i);
+  });
+
+  it("rejects too-short message", async () => {
+    const req = makeRequest({ name: "John", email: "a@b.com", message: "Hi" });
+    const res = await POST(req);
+    expect(res.status).toBe(400);
+    const body = await res.json();
+    expect(body.error).toMatch(/message/i);
   });
 });

@@ -1,9 +1,10 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CalBooking from "@/components/CalBooking";
+import { SITE } from "@/lib/constants";
 
 export const metadata = {
-  title: "Book a Consultation | Aetheris Vision",
+  title: `Book a Consultation | ${SITE.name}`,
   description:
     "Schedule a consultation with the Aetheris Vision team to discuss your weather, AI/ML, or defense technology requirements.",
 };
@@ -13,7 +14,7 @@ export default function BookPage() {
     <div className="flex flex-col min-h-[100dvh] bg-[#050505]">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
+      <main id="main" className="flex-1 pt-28 pb-20">
         <div className="mx-auto max-w-5xl px-6">
           {/* Header */}
           <div className="mb-10">
@@ -39,10 +40,10 @@ export default function BookPage() {
           <p className="mt-6 text-sm text-gray-600 text-center">
             Prefer email?{" "}
             <a
-              href="mailto:contact@aetherisvision.com"
+              href={`mailto:${SITE.email}`}
               className="text-gray-400 hover:text-white transition underline underline-offset-2"
             >
-              contact@aetherisvision.com
+              {SITE.email}
             </a>
           </p>
         </div>

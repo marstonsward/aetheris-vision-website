@@ -1,0 +1,51 @@
+import { describe, it, expect } from "vitest";
+import { SITE } from "@/lib/constants";
+
+/**
+ * Regression tests for sitemap, robots, and SEO metadata consistency.
+ * Ensures all routes use SITE constants and critical pages are included.
+ */
+describe("Regression: sitemap completeness", () => {
+  it("sitemap uses SITE.url for all route URLs", async () => {
+    const { default: sitemap } = await import("@/app/sitemap");
+    const entries = sitemap();
+    for (const entry of entries) {
+      expect(entry.url).toMatch(new RegExp(`^${SITE.url.replace(/[/.]/g, "\\$&")}`));
+    }
+  });
+
+  it("sitemap includes portfolio page", async () => {
+    const { default: sitemap } = await import("@/app/sitemap");
+    const urls = sitemap().map((e) => e.url);
+    expect(urls).toContain(`${SITE.url}/portfolio`);
+  });
+
+  it("sitemap includes portfolio demo pages", async () => {
+    const { default: sitemap } = await import("@/app/sitemap");
+    const urls = sitemap().map((e) => e.url);
+    const demoSlugs = ["law-firm", "restaurant", "trades-contractor", "veteran-nonprofit"];
+    for (const slug of demoSlugs) {
+      expect(urls).toContain(`${SITE.url}/portfolio/${slug}`);
+    }
+  });
+
+  it("sitemap includes privacy page", async () => {
+    const { default: sitemap } = await import("@/app/sitemap");
+    const urls = sitemap().map((e) => e.url);
+    expect(urls).toContain(`${SITE.url}/privacy`);
+  });
+
+  it("sitemap includes blog index", async () => {
+    const { default: sitemap } = await import("@/app/sitemap");
+    const urls = sitemap().map((e) => e.url);
+    expect(urls).toContain(`${SITE.url}/blog`);
+  });
+});
+
+describe("Regression: robots.txt", () => {
+  it("robots uses SITE.url for sitemap reference", async () => {
+    const { default: robots } = await import("@/app/robots");
+    const config = robots();
+    expect(config.sitemap).toBe(`${SITE.url}/sitemap.xml`);
+  });
+});

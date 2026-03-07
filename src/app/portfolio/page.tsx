@@ -32,7 +32,7 @@ export default function PortfolioPage() {
     <div className="flex flex-col min-h-[100dvh] bg-[#050505]">
       <Navbar />
 
-      <main className="flex-1 pt-28 pb-20">
+      <main id="main" className="flex-1 pt-28 pb-20">
         <div className="mx-auto max-w-5xl px-6">
 
           {/* ── Hero ── */}
