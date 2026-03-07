@@ -1,14 +1,40 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { headers } from "next/headers";
+import { Analytics } from "@vercel/analytics/react";
+import { SITE } from "@/lib/constants";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/jsonld";
 import "./globals.css";
 import BackToTop from "@/components/BackToTop";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Aetheris Vision | High-End Technical Consulting",
-  description: "Advanced AI/ML weather prediction algorithms, operational meteorology, and federal contracting solutions.",
+  title: `${SITE.name} | High-End Technical Consulting`,
+  description: SITE.description,
+  metadataBase: new URL(SITE.url),
+  openGraph: {
+    title: `${SITE.name} | ${SITE.tagline}`,
+    description: SITE.ogDescription,
+    url: SITE.url,
+    siteName: SITE.name,
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — ${SITE.tagline}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} | ${SITE.tagline}`,
+    description: SITE.ogDescription,
+    images: ["/og-image.png"],
+  },
 };
 
 export const viewport = {
@@ -31,6 +57,15 @@ export default async function RootLayout({
       >
         {children}
         <BackToTop />
+        <Analytics />
+
+        {/* Organization + WebSite JSON-LD */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([organizationJsonLd, websiteJsonLd]),
+          }}
+        />
       </body>
     </html>
   );

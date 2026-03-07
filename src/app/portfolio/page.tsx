@@ -1,224 +1,31 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
-import { CheckIcon, ClockIcon, ShieldCheckIcon, CpuChipIcon, ArrowRightIcon, BoltIcon, LockClosedIcon, CloudArrowUpIcon, WrenchScrewdriverIcon, ServerStackIcon, ChartBarIcon, DocumentTextIcon, GlobeAltIcon, ShareIcon, EnvelopeIcon, MagnifyingGlassIcon, SparklesIcon } from "@heroicons/react/24/outline";
+import { SITE } from "@/lib/constants";
+import { publisherRef } from "@/lib/jsonld";
+import {
+  tiers,
+  processSteps,
+  sla,
+  securityFeatures,
+  includedFeatures,
+  faqs,
+  demos,
+  maintenancePlans,
+} from "@/lib/portfolio-data";
+import { CheckIcon, ClockIcon, ShieldCheckIcon, CpuChipIcon, ArrowRightIcon, BoltIcon, LockClosedIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Website Development Portfolio | Aetheris Vision",
+  title: `Website Development Portfolio | ${SITE.name}`,
   description:
     "AI-assisted website development for small businesses. Professional, fast, and affordable — delivered in 5–10 business days. View demo sites and pricing.",
   openGraph: {
-    title: "Professional Websites Delivered in Days | Aetheris Vision",
+    title: `Professional Websites Delivered in Days | ${SITE.name}`,
     description: "AI-accelerated website development for small businesses. Flat-rate pricing, Lighthouse 90+ scores, SSL A+ rated, full source code handoff. From $800.",
     type: "website",
   },
 };
-
-const tiers = [
-  {
-    name: "Launch",
-    price: "$800",
-    unit: "flat",
-    tagline: "Get online fast",
-    description: "Perfect for solo operators, consultants, or anyone who needs a clean, credible web presence without the agency price tag.",
-    deliverables: [
-      "Up to 5 pages (Home, About, Services, Contact + 1 more)",
-      "Mobile-first responsive design",
-      "Contact form with email delivery",
-      "SEO metadata + Open Graph tags on all pages",
-      "Lighthouse 90+ performance score",
-      "SSL/HTTPS with A+ security rating",
-      "Privacy Policy page included",
-      "Deployment to Vercel (free tier)",
-      "1 round of revision",
-      "Delivered in 5 business days",
-    ],
-    highlight: false,
-    cta: "Get Started",
-  },
-  {
-    name: "Growth",
-    price: "$1,500",
-    unit: "flat",
-    tagline: "Built to convert",
-    description: "For established small businesses that want a polished site with booking, blog, or custom functionality that actually drives leads.",
-    deliverables: [
-      "Up to 10 pages",
-      "Custom design to match your brand",
-      "Integrated booking / scheduling (Cal.com or similar)",
-      "Blog or news section",
-      "Google Analytics + Plausible dashboard",
-      "Structured data / schema markup for Google rich results",
-      "Privacy Policy + Terms of Service pages",
-      "Open Graph & social media preview cards",
-      "Lighthouse 90+ across all categories",
-      "SSL/HTTPS with A+ security rating",
-      "Contact & inquiry forms",
-      "Domain & professional email setup assistance",
-      "2 rounds of revision",
-      "Delivered in 10 business days",
-    ],
-    highlight: true,
-    cta: "Most Popular",
-  },
-  {
-    name: "Pro",
-    price: "Custom",
-    unit: "quote",
-    tagline: "Full-featured build",
-    description: "E-commerce, membership portals, complex integrations, or government/federal contractor sites with compliance requirements.",
-    deliverables: [
-      "Unlimited pages",
-      "E-commerce or membership capability",
-      "Custom API integrations",
-      "Advanced SEO, schema markup & performance tuning",
-      "Accessibility (WCAG 2.1 AA)",
-      "Full legal pages (Privacy, Terms, Cookie consent)",
-      "Google Business Profile setup",
-      "Analytics dashboard with monthly reporting",
-      "Domain, DNS & professional email configuration",
-      "Ongoing maintenance retainer available",
-      "Dedicated project timeline",
-    ],
-    highlight: false,
-    cta: "Request a Quote",
-  },
-];
-
-const process = [
-  {
-    step: "01",
-    title: "Discovery Call",
-    time: "Day 1",
-    desc: "30-minute intake call to understand your business, goals, target audience, and any existing brand assets. No prep required.",
-  },
-  {
-    step: "02",
-    title: "Design Mockup",
-    time: "Day 2–3",
-    desc: "A high-fidelity page layout delivered for your review — color palette, typography, and layout before a single line of code is written.",
-  },
-  {
-    step: "03",
-    title: "Build & Review",
-    time: "Day 3–8",
-    desc: "Full site built in Next.js. You get a live preview link to review on any device. Feedback captured, revisions applied.",
-  },
-  {
-    step: "04",
-    title: "Launch",
-    time: "Day 5–10",
-    desc: "Domain connected, SSL configured, deployed to production. You receive login access to manage content and a handoff walkthrough.",
-  },
-];
-
-const sla = [
-  { label: "Initial mockup delivery", value: "48 hours after intake call" },
-  { label: "Live preview link", value: "Within 5 business days (Launch) / 8 days (Growth)" },
-  { label: "Revision turnaround", value: "24–48 hours per round" },
-  { label: "Final launch", value: "5 business days (Launch) / 10 days (Growth)" },
-  { label: "Post-launch bug fixes", value: "Free for 14 days after launch" },
-  { label: "Response time (email)", value: "Same business day" },
-];
-
-const securityFeatures = [
-  {
-    icon: LockClosedIcon,
-    title: "SSL & HTTPS by Default — A+ Rated",
-    desc: "Every site ships with automatic SSL certificates and enforced HTTPS — verified with an A+ rating from Qualys SSL Labs (ssllabs.com/ssltest). No extra cost, no configuration needed.",
-    link: "https://www.ssllabs.com/ssltest/",
-  },
-  {
-    icon: CloudArrowUpIcon,
-    title: "Automated Daily Backups",
-    desc: "Your site code is version-controlled with Git and backed up to multiple cloud providers (GitHub + GitLab). Every change is tracked and recoverable.",
-  },
-  {
-    icon: ServerStackIcon,
-    title: "99.9% Uptime on Vercel Edge",
-    desc: "Sites are deployed to Vercel's global edge network — automatic failover, DDoS protection, and CDN-cached assets worldwide.",
-  },
-  {
-    icon: WrenchScrewdriverIcon,
-    title: "Same-Day Recovery",
-    desc: "If something goes wrong, I can restore your site from backup and redeploy within hours — not days. Your business doesn't wait.",
-  },
-];
-
-const faqs = [
-  {
-    q: "Do I need to provide content and copy?",
-    a: "You provide the essentials — your services, a short bio, contact info, and any photos or logo. I handle layout, copyediting, and structure. If you need full copywriting, that can be added.",
-  },
-  {
-    q: "What technology do you use?",
-    a: "Sites are built with Next.js (React) and Tailwind CSS, deployed on Vercel. This gives you fast load times, excellent SEO, and a codebase you own entirely. No WordPress, no page builders, no lock-in.",
-  },
-  {
-    q: "Will I be able to edit the site myself?",
-    a: "Yes. For content-heavy sites I integrate a headless CMS (like Sanity or Contentlayer) so you can edit text without touching code. For simpler sites I provide a walkthrough and the full source code.",
-  },
-  {
-    q: "Do you host the site?",
-    a: "Sites are deployed to Vercel. The free tier covers most small business traffic. You own the deployment — I just set it up and hand it over.",
-  },
-  {
-    q: "Can you match our existing brand?",
-    a: "Yes. Send your brand guide, logo files, or just describe the feel you're going for — I'll match it or propose something that fits.",
-  },
-  {
-    q: "Is this AI-generated slop?",
-    a: "No. AI accelerates the workflow — layout ideation, copy drafts, component generation. Every site is reviewed, refined, and tested by a human engineer before it ships.",
-  },
-  {
-    q: "What's included in the Lighthouse 90+ guarantee?",
-    a: "Every site is tested against Google Lighthouse before launch. I optimize images, code-split bundles, implement lazy loading, and configure caching to hit 90+ in Performance, Accessibility, Best Practices, and SEO. You get the report.",
-  },
-  {
-    q: "Do I really get a Privacy Policy and Terms of Service?",
-    a: "Yes. Every site includes a Privacy Policy page tailored to your business. Growth and Pro tiers also include Terms of Service and a cookie consent banner — no extra charge.",
-  },
-  {
-    q: "What happens if my site goes down?",
-    a: "Your site is backed up across GitHub and GitLab with full version history. If anything breaks, I can restore and redeploy within hours. Maintenance plan clients get proactive uptime monitoring and same-day response.",
-  },
-  {
-    q: "Can you help with my Google Business Profile?",
-    a: "Yes — included in the Pro tier. I'll connect your site to Google Business Profile so your business shows up in Google Maps with hours, reviews, and a link to your site.",
-  },
-];
-
-const demos = [
-  {
-    slug: "law-firm",
-    title: "Mitchell & Associates",
-    industry: "Law Firm",
-    desc: "Professional legal services — practice areas, attorney bios, free consultation form. Navy & gold.",
-    color: "from-[#1e3a5f] to-[#0f2240]",
-  },
-  {
-    slug: "restaurant",
-    title: "Casa Verde Kitchen",
-    industry: "Restaurant",
-    desc: "Full-service restaurant — menu sections, hours, reservation form. Warm amber & terracotta.",
-    color: "from-[#92400e] to-[#5c2a08]",
-  },
-  {
-    slug: "trades-contractor",
-    title: "Summit Home Services",
-    industry: "Home Services",
-    desc: "Contractor site with services, trust badges, and free quote form. Bold blue & orange.",
-    color: "from-[#1d4ed8] to-[#1e3a8a]",
-  },
-  {
-    slug: "veteran-nonprofit",
-    title: "Veterans Forward Oklahoma",
-    industry: "Nonprofit",
-    desc: "Mission-driven nonprofit — impact stats, programs, donate & volunteer CTAs. Red, white & blue.",
-    color: "from-[#b91c1c] to-[#7f1d1d]",
-  },
-];
 
 export default function PortfolioPage() {
   return (
@@ -343,7 +150,7 @@ export default function PortfolioPage() {
           </FadeIn>
 
           <div className="mb-24 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {process.map((step, i) => (
+            {processSteps.map((step, i) => (
               <FadeIn key={step.step} delay={i * 0.08}>
                 <div className="rounded-xl border border-white/8 bg-white/[0.03] p-6 h-full">
                   <div className="mb-4 flex items-center justify-between">
@@ -531,7 +338,7 @@ export default function PortfolioPage() {
               >
                 Book a Free Discovery Call
               </a>
-              <p className="mt-4 text-xs text-gray-600">Or email directly: <a href="mailto:contact@aetherisvision.com" className="text-gray-400 hover:text-white transition-colors">contact@aetherisvision.com</a></p>
+              <p className="mt-4 text-xs text-gray-600">Or email directly: <a href={`mailto:${SITE.email}`} className="text-gray-400 hover:text-white transition-colors">{SITE.email}</a></p>
             </div>
           </FadeIn>
 
@@ -548,11 +355,7 @@ export default function PortfolioPage() {
             "@context": "https://schema.org",
             "@type": "Service",
             name: "Website Development",
-            provider: {
-              "@type": "Organization",
-              name: "Aetheris Vision LLC",
-              url: "https://aetherisvision.com",
-            },
+            provider: publisherRef,
             description:
               "AI-assisted website development for small businesses. Professional, mobile-first websites delivered in 5–10 business days with flat-rate pricing.",
             offers: [

@@ -1,10 +1,12 @@
 import { ArrowRightIcon, GlobeAltIcon, CpuChipIcon, ShieldCheckIcon, ChartBarIcon, EnvelopeIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 
 export const metadata = {
-  title: "Aetheris Vision | Predictive Clarity at the Highest Level",
+  title: `${SITE.name} | ${SITE.tagline}`,
   description:
     "Advanced AI/ML weather prediction, operational meteorology, and specialized technical consulting for state and federal defense missions via VOSB and 8(a) pathways.",
 };
@@ -19,10 +21,13 @@ export default function Home() {
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
           {/* Background Image & Gradient Overlay */}
           <div className="absolute inset-0 -z-20">
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2500" 
               alt="Earth Horizon from Space" 
-              className="w-full h-full object-cover opacity-50 contrast-125"
+              fill
+              className="object-cover opacity-50 contrast-125"
+              priority
+              sizes="100vw"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c0f]/40 via-[#0d0c0f]/90 to-[#0d0c0f] -z-10" />
@@ -73,10 +78,12 @@ export default function Home() {
         <section id="about" className="py-24 bg-[#111014] border-t border-white/5 relative overflow-hidden">
           {/* Subtle atmospheric background */}
           <div className="absolute inset-0 -z-20">
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1534152011036-7cbdb43088ac?q=80&w=2500" 
               alt="Atmospheric Weather Patterns" 
-              className="w-full h-full object-cover opacity-[0.15] mix-blend-screen"
+              fill
+              className="object-cover opacity-[0.15] mix-blend-screen"
+              sizes="100vw"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-[#0d0c0f] via-[#0d0c0f]/80 to-transparent -z-10" />
@@ -118,10 +125,12 @@ export default function Home() {
         {/* Expertise Grid */}
         <section id="expertise" className="py-24 bg-[#0d0c0f] border-t border-white/5 relative overflow-hidden">
           <div className="absolute inset-0 -z-20">
-            <img 
+            <Image 
               src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=2500" 
               alt="Deep Space Weather" 
-              className="w-full h-full object-cover opacity-10 mix-blend-screen sepia-[0.2] hue-rotate-180"
+              fill
+              className="object-cover opacity-10 mix-blend-screen sepia-[0.2] hue-rotate-180"
+              sizes="100vw"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-[#0d0c0f] via-[#0d0c0f]/95 to-[#0d0c0f]/80 -z-10" />
@@ -136,11 +145,13 @@ export default function Home() {
               <FadeIn delay={0.05} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1527482937786-6608f6f73e1c?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    fill
+                    className="object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="relative z-10">
@@ -159,11 +170,13 @@ export default function Home() {
               <FadeIn delay={0.1} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-cover opacity-[0.15] mix-blend-screen group-hover:opacity-[0.22] transition-opacity duration-500"
+                    fill
+                    className="object-cover opacity-[0.15] mix-blend-screen group-hover:opacity-[0.22] transition-opacity duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="relative z-10">
@@ -182,11 +195,13 @@ export default function Home() {
               <FadeIn delay={0.15} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1562408590-e32931084e23?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    fill
+                    className="object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="relative z-10">
@@ -205,11 +220,13 @@ export default function Home() {
               <FadeIn delay={0.2} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
-                    className="w-full h-full object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    fill
+                    className="object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
                 <div className="relative z-10">

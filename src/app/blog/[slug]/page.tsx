@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import { posts, getPostBySlug, getPrevNextPosts } from "@/lib/posts";
+import { SITE } from "@/lib/constants";
+import { publisherRef } from "@/lib/jsonld";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ArticleRenderer from "@/components/ArticleRenderer";
@@ -19,7 +21,7 @@ export async function generateMetadata({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) return {};
   return {
-    title: `${post.title} | Aetheris Vision`,
+    title: `${post.title} | ${SITE.name}`,
     description: post.summary,
   };
 }
@@ -146,6 +148,31 @@ export default async function BlogPost({ params }: Props) {
       </main>
 
       <Footer />
+
+      {/* BlogPosting JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.summary,
+            datePublished: post.date,
+            author: {
+              "@type": "Person",
+              name: post.author.name,
+              jobTitle: post.author.title,
+            },
+            publisher: publisherRef,
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `${SITE.url}/blog/${slug}`,
+            },
+            articleSection: post.category,
+          }),
+        }}
+      />
     </div>
   );
 }
