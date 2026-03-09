@@ -1,53 +1,120 @@
 # Algorithm & Technical Basis Document (ATBD)
 
-## Aetheris Vision — Web Platform Architecture
+## Aetheris Vision — Complete System Architecture & Business Platform
 
-**Version**: 1.1
-**Date**: March 2026
+**Version**: 2.0
+**Date**: March 8, 2026
 **Author**: Aetheris Vision Engineering
+**Reading Level**: 8th Grade with Technical Details
 
 ### Who is this document for?
 
-This document is written for anyone — whether you're a developer, a business owner, or someone who's never written a line of code. It explains **what** our website does, **why** we built it this way, and **how** you could extend it to add features like client portals, payment processing, and more.
+This document is written for anyone who needs to understand, maintain, or extend the Aetheris Vision business platform. It covers both the technical architecture and business processes in simple terms.
 
-Every technical term is explained when it first appears, and real-world analogies are used throughout. If you can understand how a restaurant works, you can understand how this website works.
+Whether you're a developer taking over the codebase, a business partner understanding the systems, or someone who needs to troubleshoot problems, this document provides step-by-step guidance.
+
+Every technical term is explained when it first appears, and real-world analogies are used throughout. If you can understand how a restaurant works, you can understand how this business platform works.
 
 ---
 
 ## Table of Contents
 
-1. [Current Architecture](#1-current-architecture)
-2. [How Next.js Works (For the Non-Developer)](#2-how-nextjs-works-for-the-non-developer)
-3. [Understanding The Codebase](#3-understanding-the-codebase)
-4. [Adding a Client Portal](#4-adding-a-client-portal)
-5. [Adding Payments & Subscriptions](#5-adding-payments--subscriptions)
-6. [Adding a Database](#6-adding-a-database)
-7. [Adding a CRM](#7-adding-a-crm)
-8. [Adding Email Notifications](#8-adding-email-notifications)
-9. [Security Considerations](#9-security-considerations)
-10. [Cost Breakdown](#10-cost-breakdown)
-11. [Step-by-Step: Building a Client Project with Portal + Payments](#11-step-by-step-building-a-client-project-with-portal--payments)
-12. [Glossary](#12-glossary)
+1. [Complete System Overview](#1-complete-system-overview)
+2. [Client Acquisition System (The Sales Engine)](#2-client-acquisition-system)
+3. [Technical Architecture Deep Dive](#3-technical-architecture) 
+4. [Email & Communication Systems](#4-email-communication-systems)
+5. [Portfolio & Demonstration Platform](#5-portfolio-demonstration-platform)
+6. [Security & Enterprise Compliance](#6-security-enterprise-compliance)
+7. [Database & Data Flow](#7-database-data-flow)
+8. [Authentication & User Management](#8-authentication-user-management)
+9. [API Design & Integration Points](#9-api-design-integration-points)
+10. [Performance Optimization](#10-performance-optimization)
+11. [Monitoring & Analytics](#11-monitoring-analytics)
+12. [Deployment & Infrastructure](#12-deployment-infrastructure)
+13. [Maintenance Procedures](#13-maintenance-procedures)
+14. [Extension Roadmap](#14-extension-roadmap)
+15. [Troubleshooting Guide](#15-troubleshooting-guide)
 
 ---
 
-## 1. Current Architecture
+## 1. Complete System Overview
 
-### What is "architecture"?
+### Business Model Architecture
 
-Architecture is just a fancy word for "how the pieces fit together." Just like a building has a foundation, walls, plumbing, and paint, a website has layers that each do a specific job.
+The Aetheris Vision platform operates as a **professional services sales and delivery system**. Think of it like a luxury car dealership combined with a custom manufacturing shop:
 
-Think of the website like a building. Here's what each floor does:
+**Showroom** (Portfolio Demonstrations)
+- 7 different website examples showing capabilities
+- Each demo targets specific client types and price points
+- Interactive experiences that customers can explore
+
+**Sales Process** (Client Intake System)  
+- Comprehensive requirement gathering through intelligent forms
+- Automated email notifications with complete project briefs
+- Professional client communication and confirmation
+
+**Service Delivery** (Development Platform)
+- Next.js 16 framework for modern web applications
+- TypeScript for error-free code development
+- Component-based architecture for rapid customization
+
+**Business Operations** (Enterprise Systems)
+- SOC-2 compliance documentation for enterprise sales
+- Email automation through Resend API
+- Analytics and performance monitoring
+
+### Technical Stack (Explained Simply)
+
+**Foundation Layer - Vercel Hosting**
+- **What it does:** Makes your website available on the internet
+- **Why this choice:** Automatic scaling, global CDN, zero-downtime deployments
+- **Analogy:** Like Amazon Web Services but specialized for web applications
+
+**Framework Layer - Next.js 16**
+- **What it does:** Handles routing, server-side rendering, API endpoints
+- **Why this choice:** Industry standard, excellent performance, great developer experience
+- **Analogy:** Like the engine and transmission of a car - handles the complex mechanics
+
+**User Interface Layer - React 19**
+- **What it does:** Creates interactive web pages and forms
+- **Why this choice:** Modern, component-based, reusable code
+- **Analogy:** Like the interior and controls of a car - what users see and interact with
+
+**Styling Layer - Tailwind CSS**
+- **What it does:** Makes everything look professional and responsive
+- **Why this choice:** Consistent design, mobile-friendly, easy to customize
+- **Analogy:** Like professional interior decorating - makes everything look cohesive
+
+**Communication Layer - Resend API**  
+- **What it does:** Sends professional emails reliably
+- **Why this choice:** Better delivery than regular contact forms, professional formatting
+- **Analogy:** Like having a professional mail service instead of regular postal mail
+
+### Data Flow Architecture
 
 ```
-┌─────────────────────────────────────────────┐
-│  VERCEL (The Landlord)                       │
-│  Hosts the building, handles HTTPS, CDN     │
-├─────────────────────────────────────────────┤
-│  NEXT.JS 16 (The Building Frame)            │
-│  Handles routing, rendering, API endpoints  │
-├─────────────────────────────────────────────┤
-│  REACT 19 (The Interior Design)             │
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Customer      │────│  Intake Form     │────│  Email System   │
+│   Visits Site   │    │  Collects Data   │    │  Notifies You   │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                        │                        │
+         ▼                        ▼                        ▼
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   Browse         │    │  Form           │    │  Customer Gets  │
+│   Portfolio     │    │  Validation     │    │  Confirmation   │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+```
+
+**Customer Journey Through System:**
+1. **Discovery:** Customer finds website through search/referrals
+2. **Evaluation:** Browses portfolio demos and capabilities
+3. **Engagement:** Fills out detailed intake form
+4. **Processing:** System validates and formats their information
+5. **Notification:** You receive complete project brief via email
+6. **Confirmation:** Customer receives professional acknowledgment
+7. **Conversion:** You respond with accurate quote and proposal
+
+---
 │  Components, interactivity, state mgmt      │
 ├─────────────────────────────────────────────┤
 │  TAILWIND CSS 4 (The Paint & Finishes)      │
