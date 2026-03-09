@@ -17,12 +17,12 @@ import { CheckIcon, ClockIcon, ShieldCheckIcon, CpuChipIcon, ArrowRightIcon, Bol
 import Link from "next/link";
 
 export const metadata = {
-  title: `Website Development Portfolio | ${SITE.name}`,
+  title: `Enterprise Web Development | ${SITE.name}`,
   description:
-    "AI-assisted website development for small businesses. Professional, fast, and affordable — delivered in 5–10 business days. View demo sites and pricing.",
+    "Professional web development for serious businesses. Custom platforms, business applications, and enterprise-grade websites. From $2,400.",
   openGraph: {
-    title: `Professional Websites Delivered in Days | ${SITE.name}`,
-    description: "AI-accelerated website development for small businesses. Flat-rate pricing, Lighthouse 90+ scores, SSL A+ rated, full source code handoff. From $800.",
+    title: `Enterprise-Grade Web Development | ${SITE.name}`,
+    description: "Custom business platforms and sophisticated web applications. Lighthouse 95+ performance, enterprise security, comprehensive warranties. Starting at $2,400.",
     type: "website",
   },
 };
@@ -54,7 +54,7 @@ export default function PortfolioPage() {
 
           <FadeIn delay={0.2}>
             <p className="max-w-2xl text-lg text-gray-400 mb-10 leading-relaxed font-light">
-              Most small businesses are stuck with an outdated site or paying $5,000+ to an agency for something that takes months. I build fast, modern, mobile-first websites using AI-accelerated tooling — at a fraction of the cost, with a fraction of the wait.
+              Professional businesses need enterprise-grade web platforms, not template solutions. I build sophisticated, scalable websites and applications using cutting-edge technology — delivering the technical excellence your brand deserves.
             </p>
           </FadeIn>
 
@@ -79,12 +79,12 @@ export default function PortfolioPage() {
           <FadeIn delay={0.3}>
             <div className="mb-24 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6 rounded-xl border border-white/5 bg-white/[0.03] p-6">
               {[
-                { icon: ClockIcon, label: "5–10 Day Delivery", sub: "Launch to Growth tiers" },
-                { icon: CpuChipIcon, label: "AI-Accelerated Build", sub: "Human-reviewed & tested" },
-                { icon: ShieldCheckIcon, label: "You Own Everything", sub: "Full source code handoff" },
-                { icon: CheckIcon, label: "14-Day Bug Guarantee", sub: "Free fixes post-launch" },
-                { icon: SparklesIcon, label: "Lighthouse 90+", sub: "Performance, SEO, A11y" },
-                { icon: LockClosedIcon, label: "SSL A+ Rated", sub: "Qualys SSL Labs verified" },
+                { icon: ClockIcon, label: "15-21 Day Delivery", sub: "Professional development cycle" },
+                { icon: CpuChipIcon, label: "Enterprise Architecture", sub: "Scalable & maintainable" },
+                { icon: ShieldCheckIcon, label: "Full Code Ownership", sub: "Complete source handoff" },
+                { icon: CheckIcon, label: "30-90 Day Warranty", sub: "Comprehensive guarantee" },
+                { icon: SparklesIcon, label: "Lighthouse 95+", sub: "Performance guaranteed" },
+                { icon: LockClosedIcon, label: "Enterprise Security", sub: "A+ rated & compliant" },
               ].map(({ icon: Icon, label, sub }) => (
                 <div key={label} className="flex items-start gap-3">
                   <Icon className="h-5 w-5 text-blue-400 mt-0.5 shrink-0" />
@@ -330,15 +330,24 @@ export default function PortfolioPage() {
             <div className="rounded-2xl border border-white/8 bg-gradient-to-br from-blue-950/40 to-black p-10 text-center">
               <h2 className="mb-3 text-3xl font-semibold text-white tracking-tight">Ready to get started?</h2>
               <p className="mb-8 text-gray-400 max-w-md mx-auto">
-                Book a free 30-minute discovery call. No commitment, no sales pressure — just a conversation about what you need.
+                Book a free 30-minute discovery call or fill out our comprehensive intake form to get an accurate quote.
               </p>
-              <a
-                href="/book"
-                className="inline-flex h-12 items-center justify-center rounded-md bg-white px-10 text-sm font-medium text-black transition-colors hover:bg-gray-200"
-              >
-                Book a Free Discovery Call
-              </a>
-              <p className="mt-4 text-xs text-gray-600">Or email directly: <a href={`mailto:${SITE.email}`} className="text-gray-400 hover:text-white transition-colors">{SITE.email}</a></p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                <a
+                  href="/book"
+                  className="inline-flex h-12 items-center justify-center rounded-md bg-white px-8 text-sm font-medium text-black transition-colors hover:bg-gray-200"
+                >
+                  Book Discovery Call
+                </a>
+                <a
+                  href="/CLIENT_INTAKE_TEMPLATE.md"
+                  download
+                  className="inline-flex h-12 items-center justify-center rounded-md border border-white/20 bg-black/50 px-8 text-sm font-medium text-white transition-colors hover:bg-white/5"
+                >
+                  Download Intake Form
+                </a>
+              </div>
+              <p className="text-xs text-gray-600">Or email directly: <a href={`mailto:${SITE.email}`} className="text-gray-400 hover:text-white transition-colors">{SITE.email}</a></p>
             </div>
           </FadeIn>
 
@@ -354,24 +363,31 @@ export default function PortfolioPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
-            name: "Website Development",
+            name: "Enterprise Website Development",
             provider: publisherRef,
             description:
-              "AI-assisted website development for small businesses. Professional, mobile-first websites delivered in 5–10 business days with flat-rate pricing.",
+              "Enterprise-grade website development for professional businesses. Custom platforms with advanced features delivered in 15-21 business days with comprehensive warranties.",
             offers: [
               {
                 "@type": "Offer",
-                name: "Launch Package",
-                price: "800",
+                name: "Professional Package",
+                price: "2400",
                 priceCurrency: "USD",
-                description: "Up to 5 pages, mobile-first design, SSL A+ rated, Lighthouse 90+, delivered in 5 business days.",
+                description: "Enterprise-grade foundation with custom design, security headers, 30-day warranty, delivered in 15 business days.",
               },
               {
                 "@type": "Offer",
-                name: "Growth Package",
-                price: "1500",
+                name: "Business Package",
+                price: "4800",
                 priceCurrency: "USD",
-                description: "Up to 10 pages, booking integration, blog, schema markup, analytics, delivered in 10 business days.",
+                description: "Advanced business platform with integrations, user authentication, CRM connectivity, delivered in 21 business days.",
+              },
+              {
+                "@type": "Offer",
+                name: "Enterprise Package",
+                price: "8500",
+                priceCurrency: "USD",
+                description: "Comprehensive custom solution with role-based access, advanced features, priority support, custom timeline.",
               },
             ],
             areaServed: "US",

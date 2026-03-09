@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import FadeIn from "@/components/FadeIn";
-import { EnvelopeIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { EnvelopeIcon, CalendarDaysIcon, ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { SITE } from "@/lib/constants";
 
 export const metadata = {
@@ -67,6 +67,23 @@ export default function ContactPage() {
                     className="inline-flex h-9 items-center justify-center rounded-md bg-white px-4 text-xs font-medium text-black hover:bg-gray-200 transition"
                   >
                     Book a Time
+                  </a>
+                </div>
+
+                <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <ClipboardDocumentIcon className="h-5 w-5 text-blue-400" />
+                    <p className="text-white font-medium text-sm">Project Intake</p>
+                  </div>
+                  <p className="text-sm text-gray-400 mb-3 leading-relaxed">
+                    For website projects, start with our comprehensive intake form for accurate pricing.
+                  </p>
+                  <a
+                    href="/CLIENT_INTAKE_TEMPLATE.md"
+                    download
+                    className="inline-flex h-9 items-center justify-center rounded-md border border-white/20 bg-black/50 px-4 text-xs font-medium text-white hover:bg-white/5 transition"
+                  >
+                    Download Form
                   </a>
                 </div>
 

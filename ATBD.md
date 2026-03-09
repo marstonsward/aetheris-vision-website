@@ -205,9 +205,9 @@ Separating data from display means:
 ```typescript
 // src/lib/portfolio-data.ts — DATA lives here
 export const tiers: Tier[] = [
-  { name: "Launch", price: "$800", deliverables: [...] },
-  { name: "Growth", price: "$1,800", deliverables: [...] },
-  { name: "Pro", price: "Custom", deliverables: [...] },
+  { name: "Professional", price: "$2,400", deliverables: [...] },
+  { name: "Business", price: "$4,800", deliverables: [...] },
+  { name: "Enterprise", price: "$8,500+", deliverables: [...] },
 ];
 
 // src/app/portfolio/page.tsx — RENDERING lives here
@@ -393,7 +393,7 @@ export async function POST(req: NextRequest) {
       price_data: {
         currency: "usd",
         product_data: { name: `${tier} Website Package` },
-        unit_amount: tier === "Launch" ? 80000 : 180000, // cents
+        unit_amount: tier === "Professional" ? 240000 : tier === "Business" ? 480000 : 850000, // cents
       },
       quantity: 1,
     }],
@@ -422,7 +422,7 @@ const session = await stripe.checkout.sessions.create({
 
 ### Webhooks — How Stripe Talks Back to You
 
-**What is a webhook?** It's a message that one computer sends to another when something happens. Think of it like a text notification — when a customer pays, Stripe "texts" your server to say "Hey, someone just paid $800."
+**What is a webhook?** It's a message that one computer sends to another when something happens. Think of it like a text notification — when a customer pays, Stripe "texts" your server to say "Hey, someone just paid $2,400 for the Professional package."
 
 **Why do you need this?** Without webhooks, your server would have no idea that a payment happened. With them, your server can automatically:
 - Update the database ("mark this project as paid")
@@ -563,7 +563,7 @@ await prisma.project.create({
     title: "Restaurant Website",
     tier: "Growth",
     clientId: user.id,
-    amount: 180000,
+    amount: 480000,
     paidAt: new Date(),
   },
 });
@@ -851,9 +851,9 @@ Before you build a feature, you need to know what it costs to run. Some services
 
 | Package | Your Cost | What to Charge | Your Margin |
 |---|---|---|---|
-| Launch (static site) | ~$0/mo hosting | $800 one-time | 100% after labor |
-| Growth (with portal) | ~$45/mo infra | $1,800 + $99/mo retainer | ~$54/mo + one-time |
-| Pro (full platform) | ~$90/mo infra | Custom ($5K–15K) + $199/mo | High margin at scale |
+| Professional | ~$20/mo hosting | $2,400 one-time | High margin after labor |
+| Business | ~$45/mo infra | $4,800 + $149/mo care | Excellent recurring revenue |
+| Enterprise | ~$90/mo infra | $8,500+ + $299/mo care | Premium margin at scale |
 
 ---
 
