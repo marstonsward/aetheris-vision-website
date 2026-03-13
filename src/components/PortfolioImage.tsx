@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import { useState } from 'react';
 import { getOptimizedImageSet, getPlaceholderImage, type ImageCategory, type ImageType, type ImageSize } from '@/lib/images';
