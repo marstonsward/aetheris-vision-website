@@ -26,12 +26,18 @@
   "dependencies": {
     "@calcom/embed-react": "^1.5.3",
     "@heroicons/react": "^2.2.0",
+    "@neondatabase/serverless": "^1.0.2",
+    "@types/nodemailer": "^7.0.11",
     "@vercel/analytics": "^1.6.1",
     "clsx": "^2.1.1",
+    "flatpickr": "^4.6.13",
     "framer-motion": "^12.34.3",
     "next": "16.1.6",
+    "next-auth": "^4.24.13",
+    "nodemailer": "^7.0.13",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "resend": "^6.9.4",
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
