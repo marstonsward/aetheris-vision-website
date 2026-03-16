@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Email required' }, { status: 400 })
   }
 
-  const baseUrl = process.env.NEXTAUTH_URL ?? 'https://aetheris-vision-website.vercel.app'
+  const baseUrl = process.env.NEXTAUTH_URL ?? 'https://aetherisvision.com'
   const token = crypto.randomBytes(32).toString('hex')
   const expires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
 
