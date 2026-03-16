@@ -1,6 +1,5 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import { useState, Suspense } from 'react'
 
@@ -15,8 +14,11 @@ function LoginForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    await signIn('email', { email, redirect: false })
-    // NextAuth will redirect to /client/login?sent=1
+    await fetch('/api/auth/send-magic', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email }),
+    })
     window.location.href = '/client/login?sent=1'
   }
 

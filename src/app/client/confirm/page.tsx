@@ -8,8 +8,6 @@ function ConfirmForm() {
   const token = params.get('token') ?? ''
   const email = params.get('email') ?? ''
 
-  const callbackUrl = `/api/auth/callback/email?token=${token}&email=${encodeURIComponent(email)}&callbackUrl=${encodeURIComponent('/client/dashboard')}`
-
   if (!token || !email) {
     return (
       <div style={{ textAlign: 'center' }}>
@@ -28,16 +26,22 @@ function ConfirmForm() {
       <p style={{ color: '#475569', fontSize: '15px', marginBottom: '24px' }}>
         Logging in as <strong>{email}</strong>
       </p>
-      <a
-        href={callbackUrl}
-        style={{
-          display: 'inline-block', background: '#1e3a5f', color: '#fff',
-          textDecoration: 'none', padding: '14px 28px', borderRadius: '6px',
-          fontSize: '16px', fontWeight: '600',
-        }}
-      >
-        Log in to Client Portal
-      </a>
+      {/* Form POST so link scanners (GET-only) cannot consume the token */}
+      <form action="/api/auth/magic" method="POST">
+        <input type="hidden" name="token" value={token} />
+        <input type="hidden" name="email" value={email} />
+        <button
+          type="submit"
+          style={{
+            display: 'inline-block', background: '#1e3a5f', color: '#fff',
+            border: 'none', cursor: 'pointer',
+            padding: '14px 28px', borderRadius: '6px',
+            fontSize: '16px', fontWeight: '600',
+          }}
+        >
+          Log in to Client Portal
+        </button>
+      </form>
       <p style={{ color: '#94a3b8', fontSize: '13px', marginTop: '24px' }}>
         Didn&apos;t request this?{' '}
         <a href="/client/login" style={{ color: '#1e3a5f' }}>Go back</a>
