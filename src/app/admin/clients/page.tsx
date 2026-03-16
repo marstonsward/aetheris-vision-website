@@ -53,6 +53,15 @@ export default function AdminClientsPage() {
     setTimeout(() => setSuccessMsg(''), 4000)
   }
 
+  async function handleViewAs(clientId: number) {
+    await fetch('/api/admin/clients/impersonate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientId }),
+    })
+    window.open('/client/dashboard', '_blank')
+  }
+
   const inputStyle: React.CSSProperties = {
     display: 'block', width: '100%', boxSizing: 'border-box',
     padding: '9px 12px', borderRadius: '6px',
@@ -130,13 +139,21 @@ export default function AdminClientsPage() {
                 <p style={{ fontWeight: '600', color: '#0f172a', margin: '0 0 2px', fontSize: '15px' }}>{c.name}</p>
                 <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>{c.contact_name} · {c.email}{c.phone ? ` · ${c.phone}` : ''}</p>
               </div>
-              <button
-                onClick={() => handleInvite(c.id, c.email)}
-                disabled={inviting === c.id}
-                style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #d1d5db', background: '#fff', color: '#374151', fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
-              >
-                {inviting === c.id ? 'Sending…' : 'Send invite'}
-              </button>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button
+                  onClick={() => handleViewAs(c.id)}
+                  style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #d1d5db', background: '#f8fafc', color: '#374151', fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
+                >
+                  View as client
+                </button>
+                <button
+                  onClick={() => handleInvite(c.id, c.email)}
+                  disabled={inviting === c.id}
+                  style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #d1d5db', background: '#fff', color: '#374151', fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
+                >
+                  {inviting === c.id ? 'Sending…' : 'Send invite'}
+                </button>
+              </div>
             </div>
           ))}
         </div>
