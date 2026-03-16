@@ -15,7 +15,7 @@ function LoginForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
-    await signIn('email', { email, callbackUrl: '/client/dashboard', redirect: false })
+    await signIn('email', { email, redirect: false })
     // NextAuth will redirect to /client/login?sent=1
     window.location.href = '/client/login?sent=1'
   }
