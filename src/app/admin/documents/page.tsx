@@ -131,26 +131,41 @@ export default function AdminDocumentsPage() {
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {docs.map(doc => (
-              <div
-                key={doc.id}
-                onClick={() => openEdit(doc)}
-                style={{
-                  padding: '12px 14px', borderRadius: '9px', cursor: 'pointer',
-                  border: `1px solid ${editing?.id === doc.id ? dark.blue : dark.border}`,
-                  background: editing?.id === doc.id ? 'rgba(59,130,246,0.08)' : dark.surface,
-                  transition: 'all 0.15s',
-                }}
-              >
-                <p style={{ color: dark.text, fontWeight: '600', fontSize: '14px', margin: '0 0 4px', lineHeight: '1.3' }}>{doc.title}</p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{
-                    fontSize: '11px', background: dark.blueTag, color: dark.blueTagText,
-                    padding: '2px 8px', borderRadius: '20px',
-                  }}>{doc.client_name}</span>
-                  <span style={{ fontSize: '11px', color: dark.textDim }}>
-                    {new Date(doc.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                  </span>
+              <div key={doc.id} style={{ position: 'relative' }}>
+                <div
+                  onClick={() => openEdit(doc)}
+                  style={{
+                    padding: '12px 14px', paddingRight: '40px', borderRadius: '9px', cursor: 'pointer',
+                    border: `1px solid ${editing?.id === doc.id ? dark.blue : dark.border}`,
+                    background: editing?.id === doc.id ? 'rgba(59,130,246,0.08)' : dark.surface,
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <p style={{ color: dark.text, fontWeight: '600', fontSize: '14px', margin: '0 0 4px', lineHeight: '1.3' }}>{doc.title}</p>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '11px', background: dark.blueTag, color: dark.blueTagText, padding: '2px 8px', borderRadius: '20px' }}>{doc.client_name}</span>
+                    <span style={{ fontSize: '11px', color: dark.textDim }}>{new Date(doc.updated_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                  </div>
                 </div>
+                {/* Delete button */}
+                <button
+                  onClick={e => { e.stopPropagation(); handleDelete(doc.id) }}
+                  disabled={deleting === doc.id}
+                  title="Delete document"
+                  style={{
+                    position: 'absolute', top: '10px', right: '10px',
+                    width: '24px', height: '24px', borderRadius: '5px',
+                    background: 'transparent', border: 'none',
+                    color: dark.textDim, cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontSize: '15px', lineHeight: 1,
+                    transition: 'color 0.15s, background 0.15s',
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = '#f87171'; (e.currentTarget as HTMLButtonElement).style.background = 'rgba(220,38,38,0.1)' }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = dark.textDim; (e.currentTarget as HTMLButtonElement).style.background = 'transparent' }}
+                >
+                  {deleting === doc.id ? '…' : '×'}
+                </button>
               </div>
             ))}
           </div>

@@ -16,6 +16,10 @@ const dark = {
   success: 'rgba(16,185,129,0.12)',
   successBorder: 'rgba(16,185,129,0.25)',
   successText: '#6ee7b7',
+  danger: 'rgba(220,38,38,0.12)',
+  dangerText: '#f87171',
+  dangerBorder: 'rgba(220,38,38,0.25)',
+  dangerSolid: '#dc2626',
 }
 
 interface Client {
@@ -32,6 +36,8 @@ export default function AdminClientsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [inviting, setInviting] = useState<number | null>(null)
+  const [confirmDelete, setConfirmDelete] = useState<number | null>(null)
+  const [deleting, setDeleting] = useState<number | null>(null)
   const [successMsg, setSuccessMsg] = useState('')
   const [form, setForm] = useState({ name: '', contact_name: '', email: '', phone: '' })
 
@@ -55,6 +61,14 @@ export default function AdminClientsPage() {
     setForm({ name: '', contact_name: '', email: '', phone: '' })
     setSaving(false)
     fetchClients()
+  }
+
+  async function handleDelete(clientId: number) {
+    setDeleting(clientId)
+    await fetch(`/api/admin/clients/${clientId}`, { method: 'DELETE' })
+    setClients(cs => cs.filter(c => c.id !== clientId))
+    setDeleting(null)
+    setConfirmDelete(null)
   }
 
   async function handleInvite(clientId: number, email: string) {
@@ -172,30 +186,45 @@ export default function AdminClientsPage() {
                 <p style={{ fontWeight: '600', color: dark.text, margin: '0 0 2px', fontSize: '15px' }}>{c.name}</p>
                 <p style={{ color: dark.textMuted, fontSize: '13px', margin: 0 }}>{c.contact_name} · {c.email}{c.phone ? ` · ${c.phone}` : ''}</p>
               </div>
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
                 <button
                   onClick={() => handleViewAs(c.id)}
-                  style={{
-                    padding: '8px 14px', borderRadius: '7px',
-                    border: `1px solid ${dark.border}`,
-                    background: 'rgba(255,255,255,0.04)',
-                    color: dark.textMuted, fontSize: '13px', cursor: 'pointer', fontWeight: '500',
-                  }}
+                  style={{ padding: '8px 14px', borderRadius: '7px', border: `1px solid ${dark.border}`, background: 'rgba(255,255,255,0.04)', color: dark.textMuted, fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
                 >
                   View as client
                 </button>
                 <button
                   onClick={() => handleInvite(c.id, c.email)}
                   disabled={inviting === c.id}
-                  style={{
-                    padding: '8px 14px', borderRadius: '7px',
-                    border: `1px solid ${dark.border}`,
-                    background: 'rgba(59,130,246,0.1)',
-                    color: dark.blue, fontSize: '13px', cursor: 'pointer', fontWeight: '500',
-                  }}
+                  style={{ padding: '8px 14px', borderRadius: '7px', border: `1px solid ${dark.border}`, background: 'rgba(59,130,246,0.1)', color: dark.blue, fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
                 >
                   {inviting === c.id ? 'Sending…' : 'Send invite'}
                 </button>
+                {confirmDelete === c.id ? (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ fontSize: '12px', color: dark.dangerText }}>Delete client?</span>
+                    <button
+                      onClick={() => handleDelete(c.id)}
+                      disabled={deleting === c.id}
+                      style={{ padding: '7px 12px', borderRadius: '7px', fontSize: '12px', fontWeight: '700', background: dark.dangerSolid, color: '#fff', border: 'none', cursor: 'pointer' }}
+                    >
+                      {deleting === c.id ? '…' : 'Confirm'}
+                    </button>
+                    <button
+                      onClick={() => setConfirmDelete(null)}
+                      style={{ padding: '7px 10px', borderRadius: '7px', fontSize: '12px', color: dark.textMuted, background: 'transparent', border: `1px solid ${dark.border}`, cursor: 'pointer' }}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => setConfirmDelete(c.id)}
+                    style={{ padding: '8px 12px', borderRadius: '7px', border: `1px solid ${dark.dangerBorder}`, background: dark.danger, color: dark.dangerText, fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
             </div>
           ))}

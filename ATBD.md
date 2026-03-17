@@ -1061,7 +1061,24 @@ Here's the exact sequence you'd follow:
 
 > This section describes the **live, deployed** system as of March 16, 2026. All features below are in production on Vercel.
 
-### 13.1 Database Schema (Neon Postgres)
+### 13.1 Entity Relationships
+
+```
+clients ──┬── projects      (one client → many projects)
+          ├── documents      (one client → many documents, CASCADE DELETE)
+          └── verification_tokens  (one client email → one active token at a time)
+
+projects ─── (no children; references clients.id)
+
+expenses ─── (standalone; no FK to clients — internal business records)
+```
+
+**Cascade rules:**
+- Deleting a `client` cascades to their `documents` (ON DELETE CASCADE)
+- Deleting a `client` does NOT automatically delete their `projects` — drop projects first via admin, or add a cascade if desired
+- `verification_tokens` are keyed on `identifier` (email), deleted on use or expiry
+
+### 13.2 Database Schema (Neon Postgres)
 
 ```sql
 -- Clients: one row per client company
@@ -1124,7 +1141,7 @@ expenses (
 )
 ```
 
-### 13.2 Authentication System
+### 13.3 Authentication System
 
 **Client auth (magic link):**
 1. Client submits email at `/client/login`
@@ -1144,7 +1161,7 @@ expenses (
 - `POST /api/admin/clients/impersonate` mints a 1-hour JWT session as any client
 - Opens `/client/dashboard` in a new tab — useful for testing client views
 
-### 13.3 Client Portal
+### 13.4 Client Portal
 
 **Route:** `/client/dashboard` (auth-gated via NextAuth session)
 
@@ -1157,7 +1174,7 @@ expenses (
 
 **Markdown rendering:** `react-markdown` + `remark-gfm` (tables, task lists, code blocks, blockquotes). Styled for dark theme via `.doc-viewer` CSS classes in `globals.css`.
 
-### 13.4 Admin Panel
+### 13.5 Admin Panel
 
 **Route prefix:** `/admin/*` — all routes auth-gated by `av-admin-session` cookie
 
@@ -1170,7 +1187,7 @@ expenses (
 
 **Design:** Dark theme matching client portal (`#070f1e` bg, `#0d1b2e` surface, `#3b82f6` accent).
 
-### 13.5 Document Portal
+### 13.6 Document Portal
 
 Documents are stored as `TEXT` (markdown) in the `documents` table. No file storage service required.
 
@@ -1180,7 +1197,7 @@ Documents are stored as `TEXT` (markdown) in the `documents` table. No file stor
 
 **Why this over Google Drive?** Drive requires sharing permissions per file, has no dark theme, and opens in a new tab. The portal viewer is in-context, branded, and access-controlled by client session automatically.
 
-### 13.6 Expense Tracker
+### 13.7 Expense Tracker
 
 **Route:** `/admin/expenses`
 
@@ -1191,7 +1208,7 @@ Documents are stored as `TEXT` (markdown) in the `documents` table. No file stor
 - **Excel export:** SheetJS generates `AV-Expenses-{year}.xlsx` client-side with two sheets: line items and summary
 - Year selector (current year and 2 prior years)
 
-### 13.7 Email Infrastructure
+### 13.8 Email Infrastructure
 
 All transactional email sent via **Resend** (`RESEND_API_KEY` env var):
 
@@ -1201,7 +1218,7 @@ All transactional email sent via **Resend** (`RESEND_API_KEY` env var):
 | `system@aetherisvision.com` | Intake form notifications (internal) |
 | `projects@aetherisvision.com` | Intake confirmation to submitting contact |
 
-### 13.8 Docuseal Integration
+### 13.9 Docuseal Integration
 
 `src/lib/docuseal.ts` — three functions:
 
@@ -1211,7 +1228,7 @@ All transactional email sent via **Resend** (`RESEND_API_KEY` env var):
 
 Env var: `DOCUSEAL_API_KEY`
 
-### 13.9 Environment Variables (Production)
+### 13.10 Environment Variables (Production)
 
 | Variable | Purpose |
 |---|---|
