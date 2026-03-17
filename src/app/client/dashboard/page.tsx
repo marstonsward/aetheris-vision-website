@@ -29,6 +29,7 @@ interface Project {
   signed_at: string | null
   docuseal_submission_id: string | null
   current_phase: string | null
+  phase_proposal_date: string | null
   phase_kickoff_date: string | null
   phase_design_date: string | null
   phase_development_date: string | null
@@ -40,6 +41,7 @@ interface Doc { id: number; title: string; updated_at: string }
 interface FullDoc extends Doc { content: string }
 
 const PHASES = [
+  { key: 'proposal',    label: 'Proposal',    dateField: 'phase_proposal_date' as const,    description: 'Project proposal and scope of work delivered.' },
   { key: 'kickoff',     label: 'Kickoff',     dateField: 'phase_kickoff_date' as const,     description: 'Project scope, goals, and timeline confirmed.' },
   { key: 'design',      label: 'Design',       dateField: 'phase_design_date' as const,      description: 'Visual direction, mockups, and brand alignment.' },
   { key: 'development', label: 'Development',  dateField: 'phase_development_date' as const, description: 'Building and integrating all site functionality.' },

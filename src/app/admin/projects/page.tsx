@@ -13,9 +13,14 @@ const dark = {
   blueDeep: '#1e3a5f',
   activeNav: 'rgba(59,130,246,0.15)',
   successText: '#6ee7b7',
+  danger: 'rgba(220,38,38,0.12)',
+  dangerText: '#f87171',
+  dangerBorder: 'rgba(220,38,38,0.25)',
+  dangerSolid: '#dc2626',
 }
 
 const PHASES = [
+  { key: 'proposal', label: 'Proposal', dateField: 'phase_proposal_date' },
   { key: 'kickoff', label: 'Kickoff', dateField: 'phase_kickoff_date' },
   { key: 'design', label: 'Design', dateField: 'phase_design_date' },
   { key: 'development', label: 'Development', dateField: 'phase_development_date' },
@@ -28,6 +33,7 @@ interface Project {
   name: string
   client_name: string
   current_phase: string
+  phase_proposal_date: string | null
   phase_kickoff_date: string | null
   phase_design_date: string | null
   phase_development_date: string | null
@@ -49,6 +55,8 @@ export default function AdminProjectsPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<number | null>(null)
   const [saved, setSaved] = useState<number | null>(null)
+  const [deleting, setDeleting] = useState<number | null>(null)
+  const [confirmDelete, setConfirmDelete] = useState<number | null>(null)
   const [edits, setEdits] = useState<Record<number, Partial<Project>>>({})
 
   useEffect(() => {
@@ -65,6 +73,14 @@ export default function AdminProjectsPage() {
 
   function setField(projectId: number, field: string, value: string) {
     setEdits(e => ({ ...e, [projectId]: { ...e[projectId], [field]: value } }))
+  }
+
+  async function handleDelete(id: number) {
+    setDeleting(id)
+    await fetch(`/api/admin/projects/${id}`, { method: 'DELETE' })
+    setProjects(ps => ps.filter(p => p.id !== id))
+    setDeleting(null)
+    setConfirmDelete(null)
   }
 
   async function handleSave(p: Project) {
@@ -135,6 +151,32 @@ export default function AdminProjectsPage() {
                   >
                     {saving === p.id ? 'Saving…' : 'Save'}
                   </button>
+
+                  {confirmDelete === p.id ? (
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ fontSize: '12px', color: dark.dangerText }}>Delete project?</span>
+                      <button
+                        onClick={() => handleDelete(p.id)}
+                        disabled={deleting === p.id}
+                        style={{ padding: '7px 12px', borderRadius: '7px', fontSize: '12px', fontWeight: '700', background: dark.dangerSolid, color: '#fff', border: 'none', cursor: 'pointer' }}
+                      >
+                        {deleting === p.id ? '…' : 'Confirm'}
+                      </button>
+                      <button
+                        onClick={() => setConfirmDelete(null)}
+                        style={{ padding: '7px 10px', borderRadius: '7px', fontSize: '12px', color: dark.textMuted, background: 'transparent', border: `1px solid ${dark.border}`, cursor: 'pointer' }}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  ) : (
+                    <button
+                      onClick={() => setConfirmDelete(p.id)}
+                      style={{ padding: '8px 12px', borderRadius: '8px', fontSize: '13px', fontWeight: '500', background: dark.danger, color: dark.dangerText, border: `1px solid ${dark.dangerBorder}`, cursor: 'pointer' }}
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               </div>
 

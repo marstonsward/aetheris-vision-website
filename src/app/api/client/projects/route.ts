@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
 
   const projects = await sql`
     SELECT id, name, status, start_date, signed_at, docuseal_submission_id,
-           current_phase, phase_kickoff_date, phase_design_date,
+           current_phase, phase_proposal_date, phase_kickoff_date, phase_design_date,
            phase_development_date, phase_review_date, phase_launched_date
     FROM projects
     WHERE client_id = ${Number(clientId)}

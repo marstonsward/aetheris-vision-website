@@ -4,8 +4,8 @@ import { sql } from '@/lib/db'
 export async function GET() {
   const projects = await sql`
     SELECT p.id, p.name, p.status, p.current_phase, p.start_date,
-           p.phase_kickoff_date, p.phase_design_date, p.phase_development_date,
-           p.phase_review_date, p.phase_launched_date,
+           p.phase_proposal_date, p.phase_kickoff_date, p.phase_design_date,
+           p.phase_development_date, p.phase_review_date, p.phase_launched_date,
            c.name AS client_name, p.client_id
     FROM projects p
     LEFT JOIN clients c ON c.id = p.client_id
@@ -15,7 +15,7 @@ export async function GET() {
 }
 
 export async function PATCH(request: NextRequest) {
-  const { id, current_phase, phase_kickoff_date, phase_design_date,
+  const { id, current_phase, phase_proposal_date, phase_kickoff_date, phase_design_date,
           phase_development_date, phase_review_date, phase_launched_date } = await request.json()
 
   if (!id) return NextResponse.json({ error: 'id required' }, { status: 400 })
@@ -23,6 +23,7 @@ export async function PATCH(request: NextRequest) {
   await sql`
     UPDATE projects SET
       current_phase          = ${current_phase ?? null},
+      phase_proposal_date    = ${phase_proposal_date ?? null},
       phase_kickoff_date     = ${phase_kickoff_date ?? null},
       phase_design_date      = ${phase_design_date ?? null},
       phase_development_date = ${phase_development_date ?? null},
