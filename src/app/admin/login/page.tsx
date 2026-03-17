@@ -3,12 +3,26 @@
 import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+const dark = {
+  bg: '#070f1e',
+  surface: '#0d1b2e',
+  border: 'rgba(255,255,255,0.08)',
+  borderFocus: '#3b82f6',
+  text: '#f1f5f9',
+  textMuted: 'rgba(255,255,255,0.5)',
+  textDim: 'rgba(255,255,255,0.25)',
+  blue: '#3b82f6',
+  blueGlow: 'rgba(59,130,246,0.15)',
+}
+
 function LoginForm() {
   const params = useSearchParams()
   const next = params.get('next') ?? '/admin/clients'
   const [passphrase, setPassphrase] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [focused, setFocused] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -18,7 +32,7 @@ function LoginForm() {
     const res = await fetch('/api/admin/auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ passphrase, next }),
+      body: JSON.stringify({ passphrase, next, rememberMe }),
     })
 
     if (res.ok) {
@@ -32,7 +46,7 @@ function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label style={{ display: 'block', fontSize: '14px', fontWeight: '500', color: '#374151', marginBottom: '6px' }}>
+      <label style={{ display: 'block', fontSize: '11px', fontWeight: '700', color: dark.textDim, marginBottom: '8px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
         Passphrase
       </label>
       <input
@@ -41,27 +55,54 @@ function LoginForm() {
         autoFocus
         value={passphrase}
         onChange={e => setPassphrase(e.target.value)}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         style={{
           display: 'block', width: '100%', boxSizing: 'border-box',
-          padding: '10px 12px', borderRadius: '6px',
-          border: `1px solid ${error ? '#fca5a5' : '#d1d5db'}`,
-          fontSize: '15px', color: '#111827', marginBottom: '12px',
+          padding: '13px 16px', borderRadius: '10px',
+          border: `1.5px solid ${error ? 'rgba(220,38,38,0.5)' : focused ? dark.borderFocus : dark.border}`,
+          fontSize: '15px', color: dark.text,
+          background: 'rgba(255,255,255,0.04)',
+          marginBottom: '14px', outline: 'none',
+          transition: 'border-color 0.15s, box-shadow 0.15s',
+          boxShadow: focused ? `0 0 0 3px ${dark.blueGlow}` : 'none',
         }}
       />
       {error && (
-        <p style={{ color: '#dc2626', fontSize: '14px', marginBottom: '12px' }}>{error}</p>
+        <p style={{ color: '#f87171', fontSize: '13px', marginBottom: '14px', fontWeight: '500' }}>{error}</p>
       )}
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', cursor: 'pointer' }}
+        onClick={() => setRememberMe(r => !r)}>
+        <div style={{
+          width: '18px', height: '18px', borderRadius: '5px', flexShrink: 0,
+          border: `1.5px solid ${rememberMe ? dark.blue : dark.border}`,
+          background: rememberMe ? dark.blue : 'rgba(255,255,255,0.04)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          transition: 'all 0.15s',
+        }}>
+          {rememberMe && (
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          )}
+        </div>
+        <span style={{ fontSize: '13px', color: dark.textMuted, userSelect: 'none' }}>Remember me for 30 days</span>
+      </div>
+
       <button
         type="submit"
         disabled={loading}
         style={{
-          width: '100%', padding: '12px', borderRadius: '6px',
-          background: loading ? '#93c5fd' : '#1e3a5f',
-          color: '#fff', fontWeight: '600', fontSize: '15px',
+          width: '100%', padding: '14px', borderRadius: '10px',
+          background: loading ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+          color: '#fff', fontWeight: '700', fontSize: '15px',
           border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
+          boxShadow: loading ? 'none' : '0 4px 16px rgba(59,130,246,0.35)',
+          transition: 'all 0.2s', letterSpacing: '0.02em',
         }}
       >
-        {loading ? 'Verifying…' : 'Log in'}
+        {loading ? 'Verifying…' : 'Log in →'}
       </button>
     </form>
   )
@@ -69,15 +110,41 @@ function LoginForm() {
 
 export default function AdminLoginPage() {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '24px', background: '#f8fafc' }}>
-      <div style={{ width: '100%', maxWidth: '360px' }}>
+    <div style={{
+      minHeight: '100vh', background: dark.bg,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: '32px 24px', position: 'relative', overflow: 'hidden',
+      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    }}>
+      <div style={{
+        position: 'absolute', top: '-150px', left: '50%', transform: 'translateX(-50%)',
+        width: '600px', height: '400px', borderRadius: '50%',
+        background: 'radial-gradient(ellipse, rgba(30,58,95,0.5) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
+
+      <div style={{ width: '100%', maxWidth: '380px', position: 'relative', zIndex: 1 }}>
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h1 style={{ fontSize: '22px', fontWeight: '700', color: '#1e3a5f', margin: '0 0 4px' }}>
+          <div style={{
+            width: '46px', height: '46px', borderRadius: '12px',
+            background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+            margin: '0 auto 14px',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 4px 16px rgba(59,130,246,0.3)',
+          }}>
+            <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800' }}>AV</span>
+          </div>
+          <h1 style={{ fontSize: '17px', fontWeight: '700', color: dark.text, margin: '0 0 3px' }}>
             Aetheris Vision
           </h1>
-          <p style={{ color: '#64748b', margin: 0, fontSize: '14px' }}>Admin access</p>
+          <p style={{ color: dark.textDim, fontSize: '13px', margin: 0 }}>Admin access</p>
         </div>
-        <div style={{ background: '#fff', borderRadius: '12px', padding: '28px', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}>
+
+        <div style={{
+          background: dark.surface, borderRadius: '20px', padding: '36px 32px',
+          border: `1px solid ${dark.border}`,
+          boxShadow: '0 24px 64px rgba(0,0,0,0.5), 0 4px 16px rgba(0,0,0,0.3)',
+        }}>
           <Suspense fallback={null}>
             <LoginForm />
           </Suspense>

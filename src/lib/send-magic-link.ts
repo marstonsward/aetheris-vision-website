@@ -41,7 +41,7 @@ export async function sendMagicLink(email: string): Promise<void> {
         </a>
         <p style="color:#94a3b8;font-size:13px;margin-top:32px;">
           If you did not request this link, you can safely ignore this email.<br>
-          Aetheris Vision LLC · marston@aetherisvision.com
+          Aetheris Vision LLC · contact@aetherisvision.com
         </p>
       </div>
     `,

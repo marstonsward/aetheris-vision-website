@@ -3,29 +3,36 @@
 import { useState, useEffect } from 'react'
 import DatePicker from '../components/DatePicker'
 
+const dark = {
+  surface: '#0d1b2e',
+  surfaceAlt: 'rgba(255,255,255,0.03)',
+  border: 'rgba(255,255,255,0.08)',
+  borderLight: 'rgba(255,255,255,0.05)',
+  text: '#f1f5f9',
+  textMuted: 'rgba(255,255,255,0.5)',
+  textDim: 'rgba(255,255,255,0.25)',
+  blue: '#3b82f6',
+  blueTag: 'rgba(59,130,246,0.15)',
+  blueTagText: '#93c5fd',
+}
+
 const CATEGORIES = [
-  // Recurring digital costs
   'Software Subscriptions',
   'Cloud Services',
   'Domain & Hosting',
   'Design Tools',
-  // People
   'Contractors & Subcontractors',
   'Legal & Professional Fees',
-  // Growth & credentials
   'Professional Certifications',
   'Professional Development & Training',
   'Conferences & Events',
   'Books & Research Materials',
-  // Business ops
   'Marketing & Advertising',
   'Business Insurance',
   'Banking & Financial Fees',
-  // Physical
   'Equipment & Hardware',
   'Office Supplies',
   'Travel & Transportation',
-  // Catch-all
   'Other',
 ]
 
@@ -89,27 +96,50 @@ export default function ExpensesPage() {
 
   const grandTotal = totals.reduce((sum, t) => sum + parseFloat(t.total), 0)
 
+  const inputStyle: React.CSSProperties = {
+    width: '100%', boxSizing: 'border-box',
+    border: `1px solid ${dark.border}`, borderRadius: '7px',
+    padding: '9px 12px', fontSize: '14px',
+    color: dark.text, background: 'rgba(255,255,255,0.04)', outline: 'none',
+  }
+
+  const labelStyle: React.CSSProperties = {
+    display: 'block', fontSize: '12px', fontWeight: '600',
+    color: dark.textDim, marginBottom: '6px',
+    textTransform: 'uppercase', letterSpacing: '0.07em',
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-5xl mx-auto">
+    <div style={{ padding: '40px 24px' }}>
+      <div style={{ maxWidth: '960px', margin: '0 auto' }}>
 
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '32px', flexWrap: 'wrap', gap: '12px' }}>
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Expenses</h1>
-            <p className="text-gray-500 text-sm mt-1">Aetheris Vision LLC — Tax Records</p>
+            <h1 style={{ fontSize: '22px', fontWeight: '700', color: dark.text, margin: '0 0 4px' }}>Expenses</h1>
+            <p style={{ color: dark.textMuted, fontSize: '13px', margin: 0 }}>Aetheris Vision LLC — Tax Records</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <select
               value={taxYear}
               onChange={e => setTaxYear(Number(e.target.value))}
-              className="border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white"
+              style={{
+                border: `1px solid ${dark.border}`, borderRadius: '7px',
+                padding: '8px 12px', fontSize: '14px',
+                color: dark.text, background: dark.surface, outline: 'none',
+                colorScheme: 'dark',
+              }}
             >
               {TAX_YEARS.map(y => <option key={y} value={y}>{y}</option>)}
             </select>
             <button
               onClick={() => setShowForm(!showForm)}
-              className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+              style={{
+                background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                color: '#fff', padding: '9px 16px', borderRadius: '8px',
+                fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(59,130,246,0.3)',
+              }}
             >
               + Add Expense
             </button>
@@ -118,9 +148,13 @@ export default function ExpensesPage() {
 
         {/* Add Expense Form */}
         {showForm && (
-          <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-lg p-6 mb-6 grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} style={{
+            background: dark.surface, border: `1px solid ${dark.border}`,
+            borderRadius: '12px', padding: '24px', marginBottom: '24px',
+            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px',
+          }}>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+              <label style={labelStyle}>Date</label>
               <DatePicker
                 required
                 value={form.date}
@@ -128,41 +162,49 @@ export default function ExpensesPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Vendor</label>
+              <label style={labelStyle}>Vendor</label>
               <input type="text" required placeholder="e.g. GitHub" value={form.vendor}
                 onChange={e => setForm({ ...form, vendor: e.target.value })}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white" />
+                style={inputStyle} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <label style={labelStyle}>Description</label>
               <input type="text" required placeholder="e.g. Annual Pro plan" value={form.description}
                 onChange={e => setForm({ ...form, description: e.target.value })}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white" />
+                style={inputStyle} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <label style={labelStyle}>Category</label>
               <select value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white">
+                style={{ ...inputStyle, colorScheme: 'dark' }}>
                 {CATEGORIES.map(c => <option key={c}>{c}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Amount ($)</label>
+              <label style={labelStyle}>Amount ($)</label>
               <input type="number" required step="0.01" min="0" placeholder="0.00" value={form.amount}
                 onChange={e => setForm({ ...form, amount: e.target.value })}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white" />
+                style={inputStyle} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Receipt URL (optional)</label>
+              <label style={labelStyle}>Receipt URL (optional)</label>
               <input type="url" placeholder="https://..." value={form.receipt_url}
                 onChange={e => setForm({ ...form, receipt_url: e.target.value })}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white" />
+                style={inputStyle} />
             </div>
-            <div className="col-span-2 flex justify-end gap-3">
+            <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
               <button type="button" onClick={() => setShowForm(false)}
-                className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900">Cancel</button>
+                style={{ padding: '9px 16px', fontSize: '14px', color: dark.textMuted, background: 'transparent', border: 'none', cursor: 'pointer' }}>
+                Cancel
+              </button>
               <button type="submit" disabled={submitting}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 disabled:opacity-50">
+                style={{
+                  background: submitting ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                  color: '#fff', padding: '9px 18px', borderRadius: '8px',
+                  fontSize: '14px', fontWeight: '600', border: 'none',
+                  cursor: submitting ? 'not-allowed' : 'pointer',
+                  opacity: submitting ? 0.7 : 1,
+                }}>
                 {submitting ? 'Saving...' : 'Save Expense'}
               </button>
             </div>
@@ -171,50 +213,60 @@ export default function ExpensesPage() {
 
         {/* Category Totals */}
         {totals.length > 0 && (
-          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">
+          <div style={{ background: dark.surface, border: `1px solid ${dark.border}`, borderRadius: '12px', padding: '24px', marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '11px', fontWeight: '700', color: dark.textDim, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>
               {taxYear} Summary
             </h2>
-            <div className="grid grid-cols-3 gap-4">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '10px' }}>
               {totals.map(t => (
-                <div key={t.category} className="bg-gray-50 rounded-md p-3">
-                  <p className="text-xs text-gray-500">{t.category}</p>
-                  <p className="text-lg font-semibold text-gray-900">${parseFloat(t.total).toFixed(2)}</p>
+                <div key={t.category} style={{ background: dark.surfaceAlt, borderRadius: '8px', padding: '12px', border: `1px solid ${dark.borderLight}` }}>
+                  <p style={{ fontSize: '11px', color: dark.textDim, margin: '0 0 4px' }}>{t.category}</p>
+                  <p style={{ fontSize: '17px', fontWeight: '700', color: dark.text, margin: 0 }}>${parseFloat(t.total).toFixed(2)}</p>
                 </div>
               ))}
             </div>
-            <div className="mt-4 pt-4 border-t border-gray-200 flex justify-between">
-              <span className="font-semibold text-gray-700">Total {taxYear}</span>
-              <span className="font-bold text-gray-900 text-lg">${grandTotal.toFixed(2)}</span>
+            <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: `1px solid ${dark.border}`, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ fontWeight: '600', color: dark.textMuted, fontSize: '14px' }}>Total {taxYear}</span>
+              <span style={{ fontWeight: '800', color: dark.text, fontSize: '20px' }}>${grandTotal.toFixed(2)}</span>
             </div>
           </div>
         )}
 
         {/* Expenses Table */}
-        <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-200">
-              <tr>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Date</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Vendor</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Description</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Category</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Amount</th>
+        <div style={{ background: dark.surface, border: `1px solid ${dark.border}`, borderRadius: '12px', overflow: 'hidden' }}>
+          <table style={{ width: '100%', fontSize: '14px', borderCollapse: 'collapse' }}>
+            <thead>
+              <tr style={{ borderBottom: `1px solid ${dark.border}` }}>
+                {['Date', 'Vendor', 'Description', 'Category', 'Amount'].map((h, i) => (
+                  <th key={h} style={{
+                    textAlign: i === 4 ? 'right' : 'left',
+                    padding: '12px 16px', fontSize: '11px', fontWeight: '700',
+                    color: dark.textDim, textTransform: 'uppercase', letterSpacing: '0.08em',
+                    background: dark.surfaceAlt,
+                  }}>{h}</th>
+                ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody>
               {expenses.length === 0 && (
-                <tr><td colSpan={5} className="text-center py-8 text-gray-400">No expenses logged for {taxYear}</td></tr>
-              )}
-              {expenses.map(e => (
-                <tr key={e.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-gray-600">{new Date(e.date).toLocaleDateString()}</td>
-                  <td className="px-4 py-3 font-medium text-gray-900">{e.vendor}</td>
-                  <td className="px-4 py-3 text-gray-600">{e.description}</td>
-                  <td className="px-4 py-3">
-                    <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded text-xs">{e.category}</span>
+                <tr>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: '32px', color: dark.textDim }}>
+                    No expenses logged for {taxYear}
                   </td>
-                  <td className="px-4 py-3 text-right font-medium text-gray-900">${parseFloat(e.amount).toFixed(2)}</td>
+                </tr>
+              )}
+              {expenses.map((e, i) => (
+                <tr key={e.id} style={{ borderTop: i === 0 ? 'none' : `1px solid ${dark.borderLight}` }}>
+                  <td style={{ padding: '12px 16px', color: dark.textMuted }}>{new Date(e.date).toLocaleDateString()}</td>
+                  <td style={{ padding: '12px 16px', fontWeight: '600', color: dark.text }}>{e.vendor}</td>
+                  <td style={{ padding: '12px 16px', color: dark.textMuted }}>{e.description}</td>
+                  <td style={{ padding: '12px 16px' }}>
+                    <span style={{
+                      background: dark.blueTag, color: dark.blueTagText,
+                      padding: '3px 9px', borderRadius: '20px', fontSize: '12px', fontWeight: '500',
+                    }}>{e.category}</span>
+                  </td>
+                  <td style={{ padding: '12px 16px', textAlign: 'right', fontWeight: '600', color: dark.text }}>${parseFloat(e.amount).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

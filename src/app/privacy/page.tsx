@@ -174,12 +174,33 @@ export default function PrivacyPage() {
           {/* 5 */}
           <section>
             <h2 className="text-xl font-semibold text-white mb-3">5. Data Retention</h2>
-            <p>
-              Contact form submissions received via email are retained in our business inbox
-              for as long as the business relationship warrants, and deleted upon request.
-              Blog subscription emails are retained until you unsubscribe. Booking records
-              are retained per Cal.com's policy.
-            </p>
+            <div className="space-y-4">
+              <div>
+                <h3 className="text-base font-semibold text-gray-200 mb-1">Retention Periods</h3>
+                <ul className="mt-2 ml-4 space-y-1 list-disc list-outside">
+                  <li><strong className="text-gray-300">Contact form submissions</strong> — retained in our business inbox for the duration of the business relationship, or up to 3 years from the date of submission if no engagement results.</li>
+                  <li><strong className="text-gray-300">Project intake submissions</strong> — retained for the duration of the project engagement plus 2 years, or up to 3 years from submission if no engagement results.</li>
+                  <li><strong className="text-gray-300">Client portal accounts</strong> — retained for the duration of the client relationship plus 1 year after the final project is closed.</li>
+                  <li><strong className="text-gray-300">Blog subscription emails</strong> — retained until you unsubscribe.</li>
+                  <li><strong className="text-gray-300">Booking records</strong> — retained per Cal.com's data retention policy.</li>
+                  <li><strong className="text-gray-300">Magic link authentication tokens</strong> — automatically deleted upon use or expiry (24-hour window), whichever comes first.</li>
+                  <li><strong className="text-gray-300">Server logs</strong> — retained per Vercel's data retention policy (typically 30 days).</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-base font-semibold text-gray-200 mb-1">Requesting Deletion</h3>
+                <p>
+                  To request deletion of your personal data, email{" "}
+                  <a href="mailto:contact@aetherisvision.com" className="text-blue-400 hover:underline">
+                    contact@aetherisvision.com
+                  </a>{" "}
+                  with the subject line <strong className="text-gray-300">"Data Deletion Request"</strong> and
+                  include the email address associated with your account or submission. We will confirm receipt
+                  within 5 business days and complete the deletion within 30 days, except where retention is
+                  required by law (e.g., tax or contractual records).
+                </p>
+              </div>
+            </div>
           </section>
 
           {/* 6 */}

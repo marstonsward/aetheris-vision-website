@@ -39,7 +39,7 @@ export function NeonAdapter(): Adapter {
     },
 
     async createUser({ name, email }: { name?: string | null; email: string }) {
-      // Only allow clients that Marston has already added.
+      // Only allow clients that have already been added via the admin panel.
       // If the email exists, return that client. Otherwise insert a placeholder
       // so the magic-link flow doesn't crash (the dashboard will show no projects).
       const existing = await sql`

@@ -2,6 +2,22 @@
 
 import { useEffect, useState } from 'react'
 
+const dark = {
+  bg: '#070f1e',
+  surface: '#0d1b2e',
+  surfaceHover: '#112338',
+  border: 'rgba(255,255,255,0.08)',
+  borderLight: 'rgba(255,255,255,0.05)',
+  text: '#f1f5f9',
+  textMuted: 'rgba(255,255,255,0.5)',
+  textDim: 'rgba(255,255,255,0.25)',
+  blue: '#3b82f6',
+  blueGlow: 'rgba(59,130,246,0.15)',
+  success: 'rgba(16,185,129,0.12)',
+  successBorder: 'rgba(16,185,129,0.25)',
+  successText: '#6ee7b7',
+}
+
 interface Client {
   id: number
   name: string
@@ -64,42 +80,49 @@ export default function AdminClientsPage() {
 
   const inputStyle: React.CSSProperties = {
     display: 'block', width: '100%', boxSizing: 'border-box',
-    padding: '9px 12px', borderRadius: '6px',
-    border: '1px solid #d1d5db', fontSize: '14px',
-    color: '#111827', background: '#fff',
+    padding: '10px 13px', borderRadius: '8px',
+    border: `1px solid ${dark.border}`, fontSize: '14px',
+    color: dark.text, background: 'rgba(255,255,255,0.04)',
+    outline: 'none',
+  }
+
+  const labelStyle: React.CSSProperties = {
+    display: 'block', fontSize: '11px', fontWeight: '700',
+    color: dark.textDim, marginBottom: '6px',
+    letterSpacing: '0.08em', textTransform: 'uppercase',
   }
 
   return (
     <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px' }}>
-      <h1 style={{ fontSize: '22px', fontWeight: '700', color: '#0f172a', marginBottom: '8px' }}>
+      <h1 style={{ fontSize: '22px', fontWeight: '700', color: dark.text, marginBottom: '6px' }}>
         Client Management
       </h1>
-      <p style={{ color: '#64748b', marginBottom: '32px' }}>
+      <p style={{ color: dark.textMuted, marginBottom: '32px', fontSize: '14px' }}>
         Add clients here to give them access to the client portal.
         Use &quot;Send invite&quot; to email them a login link.
       </p>
 
       {/* Add client form */}
-      <div style={{ background: '#fff', borderRadius: '10px', padding: '24px', border: '1px solid #e2e8f0', marginBottom: '32px' }}>
-        <h2 style={{ fontSize: '15px', fontWeight: '600', color: '#0f172a', marginBottom: '16px' }}>Add New Client</h2>
-        <form onSubmit={handleAdd} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      <div style={{ background: dark.surface, borderRadius: '12px', padding: '24px', border: `1px solid ${dark.border}`, marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '14px', fontWeight: '600', color: dark.text, marginBottom: '18px' }}>Add New Client</h2>
+        <form onSubmit={handleAdd} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Business name *</label>
+            <label style={labelStyle}>Business name *</label>
             <input required style={inputStyle} value={form.name}
               onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Contact name *</label>
+            <label style={labelStyle}>Contact name *</label>
             <input required style={inputStyle} value={form.contact_name}
               onChange={e => setForm(f => ({ ...f, contact_name: e.target.value }))} />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Email address *</label>
+            <label style={labelStyle}>Email address *</label>
             <input required type="email" style={inputStyle} value={form.email}
               onChange={e => setForm(f => ({ ...f, email: e.target.value }))} />
           </div>
           <div>
-            <label style={{ display: 'block', fontSize: '13px', fontWeight: '500', color: '#374151', marginBottom: '4px' }}>Phone</label>
+            <label style={labelStyle}>Phone</label>
             <input type="tel" style={inputStyle} value={form.phone}
               onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
           </div>
@@ -107,7 +130,13 @@ export default function AdminClientsPage() {
             <button
               type="submit"
               disabled={saving}
-              style={{ padding: '10px 20px', borderRadius: '6px', background: saving ? '#93c5fd' : '#1e3a5f', color: '#fff', fontWeight: '600', fontSize: '14px', border: 'none', cursor: saving ? 'not-allowed' : 'pointer' }}
+              style={{
+                padding: '10px 20px', borderRadius: '8px',
+                background: saving ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                color: '#fff', fontWeight: '600', fontSize: '14px',
+                border: 'none', cursor: saving ? 'not-allowed' : 'pointer',
+                boxShadow: saving ? 'none' : '0 4px 12px rgba(59,130,246,0.3)',
+              }}
             >
               {saving ? 'Saving…' : 'Add Client'}
             </button>
@@ -116,40 +145,54 @@ export default function AdminClientsPage() {
       </div>
 
       {successMsg && (
-        <div style={{ background: '#d1fae5', color: '#065f46', padding: '10px 16px', borderRadius: '6px', marginBottom: '16px', fontSize: '14px' }}>
+        <div style={{
+          background: dark.success, color: dark.successText,
+          border: `1px solid ${dark.successBorder}`,
+          padding: '10px 16px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px',
+        }}>
           {successMsg}
         </div>
       )}
 
       {/* Client list */}
-      <h2 style={{ fontSize: '15px', fontWeight: '600', color: '#0f172a', marginBottom: '12px' }}>Clients</h2>
+      <h2 style={{ fontSize: '14px', fontWeight: '600', color: dark.text, marginBottom: '12px' }}>Clients</h2>
       {loading ? (
-        <p style={{ color: '#64748b' }}>Loading…</p>
+        <p style={{ color: dark.textMuted }}>Loading…</p>
       ) : clients.length === 0 ? (
-        <p style={{ color: '#94a3b8' }}>No clients yet. Add one above.</p>
+        <p style={{ color: dark.textDim }}>No clients yet. Add one above.</p>
       ) : (
-        <div style={{ background: '#fff', borderRadius: '10px', border: '1px solid #e2e8f0', overflow: 'hidden' }}>
+        <div style={{ background: dark.surface, borderRadius: '12px', border: `1px solid ${dark.border}`, overflow: 'hidden' }}>
           {clients.map((c, i) => (
             <div key={c.id} style={{
               display: 'flex', justifyContent: 'space-between', alignItems: 'center',
               padding: '16px 20px', flexWrap: 'wrap', gap: '8px',
-              borderTop: i === 0 ? 'none' : '1px solid #f1f5f9',
+              borderTop: i === 0 ? 'none' : `1px solid ${dark.borderLight}`,
             }}>
               <div>
-                <p style={{ fontWeight: '600', color: '#0f172a', margin: '0 0 2px', fontSize: '15px' }}>{c.name}</p>
-                <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>{c.contact_name} · {c.email}{c.phone ? ` · ${c.phone}` : ''}</p>
+                <p style={{ fontWeight: '600', color: dark.text, margin: '0 0 2px', fontSize: '15px' }}>{c.name}</p>
+                <p style={{ color: dark.textMuted, fontSize: '13px', margin: 0 }}>{c.contact_name} · {c.email}{c.phone ? ` · ${c.phone}` : ''}</p>
               </div>
               <div style={{ display: 'flex', gap: '8px' }}>
                 <button
                   onClick={() => handleViewAs(c.id)}
-                  style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #d1d5db', background: '#f8fafc', color: '#374151', fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
+                  style={{
+                    padding: '8px 14px', borderRadius: '7px',
+                    border: `1px solid ${dark.border}`,
+                    background: 'rgba(255,255,255,0.04)',
+                    color: dark.textMuted, fontSize: '13px', cursor: 'pointer', fontWeight: '500',
+                  }}
                 >
                   View as client
                 </button>
                 <button
                   onClick={() => handleInvite(c.id, c.email)}
                   disabled={inviting === c.id}
-                  style={{ padding: '8px 14px', borderRadius: '6px', border: '1px solid #d1d5db', background: '#fff', color: '#374151', fontSize: '13px', cursor: 'pointer', fontWeight: '500' }}
+                  style={{
+                    padding: '8px 14px', borderRadius: '7px',
+                    border: `1px solid ${dark.border}`,
+                    background: 'rgba(59,130,246,0.1)',
+                    color: dark.blue, fontSize: '13px', cursor: 'pointer', fontWeight: '500',
+                  }}
                 >
                   {inviting === c.id ? 'Sending…' : 'Send invite'}
                 </button>

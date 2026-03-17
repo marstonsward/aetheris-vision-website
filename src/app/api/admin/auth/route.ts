@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 const ADMIN_COOKIE = 'av-admin-session'
 
 export async function POST(request: NextRequest) {
-  const { passphrase, next } = await request.json()
+  const { passphrase, next, rememberMe } = await request.json()
 
   if (!passphrase || passphrase !== process.env.ADMIN_PASSPHRASE) {
     return NextResponse.json({ error: 'Incorrect passphrase' }, { status: 401 })
@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     httpOnly: true,
     secure: useSecure,
     sameSite: 'lax',
-    maxAge: 8 * 60 * 60, // 8 hours
+    maxAge: rememberMe ? 30 * 24 * 60 * 60 : 8 * 60 * 60,
     path: '/',
   })
 

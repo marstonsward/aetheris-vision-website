@@ -9,6 +9,17 @@ const NAV = [
   { href: '/admin/expenses', label: 'Expenses' },
 ]
 
+const dark = {
+  bg: '#070f1e',
+  surface: '#0d1b2e',
+  border: 'rgba(255,255,255,0.08)',
+  text: '#f1f5f9',
+  textMuted: 'rgba(255,255,255,0.5)',
+  textDim: 'rgba(255,255,255,0.25)',
+  blue: '#3b82f6',
+  activeNav: 'rgba(59,130,246,0.15)',
+}
+
 async function handleLogout() {
   await fetch('/api/admin/auth', { method: 'DELETE' })
   window.location.href = '/admin/login'
@@ -19,19 +30,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const isLoginPage = pathname === '/admin/login'
 
   if (isLoginPage) {
-    return (
-      <div style={{ colorScheme: 'light', backgroundColor: '#f9fafb', color: '#111827', minHeight: '100vh' }}>
-        {children}
-      </div>
-    )
+    return <>{children}</>
   }
 
   return (
-    <div style={{ colorScheme: 'light', backgroundColor: '#f9fafb', color: '#111827', minHeight: '100vh' }}>
+    <div style={{ colorScheme: 'dark', backgroundColor: dark.bg, color: dark.text, minHeight: '100vh', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
       <header style={{
-        background: '#fff', borderBottom: '1px solid #e5e7eb',
+        background: dark.surface,
+        borderBottom: `1px solid ${dark.border}`,
         padding: '0 24px', position: 'sticky', top: 0, zIndex: 50,
-        boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+        boxShadow: '0 1px 12px rgba(0,0,0,0.3)',
       }}>
         <div style={{
           maxWidth: '960px', margin: '0 auto',
@@ -41,13 +49,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div style={{ display: 'flex', alignItems: 'center', gap: '28px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '8px' }}>
               <div style={{
-                width: '28px', height: '28px', borderRadius: '6px',
-                background: '#1e3a5f',
+                width: '28px', height: '28px', borderRadius: '7px',
+                background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
+                boxShadow: '0 2px 8px rgba(59,130,246,0.3)',
               }}>
                 <span style={{ color: '#fff', fontSize: '11px', fontWeight: '800' }}>AV</span>
               </div>
-              <span style={{ fontWeight: '700', fontSize: '14px', color: '#0f172a' }}>Admin</span>
+              <span style={{ fontWeight: '700', fontSize: '14px', color: dark.text }}>Admin</span>
             </div>
             <nav style={{ display: 'flex', gap: '4px' }}>
               {NAV.map(n => {
@@ -56,8 +65,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   <Link key={n.href} href={n.href} style={{
                     padding: '6px 12px', borderRadius: '6px', fontSize: '14px',
                     fontWeight: active ? '600' : '500',
-                    color: active ? '#1e3a5f' : '#6b7280',
-                    background: active ? '#eff6ff' : 'transparent',
+                    color: active ? dark.blue : dark.textMuted,
+                    background: active ? dark.activeNav : 'transparent',
                     textDecoration: 'none', transition: 'all 0.15s',
                   }}>
                     {n.label}
@@ -70,9 +79,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             onClick={handleLogout}
             style={{
               padding: '7px 14px', borderRadius: '7px',
-              border: '1px solid #e5e7eb', background: '#fff',
-              color: '#6b7280', fontSize: '13px', fontWeight: '500',
+              border: `1px solid ${dark.border}`,
+              background: 'rgba(255,255,255,0.04)',
+              color: dark.textMuted, fontSize: '13px', fontWeight: '500',
               cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px',
+              transition: 'all 0.15s',
             }}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none">

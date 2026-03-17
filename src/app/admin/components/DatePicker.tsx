@@ -36,7 +36,13 @@ export default function DatePicker({ value, onChange, required }: Props) {
       required={required}
       readOnly
       placeholder="Select date"
-      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-900 bg-white cursor-pointer"
+      style={{
+        width: '100%', border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '6px', padding: '7px 10px',
+        fontSize: '13px', color: '#f1f5f9',
+        background: 'rgba(255,255,255,0.04)', cursor: 'pointer',
+        outline: 'none', boxSizing: 'border-box',
+      }}
     />
   )
 }
