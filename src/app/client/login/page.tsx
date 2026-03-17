@@ -240,8 +240,8 @@ export default function ClientLoginPage() {
 
           <p style={{ textAlign: 'center', color: dark.textDim, fontSize: '12px', marginTop: '20px' }}>
             Need help?{' '}
-            <a href="mailto:marston@aetherisvision.com" style={{ color: dark.blue, textDecoration: 'none', fontWeight: '500' }}>
-              marston@aetherisvision.com
+            <a href="mailto:contact@aetherisvision.com" style={{ color: dark.blue, textDecoration: 'none', fontWeight: '500' }}>
+              contact@aetherisvision.com
             </a>
           </p>
         </div>
