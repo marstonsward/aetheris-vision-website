@@ -2,8 +2,8 @@
 
 ## Aetheris Vision — Complete System Architecture & Business Platform
 
-**Version**: 2.0
-**Date**: March 8, 2026
+**Version**: 2.1
+**Date**: March 16, 2026
 **Author**: Aetheris Vision Engineering
 **Reading Level**: 8th Grade with Technical Details
 
@@ -125,7 +125,7 @@ The Aetheris Vision platform operates as a **professional services sales and del
 └─────────────────────────────────────────────┘
 ```
 
-### What We Have Today
+### What We Have Today (as of v2.1)
 
 **Why this matters:** Before adding new features, you need to understand what's already built. You wouldn't add a second story to a building without knowing what the first floor looks like.
 
@@ -138,18 +138,24 @@ The Aetheris Vision platform operates as a **professional services sales and del
 | Booking | ✅ | Cal.com embedded scheduling |
 | SEO | ✅ | JSON-LD, OG images, dynamic sitemap, robots.txt |
 | Security | ✅ | CSP nonces, HSTS, rate limiting, input validation, Basic auth |
+| Database | ✅ | Neon Postgres — clients, projects, expenses, verification_tokens, documents |
+| Authentication | ✅ | Custom magic-link auth (JWT, NextAuth session), admin passphrase + cookie |
+| Client Portal | ✅ | Dark-themed dashboard with project timeline, document viewer, sign-doc link |
+| Admin Panel | ✅ | Clients, Projects, Documents, Expenses — all dark-themed, auth-gated |
+| Document Portal | ✅ | Markdown documents stored in Postgres, rendered per-client in the portal |
+| Expense Tracker | ✅ | Full CRUD, category summaries, Excel export (SheetJS) |
 | Testing | ✅ | 82 tests (unit, integration, regression, BDD) |
 | CI/CD | ✅ | GitHub Actions → Vercel auto-deploy |
 | Analytics | ✅ | Vercel Analytics |
 
-### What We Don't Have (Yet)
+### What We Don't Have (Yet — Future Roadmap)
 
 **Why you'd want these:** Right now, the website is a "brochure" — it shows information but doesn't let users log in, pay for things, or see personalized content. The features below would turn it from a brochure into a full **platform** (like a mini Shopify or client dashboard).
 
 | Capability | Needed For |
 |---|---|
-| Database | Storing user data, orders, subscriptions |
-| Authentication | User login, client portals |
+| Payments | Stripe integration for deposits and invoices |
+| Client messaging | In-portal messaging thread per project |
 | Payments | Stripe checkout, recurring billing |
 | Email system | Transactional emails (receipts, notifications) |
 | CRM | Lead tracking, client management |
@@ -311,7 +317,9 @@ tests/
 
 ---
 
-## 4. Adding a Client Portal
+## 4. Client Portal & Admin System
+
+> **Status: LIVE as of March 2026.** This section describes the implemented system. The recommendations below (Clerk, NextAuth) were superseded by the custom magic-link implementation described in Section 8.
 
 ### What is a portal?
 
@@ -541,11 +549,13 @@ export async function POST(req: NextRequest) {
 
 ---
 
-## 6. Adding a Database
+## 6. Database
+
+> **Status: LIVE as of March 2026.** We use **Neon Postgres** (not Supabase). The `@neondatabase/serverless` driver is used directly via a tagged-template `sql` helper in `src/lib/db.ts`. See Section 7 for the schema.
 
 ### What is a database?
 
-A database is where your website stores information permanently. Right now, our website has NO database — all content is written directly in the code files. Blog posts are in `src/lib/posts.ts`. Contact form submissions go to Formspree's servers.
+A database is where your website stores information permanently. — all content is written directly in the code files. Blog posts are in `src/lib/posts.ts`. Contact form submissions go to Formspree's servers.
 
 **Why would you need one?** Think of a database like a filing cabinet that your website can read from and write to automatically. Without it, you can't:
 - Remember that a user created an account
@@ -1039,6 +1049,178 @@ Here's the exact sequence you'd follow:
 | **Turbopack** | Next.js's fast development bundler. When you run `npm run dev`, Turbopack makes code changes appear in your browser almost instantly. |
 | **TypeScript** | A stricter version of JavaScript that catches errors while you code, before users ever see them. Like spell-check for programmers. |
 | **Webhook** | A message that one server sends to another when something happens. Stripe sends a webhook to your server when someone pays. |
+
+| **Magic Link** | A one-time login URL emailed to a user. Clicking it proves they own the email address — no password required. Expires in 24 hours. |
+| **JWT** | JSON Web Token — a signed, tamper-proof blob of data stored in a cookie that proves a user is logged in. |
+| **Docuseal** | A document e-signature platform. We use it to send SOWs for client countersignature. |
+| **SheetJS (xlsx)** | A JavaScript library that generates Excel (.xlsx) files in the browser, without any server involvement. |
+
+---
+
+## 13. Implemented Platform — Architecture Reference (v2.1)
+
+> This section describes the **live, deployed** system as of March 16, 2026. All features below are in production on Vercel.
+
+### 13.1 Database Schema (Neon Postgres)
+
+```sql
+-- Clients: one row per client company
+clients (
+  id            SERIAL PRIMARY KEY,
+  name          TEXT,           -- business name
+  contact_name  TEXT,
+  email         TEXT UNIQUE,
+  phone         TEXT,
+  created_at    TIMESTAMPTZ DEFAULT NOW()
+)
+
+-- Projects: linked to a client, drives the dashboard timeline
+projects (
+  id                      SERIAL PRIMARY KEY,
+  client_id               INTEGER REFERENCES clients(id),
+  name                    TEXT,
+  status                  TEXT,   -- 'active' | 'signed' | 'pending' | 'closed'
+  start_date              TIMESTAMPTZ,
+  signed_at               TIMESTAMPTZ,
+  docuseal_submission_id  TEXT,
+  current_phase           TEXT,   -- 'kickoff' | 'design' | 'development' | 'review' | 'launched'
+  phase_kickoff_date      TIMESTAMPTZ,
+  phase_design_date       TIMESTAMPTZ,
+  phase_development_date  TIMESTAMPTZ,
+  phase_review_date       TIMESTAMPTZ,
+  phase_launched_date     TIMESTAMPTZ,
+  created_at              TIMESTAMPTZ DEFAULT NOW()
+)
+
+-- Verification tokens: magic-link auth tokens, auto-deleted on use or expiry
+verification_tokens (
+  identifier  TEXT,           -- the client's email
+  token       TEXT,
+  expires     TIMESTAMPTZ,
+  PRIMARY KEY (identifier, token)
+)
+
+-- Documents: markdown content delivered to clients via portal
+documents (
+  id          SERIAL PRIMARY KEY,
+  client_id   INTEGER REFERENCES clients(id) ON DELETE CASCADE,
+  title       TEXT NOT NULL,
+  content     TEXT NOT NULL DEFAULT '',
+  created_at  TIMESTAMPTZ DEFAULT NOW(),
+  updated_at  TIMESTAMPTZ DEFAULT NOW()
+)
+
+-- Expenses: internal business expense tracking
+expenses (
+  id          SERIAL PRIMARY KEY,
+  date        DATE,
+  vendor      TEXT,
+  description TEXT,
+  category    TEXT,
+  amount      NUMERIC(10,2),
+  tax_year    INTEGER,
+  receipt_url TEXT,
+  created_at  TIMESTAMPTZ DEFAULT NOW()
+)
+```
+
+### 13.2 Authentication System
+
+**Client auth (magic link):**
+1. Client submits email at `/client/login`
+2. `POST /api/auth/send-magic` generates a 32-byte hex token, stores it in `verification_tokens`, and emails a link via Resend to `/client/confirm?token=&email=`
+3. Client clicks the link, sees a confirmation page (scanner-safe — no auto-redirect), clicks "Access my portal"
+4. Form `POST`s to `/api/auth/magic`, which validates the token, deletes it, then calls NextAuth's `encode()` to mint a JWT session cookie
+5. Client is redirected to `/client/dashboard`
+
+**Token encoding:** `encode()` from `next-auth/jwt` with no `salt` parameter — matches NextAuth's internal decode which uses `salt=""`. Secret: `NEXTAUTH_SECRET` env var.
+
+**Admin auth (passphrase):**
+- `POST /api/admin/auth` validates `ADMIN_PASSPHRASE` env var, sets `av-admin-session=authenticated` cookie
+- Cookie maxAge: 8 hours (default) or 30 days ("Remember me" checkbox)
+- `src/proxy.ts` middleware guards all `/admin/*` routes except `/admin/login`
+
+**Admin impersonation:**
+- `POST /api/admin/clients/impersonate` mints a 1-hour JWT session as any client
+- Opens `/client/dashboard` in a new tab — useful for testing client views
+
+### 13.3 Client Portal
+
+**Route:** `/client/dashboard` (auth-gated via NextAuth session)
+
+**Features:**
+- Project cards with status badge (`active / signed / pending / closed`)
+- Project timeline: 5-phase vertical stepper (Kickoff → Design → Development → Review → Launched) with progress bar
+- "Sign document →" button when a Docuseal submission ID is linked and status ≠ signed
+- Documents section: lists all documents for that client; click to expand inline markdown viewer
+- Logout button
+
+**Markdown rendering:** `react-markdown` + `remark-gfm` (tables, task lists, code blocks, blockquotes). Styled for dark theme via `.doc-viewer` CSS classes in `globals.css`.
+
+### 13.4 Admin Panel
+
+**Route prefix:** `/admin/*` — all routes auth-gated by `av-admin-session` cookie
+
+| Route | Purpose |
+|---|---|
+| `/admin/clients` | Add clients, send magic-link invites, impersonate (view-as-client) |
+| `/admin/projects` | Set current phase and milestone dates per project |
+| `/admin/documents` | Create/edit/delete markdown documents per client; edit+preview tabs |
+| `/admin/expenses` | Full expense CRUD, category summary, Excel export |
+
+**Design:** Dark theme matching client portal (`#070f1e` bg, `#0d1b2e` surface, `#3b82f6` accent).
+
+### 13.5 Document Portal
+
+Documents are stored as `TEXT` (markdown) in the `documents` table. No file storage service required.
+
+**Admin workflow:** Go to `/admin/documents` → New → select client → write or paste markdown → Save. Edit and Preview tabs available before saving.
+
+**Client view:** Documents appear as a list below the project timeline. Clicking a document expands it inline with full GFM rendering. The × closes it.
+
+**Why this over Google Drive?** Drive requires sharing permissions per file, has no dark theme, and opens in a new tab. The portal viewer is in-context, branded, and access-controlled by client session automatically.
+
+### 13.6 Expense Tracker
+
+**Route:** `/admin/expenses`
+
+- Add expenses via form (date, vendor, description, category, amount, receipt URL)
+- Inline row editing: click Edit on any row to edit all fields in place
+- Delete per row
+- Category summary cards + grand total
+- **Excel export:** SheetJS generates `AV-Expenses-{year}.xlsx` client-side with two sheets: line items and summary
+- Year selector (current year and 2 prior years)
+
+### 13.7 Email Infrastructure
+
+All transactional email sent via **Resend** (`RESEND_API_KEY` env var):
+
+| From address | Purpose |
+|---|---|
+| `noreply@aetherisvision.com` | Magic link login emails to clients |
+| `system@aetherisvision.com` | Intake form notifications (internal) |
+| `projects@aetherisvision.com` | Intake confirmation to submitting contact |
+
+### 13.8 Docuseal Integration
+
+`src/lib/docuseal.ts` — three functions:
+
+- `sendForSigning()` — POSTs a base64 PDF to Docuseal, creates a submission with Client (Signer) + Aetheris Vision (Countersigner) roles. Countersigner email: `marston@aetherisvision.com`.
+- `getSubmission()` — fetches submission status (called from webhook handler)
+- `downloadSignedPdf()` — downloads completed PDF as a Buffer
+
+Env var: `DOCUSEAL_API_KEY`
+
+### 13.9 Environment Variables (Production)
+
+| Variable | Purpose |
+|---|---|
+| `NEXTAUTH_SECRET` | Signs JWT session tokens |
+| `NEXTAUTH_URL` | Base URL (`https://aetherisvision.com`) |
+| `ADMIN_PASSPHRASE` | Admin login passphrase |
+| `DATABASE_URL` | Neon Postgres connection string |
+| `RESEND_API_KEY` | Transactional email |
+| `DOCUSEAL_API_KEY` | Document e-signature |
 
 ---
 

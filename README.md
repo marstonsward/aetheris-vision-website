@@ -74,48 +74,78 @@ Think of the project like a filing cabinet. Each drawer (folder) has a specific 
 
 ```
 src/
-  app/                    # 📄 PAGES — Each folder here becomes a page on the website
-    layout.tsx            #   The "wrapper" around every page (fonts, metadata, navbar)
-    page.tsx              #   The home page (what you see at aetherisvision.com/)
-    error.tsx             #   What shows when something goes wrong (a friendly error message)
-    not-found.tsx         #   What shows when someone types a bad URL (custom 404 page)
-    loading.tsx           #   A spinner that shows while a page is loading
-    sitemap.ts            #   Tells Google about all our pages so they appear in search
-    robots.ts             #   Tells search engine crawlers which pages to index
-    opengraph-image.tsx   #   Generates the preview image when you share a link on social media
-    about/                #   The About page
-    blog/                 #   Blog index + individual blog post pages
-    book/                 #   Cal.com booking page (schedule a consultation)
-    capabilities/         #   Government contracting capabilities (NAICS codes, past performance)
-    contact/              #   Contact form page
-    portfolio/            #   Portfolio page + 4 live demo websites
-    privacy/              #   Privacy policy page
-    api/contact/          #   Server-side code that processes contact form submissions
+  app/                         # 📄 PAGES — Each folder here becomes a page on the website
+    layout.tsx                 #   The "wrapper" around every page (fonts, metadata, navbar)
+    page.tsx                   #   The home page (what you see at aetherisvision.com/)
+    error.tsx                  #   What shows when something goes wrong
+    not-found.tsx              #   Custom 404 page
+    sitemap.ts                 #   Tells Google about all our pages
+    robots.ts                  #   Tells search engine crawlers which pages to index
+    about/                     #   The About page
+    blog/                      #   Blog index + individual post pages
+    book/                      #   Cal.com booking page
+    capabilities/              #   Government contracting capabilities
+    contact/                   #   Contact form page
+    portfolio/                 #   Portfolio page + demo websites
+    privacy/                   #   Privacy policy
 
-  components/             # 🧩 REUSABLE PARTS — Build once, use on many pages
-    Navbar.tsx            #   The navigation bar at the top of every page
-    Footer.tsx            #   The footer at the bottom of every page
-    ContactForm.tsx       #   The contact form (name, email, message fields)
-    CalBooking.tsx        #   Embedded Cal.com scheduling widget
-    FadeIn.tsx            #   Wraps any element to make it fade in smoothly
-    BackToTop.tsx         #   The little arrow button that scrolls back to the top
-    ArticleRenderer.tsx   #   Turns blog post data into formatted HTML
-    BlogClientPage.tsx    #   The blog listing page (client-side for filtering)
-    BlogComments.tsx      #   Comment section under blog posts (powered by Giscus)
-    BlogSubscribeCard.tsx #   "Subscribe to our blog" card
-    CtaButton.tsx         #   A reusable "Call to Action" button
+    admin/                     # 🔐 ADMIN PANEL — passphrase-gated, dark-themed
+      layout.tsx               #   Sticky nav (Clients / Projects / Documents / Expenses) + logout
+      login/page.tsx           #   Admin login (passphrase + "Remember me" checkbox)
+      clients/page.tsx         #   Add clients, send invites, impersonate
+      projects/page.tsx        #   Set project phase + milestone dates
+      documents/page.tsx       #   Create/edit/delete markdown docs per client
+      expenses/page.tsx        #   Expense CRUD, category summary, Excel export
+      components/DatePicker.tsx#   Flatpickr date picker (dark-themed)
 
-  lib/                    # 📚 SHARED DATA & UTILITIES — Things multiple files need
-    constants.ts          #   Company name, email, URLs — the single source of truth
-    jsonld.ts             #   Structured data that helps Google understand our site
-    portfolio-data.ts     #   All the portfolio page data (pricing tiers, features, FAQs)
-    posts.ts              #   Blog post content and helper functions
+    client/                    # 🧑 CLIENT PORTAL — magic-link auth, dark-themed
+      login/page.tsx           #   Email → magic link request form
+      confirm/page.tsx         #   Token confirmation (scanner-safe POST form)
+      dashboard/page.tsx       #   Project timeline + document viewer
 
-tests/                    # ✅ AUTOMATED TESTS — Our robot quality-checkers
-  unit/                   #   Tests individual functions: "Does this return the right value?"
-  integration/            #   Tests features end-to-end: "Does the contact API actually work?"
-  regression/             #   Guards against accidents: "Is the data still correct?"
-  features/               #   BDD tests in plain English: "Given X, When Y, Then Z"
+    api/
+      auth/
+        send-magic/route.ts    #   POST: generates token, sends login email
+        magic/route.ts         #   POST: validates token, mints JWT session cookie
+      admin/
+        auth/route.ts          #   POST: validates passphrase, sets session cookie | DELETE: logout
+        clients/route.ts       #   GET/POST clients
+        clients/invite/        #   POST: send magic link to a client
+        clients/impersonate/   #   POST: mint 1-hr session as a client (admin view-as)
+        documents/route.ts     #   GET all docs / POST create
+        documents/[id]/route.ts#   GET / PATCH / DELETE a document
+        projects/route.ts      #   GET all projects / PATCH update phase+dates
+      client/
+        projects/route.ts      #   GET projects for authenticated client
+        documents/route.ts     #   GET document list for authenticated client
+        documents/[id]/route.ts#   GET single document (auth-gated to owner)
+      expenses/route.ts        #   GET/POST expenses
+      expenses/[id]/route.ts   #   PATCH/DELETE a single expense
+      intake/route.ts          #   POST: project intake form → Resend email
+
+  components/                  # 🧩 REUSABLE PARTS
+    Navbar.tsx
+    Footer.tsx
+    ContactForm.tsx
+    CalBooking.tsx
+    FadeIn.tsx / BackToTop.tsx / CtaButton.tsx
+    ArticleRenderer.tsx / BlogClientPage.tsx / BlogComments.tsx / BlogSubscribeCard.tsx
+
+  lib/                         # 📚 SHARED UTILITIES
+    constants.ts               #   Company name, email, URLs — single source of truth
+    db.ts                      #   Neon Postgres client (sql tagged-template helper)
+    auth-adapter.ts            #   Custom NextAuth adapter backed by clients table
+    send-magic-link.ts         #   Shared helper: generate token + send login email
+    docuseal.ts                #   Docuseal API: sendForSigning, getSubmission, downloadSignedPdf
+    jsonld.ts / portfolio-data.ts / posts.ts
+
+  proxy.ts                     # 🛡 MIDDLEWARE — admin auth guard + security headers
+
+tests/                         # ✅ AUTOMATED TESTS
+  unit/                        #   Individual functions
+  integration/                 #   Feature end-to-end
+  regression/                  #   Guards against regressions
+  features/                    #   BDD plain-English scenarios
 ```
 
 ---
