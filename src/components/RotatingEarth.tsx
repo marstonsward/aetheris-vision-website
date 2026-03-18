@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Stars } from "@react-three/drei";
-import { TextureLoader } from "three";
+import { SRGBColorSpace, TextureLoader } from "three";
 import type { Mesh, Texture } from "three";
 
 function EarthMesh({ animate }: { animate: boolean }) {
@@ -14,7 +14,7 @@ function EarthMesh({ animate }: { animate: boolean }) {
     const loader = new TextureLoader();
     loader.load(
       "/earth-day.jpg",
-      (tex) => setTexture(tex),
+      (tex) => { tex.colorSpace = SRGBColorSpace; setTexture(tex); },
       undefined,
       () => { /* texture missing — globe renders as solid blue fallback */ }
     );
