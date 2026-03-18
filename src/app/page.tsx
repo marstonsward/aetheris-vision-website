@@ -9,9 +9,9 @@ export const revalidate = 3600; // refresh NASA EPIC image every hour
 
 async function getEpicImage(): Promise<{ url: string; date: string } | null> {
   try {
-    const key = process.env.NASA_API_KEY ?? "DEMO_KEY";
+    // Use the direct EPIC server — no API key needed, no gateway in the way
     const res = await fetch(
-      `https://api.nasa.gov/EPIC/api/natural/images?api_key=${key}`,
+      "https://epic.gsfc.nasa.gov/api/natural/images",
       { next: { revalidate: 3600 } }
     );
     if (!res.ok) {
