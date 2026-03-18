@@ -12,12 +12,12 @@ export const revalidate = 3600;
 // GOES-16 East and GOES-18 West: static NOAA CDN URLs, update every 10 min
 const STATIC_SOURCES: SatelliteSource[] = [
   {
-    url: "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg",
+    url: "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/678x678.jpg",
     label: "GOES-16 East",
     region: "Americas · Atlantic",
   },
   {
-    url: "https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/1808x1808.jpg",
+    url: "https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/678x678.jpg",
     label: "GOES-18 West",
     region: "Americas · Pacific",
   },
@@ -46,11 +46,21 @@ async function getEpicSource(): Promise<SatelliteSource | null> {
 
 async function getHimawariSource(): Promise<SatelliteSource | null> {
   try {
-    const url = "https://www.data.jma.go.jp/mscweb/data/himawari/img/fd_/fd__truecolor_jp_.jpg";
-    const res = await fetch(url, { method: "HEAD", next: { revalidate: 3600 } });
-    if (!res.ok) return null;
+    // RAMMB/CIRA (Colorado State) serves Himawari-9 full-disk GeoColor imagery
+    const timesRes = await fetch(
+      "https://rammb-slider.cira.colostate.edu/data/json/himawari/full_disk/geocolor/latest_times.json",
+      { next: { revalidate: 600 } }
+    );
+    if (!timesRes.ok) return null;
+    const times = await timesRes.json();
+    const latest: string = times.timestamps_int?.[0];
+    if (!latest) return null;
+    // Timestamp is 14-digit: YYYYMMDDHHmmss → YYYY/MM/DD
+    const y = latest.slice(0, 4), m = latest.slice(4, 6), d = latest.slice(6, 8);
+    const url = `https://rammb-slider.cira.colostate.edu/data/imagery/${y}/${m}/${d}/himawari___full_disk/geocolor/${latest}_GOES16_FD_GeoColor_1200x1200.jpg`;
     return { url, label: "Himawari-9", region: "Asia · Pacific" };
-  } catch {
+  } catch (err) {
+    console.error("[Himawari] failed:", err);
     return null;
   }
 }
