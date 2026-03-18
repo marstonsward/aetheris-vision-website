@@ -4,7 +4,29 @@ import { SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
-import HeroGlobe from "@/components/HeroGlobe";
+
+export const revalidate = 3600; // refresh NASA EPIC image every hour
+
+async function getEpicImage(): Promise<{ url: string; date: string } | null> {
+  try {
+    const key = process.env.NASA_API_KEY ?? "DEMO_KEY";
+    const res = await fetch(
+      `https://api.nasa.gov/EPIC/api/natural/images?api_key=${key}`,
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) return null;
+    const latest = data[data.length - 1];
+    const [year, month, day] = latest.date.split(" ")[0].split("-");
+    return {
+      url: `https://epic.gsfc.nasa.gov/archive/natural/${year}/${month}/${day}/jpg/${latest.image}.jpg`,
+      date: latest.date,
+    };
+  } catch {
+    return null;
+  }
+}
 
 export const metadata = {
   title: `${SITE.name} | ${SITE.tagline}`,
@@ -12,7 +34,8 @@ export const metadata = {
     "Advanced AI/ML weather prediction, operational meteorology, and specialized technical consulting for state and federal defense missions via VOSB and 8(a) pathways.",
 };
 
-export default function Home() {
+export default async function Home() {
+  const epicImage = await getEpicImage();
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <Navbar />
@@ -20,20 +43,57 @@ export default function Home() {
       {/* Hero Section */}
       <main id="main" className="flex-1">
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
-          {/* Background Image & Gradient Overlay */}
-          <div className="absolute inset-0 -z-20">
-            <Image 
-              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2500" 
-              alt="Earth Horizon from Space" 
+          {/* Video background — drop /earth-rotation.mp4 into public/ to activate */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+            className="absolute inset-0 -z-20 h-full w-full object-cover opacity-30"
+          >
+            <source src="/earth-rotation.mp4" type="video/mp4" />
+          </video>
+
+          {/* Fallback static image (shows when video file is absent or unsupported) */}
+          <div className="absolute inset-0 -z-[21]">
+            <Image
+              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2500"
+              alt=""
+              aria-hidden="true"
               fill
               className="object-cover opacity-50 contrast-125"
               priority
               sizes="100vw"
             />
           </div>
+
           <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c0f]/40 via-[#0d0c0f]/90 to-[#0d0c0f] -z-10" />
 
-          <HeroGlobe />
+          {/* Live NASA EPIC satellite image */}
+          {epicImage && (
+            <div className="pointer-events-none absolute inset-y-0 right-8 z-0 hidden w-[48vw] max-w-[640px] items-center justify-center md:flex">
+              <div className="relative h-[420px] w-[420px] lg:h-[500px] lg:w-[500px]">
+                <div className="relative h-full w-full overflow-hidden rounded-full shadow-2xl shadow-blue-950/60 ring-1 ring-white/10">
+                  <Image
+                    src={epicImage.url}
+                    alt="Live Earth satellite imagery from NASA EPIC"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 420px, 500px"
+                    priority
+                  />
+                </div>
+                <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[11px] uppercase tracking-wider text-gray-400 backdrop-blur-sm">
+                  Live · NASA EPIC ·{" "}
+                  {new Date(epicImage.date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
           
           <div className="mx-auto max-w-5xl px-6 relative z-10">
             <FadeIn delay={0.1}>
