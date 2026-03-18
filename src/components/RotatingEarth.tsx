@@ -164,25 +164,23 @@ function EarthModel({ animate, mode }: { animate: boolean; mode: WeatherModeConf
 
   return (
     <group rotation={[0.15, -0.55, 0]}>
+      {/* Earth surface — low emissive so directional light creates a real terminator */}
       <group ref={earthRef}>
-        <mesh castShadow receiveShadow>
-          <sphereGeometry args={[1.3, 64, 64]} />
-          <meshStandardMaterial color="#1d4ed8" metalness={0.08} roughness={0.8} emissive="#1e40af" emissiveIntensity={0.22} />
-        </mesh>
-
         <mesh>
-          <sphereGeometry args={[1.302, 64, 64]} />
-          <meshStandardMaterial color="#0f172a" transparent opacity={0.3} metalness={0} roughness={1} />
+          <sphereGeometry args={[1.3, 64, 64]} />
+          <meshStandardMaterial color="#1a56c4" metalness={0.05} roughness={0.85} emissive="#0f2a6e" emissiveIntensity={0.04} />
         </mesh>
       </group>
 
+      {/* Cloud shell */}
       <group ref={cloudsRef}>
         <mesh>
           <sphereGeometry args={[1.335, 48, 48]} />
-          <meshStandardMaterial color="#e5e7eb" transparent opacity={0.16} depthWrite={false} roughness={1} />
+          <meshStandardMaterial color="#e5e7eb" transparent opacity={0.22} depthWrite={false} roughness={1} />
         </mesh>
       </group>
 
+      {/* Weather overlay */}
       <mesh>
         <sphereGeometry args={[1.345, 64, 64]} />
         <meshStandardMaterial
@@ -198,6 +196,12 @@ function EarthModel({ animate, mode }: { animate: boolean; mode: WeatherModeConf
           blending={AdditiveBlending}
         />
       </mesh>
+
+      {/* Atmosphere rim glow */}
+      <mesh>
+        <sphereGeometry args={[1.42, 48, 48]} />
+        <meshStandardMaterial color="#3b82f6" transparent opacity={0.07} depthWrite={false} side={2} blending={AdditiveBlending} />
+      </mesh>
     </group>
   );
 }
@@ -206,9 +210,9 @@ function Scene({ animate, mode }: { animate: boolean; mode: WeatherModeConfig })
 
   return (
     <>
-      <ambientLight intensity={0.45} />
-      <directionalLight position={[4, 2, 4]} intensity={2.1} />
-      <directionalLight position={[-3, -1, -3]} intensity={0.35} />
+      <ambientLight intensity={0.12} />
+      <directionalLight position={[5, 3, 4]} intensity={3.5} />
+      <directionalLight position={[-4, -1, -3]} intensity={0.15} />
       <EarthModel animate={animate} mode={mode} />
       <Stars radius={60} depth={30} count={2500} factor={2.6} saturation={0} fade speed={0.2} />
     </>
