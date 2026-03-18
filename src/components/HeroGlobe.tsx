@@ -28,7 +28,7 @@ export default function HeroGlobe() {
   if (!show) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-y-0 right-0 z-0 flex w-[48vw] max-w-[680px] items-center justify-center">
+    <div className="pointer-events-none absolute inset-y-0 right-8 z-0 flex w-[48vw] max-w-[640px] items-center justify-center">
       <div className="relative h-[420px] w-[420px] lg:h-[520px] lg:w-[520px]">
         <Suspense fallback={null}>
           <RotatingEarth />
