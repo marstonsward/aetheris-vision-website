@@ -4,6 +4,7 @@ import { SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+import HeroGlobe from "@/components/HeroGlobe";
 
 export const metadata = {
   title: `${SITE.name} | ${SITE.tagline}`,
@@ -31,6 +32,8 @@ export default function Home() {
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c0f]/40 via-[#0d0c0f]/90 to-[#0d0c0f] -z-10" />
+
+          <HeroGlobe />
           
           <div className="mx-auto max-w-5xl px-6 relative z-10">
             <FadeIn delay={0.1}>
