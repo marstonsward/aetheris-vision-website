@@ -4,6 +4,7 @@ import { SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+import HeroVideo from "@/components/HeroVideo";
 
 export const revalidate = 3600; // refresh NASA EPIC image every hour
 
@@ -49,17 +50,7 @@ export default async function Home() {
       {/* Hero Section */}
       <main id="main" className="flex-1">
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-40 overflow-hidden">
-          {/* Video background — drop /earth-rotation.mp4 into public/ to activate */}
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            aria-hidden="true"
-            className="absolute inset-0 -z-20 h-full w-full object-cover opacity-30"
-          >
-            <source src="/earth-rotation.mp4" type="video/mp4" />
-          </video>
+          <HeroVideo />
 
           {/* Fallback static image (shows when video file is absent or unsupported) */}
           <div className="absolute inset-0 -z-[21]">
