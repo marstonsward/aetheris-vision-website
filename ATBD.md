@@ -90,6 +90,66 @@ The Aetheris Vision platform operates as a **professional services sales and del
 - **Why this choice:** Better delivery than regular contact forms, professional formatting
 - **Analogy:** Like having a professional mail service instead of regular postal mail
 
+### Website Stack Components (with Acronyms Expanded)
+
+This is the practical checklist of what a modern website stack contains, written in plain English.
+
+1. **Client Layer (Browser + Network)**
+  - Web browser (Chrome, Safari, Edge) and mobile browser
+  - Transport over **HTTP** (**Hypertext Transfer Protocol**) and **HTTPS** (**Hypertext Transfer Protocol Secure**)
+
+2. **Frontend Layer (User Interface)**
+  - Visual pages and interactions built with HTML, CSS, and JavaScript
+  - React components rendered through Next.js
+
+3. **Backend Layer (Server/API)**
+  - Server-side business logic, validation, authentication, and routing
+  - **API** means **Application Programming Interface** (the structured way systems talk to each other)
+
+4. **Data Layer (Persistence)**
+  - Database storage (PostgreSQL) for clients, projects, expenses, and documents
+  - Optional object/file storage for media and uploads
+
+5. **Caching & Performance Layer**
+  - **CDN** means **Content Delivery Network** (global edge locations that serve content fast)
+  - Browser cache, server cache, and session cache reduce repeated work
+
+6. **Infrastructure Layer (Hosting + Delivery)**
+  - Vercel hosting runtime, deployment pipeline, and DNS routing
+  - **DNS** means **Domain Name System** (maps domain names to server addresses)
+
+7. **Security Layer**
+  - **TLS** means **Transport Layer Security** (encryption in transit)
+  - **WAF** means **Web Application Firewall** (filters malicious traffic)
+  - **CSP** means **Content Security Policy** (controls what scripts/resources can run)
+  - **HSTS** means **HTTP Strict Transport Security** (forces HTTPS-only connections)
+
+8. **Observability & Operations Layer**
+  - Logging, monitoring, error tracking, and analytics
+  - **CI/CD** means **Continuous Integration / Continuous Delivery** (automated test and deployment pipeline)
+  - **SEO** means **Search Engine Optimization** (improves discoverability in search engines)
+
+### Mapping to the Aetheris Vision Business Website
+
+This is how each stack component maps to the live business site in this repository.
+
+| Stack Layer | Aetheris Vision Implementation |
+|---|---|
+| Client Layer | Customer browsers access `aetherisvision.com` over HTTPS |
+| Frontend Layer | Next.js 16 + React 19 + Tailwind CSS 4 pages and components |
+| Backend/API Layer | Next.js App Router API routes in `src/app/api/*` (contact, intake, auth, admin, webhooks) |
+| Data Layer | Neon PostgreSQL (clients, projects, expenses, verification tokens, documents) |
+| Caching & Performance Layer | Vercel edge delivery + browser caching + optimized static assets |
+| Infrastructure Layer | Vercel hosting, automatic deployments, DNS domain routing |
+| Security Layer | Middleware-based CSP nonce generation, HSTS/security headers, rate limiting, auth guards |
+| Observability & Operations | Vercel Analytics, automated tests (unit/integration/regression/BDD), CI pipeline |
+
+**Business Interpretation:**
+- The **marketing website** (public pages) attracts and educates leads.
+- The **intake + API system** captures qualified project requirements.
+- The **admin/client systems** support delivery operations after lead conversion.
+- The **security + observability layers** protect trust and support enterprise/federal readiness.
+
 ### Data Flow Architecture
 
 ```
