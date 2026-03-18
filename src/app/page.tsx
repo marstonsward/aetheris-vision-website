@@ -5,32 +5,77 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import HeroVideo from "@/components/HeroVideo";
+import SatelliteDisplay, { type SatelliteSource } from "@/components/SatelliteDisplay";
 
-export const revalidate = 3600; // refresh NASA EPIC image every hour
+export const revalidate = 3600;
 
-async function getEpicImage(): Promise<{ url: string; date: string } | null> {
+// GOES-16 East and GOES-18 West: static NOAA CDN URLs, update every 10 min
+const STATIC_SOURCES: SatelliteSource[] = [
+  {
+    url: "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/FD/GEOCOLOR/1808x1808.jpg",
+    label: "GOES-16 East",
+    region: "Americas · Atlantic",
+  },
+  {
+    url: "https://cdn.star.nesdis.noaa.gov/GOES18/ABI/FD/GEOCOLOR/1808x1808.jpg",
+    label: "GOES-18 West",
+    region: "Americas · Pacific",
+  },
+];
+
+async function getEpicSource(): Promise<SatelliteSource | null> {
   try {
-    // Use the direct EPIC server — no API key needed, no gateway in the way
-    const res = await fetch(
-      "https://epic.gsfc.nasa.gov/api/natural/images",
-      { next: { revalidate: 3600 } }
-    );
-    if (!res.ok) {
-      console.error("[EPIC] API responded", res.status, await res.text());
-      return null;
-    }
+    const res = await fetch("https://epic.gsfc.nasa.gov/api/natural/images", {
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) { console.error("[EPIC]", res.status); return null; }
     const data = await res.json();
-    if (!Array.isArray(data) || data.length === 0) {
-      console.error("[EPIC] Unexpected payload:", JSON.stringify(data).slice(0, 200));
-      return null;
-    }
+    if (!Array.isArray(data) || !data.length) return null;
     const latest = data[data.length - 1];
     const [year, month, day] = latest.date.split(" ")[0].split("-");
-    const url = `https://epic.gsfc.nasa.gov/archive/natural/${year}/${month}/${day}/jpg/${latest.image}.jpg`;
-    console.log("[EPIC] Loaded:", url);
-    return { url, date: latest.date };
+    return {
+      url: `https://epic.gsfc.nasa.gov/archive/natural/${year}/${month}/${day}/jpg/${latest.image}.jpg`,
+      label: "NASA EPIC",
+      region: "Full Earth Disk",
+    };
   } catch (err) {
-    console.error("[EPIC] Fetch failed:", err);
+    console.error("[EPIC] failed:", err);
+    return null;
+  }
+}
+
+async function getHimawariSource(): Promise<SatelliteSource | null> {
+  try {
+    const url = "https://www.data.jma.go.jp/mscweb/data/himawari/img/fd_/fd__truecolor_jp_.jpg";
+    const res = await fetch(url, { method: "HEAD", next: { revalidate: 3600 } });
+    if (!res.ok) return null;
+    return { url, label: "Himawari-9", region: "Asia · Pacific" };
+  } catch {
+    return null;
+  }
+}
+
+async function getSpaceSource(): Promise<SatelliteSource | null> {
+  try {
+    const res = await fetch(
+      "https://images-api.nasa.gov/search?q=james+webb+nebula&media_type=image&year_start=2023&page_size=20",
+      { next: { revalidate: 3600 } }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    const items: { data: { title: string }[]; links: { href: string }[] }[] =
+      data.collection?.items ?? [];
+    if (!items.length) return null;
+    const pick = items[Math.floor(Math.random() * items.length)];
+    const thumb = pick.links?.[0]?.href;
+    if (!thumb) return null;
+    return {
+      url: thumb.replace("~thumb.jpg", "~orig.jpg"),
+      label: pick.data?.[0]?.title?.slice(0, 40) ?? "JWST Deep Space",
+      region: "Deep Space",
+    };
+  } catch (err) {
+    console.error("[Space] failed:", err);
     return null;
   }
 }
@@ -42,7 +87,18 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const epicImage = await getEpicImage();
+  const [epicSource, himawariSource, spaceSource] = await Promise.all([
+    getEpicSource(),
+    getHimawariSource(),
+    getSpaceSource(),
+  ]);
+
+  const sources: SatelliteSource[] = [
+    ...STATIC_SOURCES,
+    ...(epicSource ? [epicSource] : []),
+    ...(himawariSource ? [himawariSource] : []),
+    ...(spaceSource ? [spaceSource] : []),
+  ];
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <Navbar />
@@ -67,36 +123,7 @@ export default async function Home() {
 
           <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c0f]/40 via-[#0d0c0f]/90 to-[#0d0c0f] -z-10" />
 
-          {/* Live NASA EPIC satellite image */}
-          {epicImage && (
-            <div className="pointer-events-none absolute inset-y-0 right-8 z-0 hidden w-[48vw] max-w-[640px] items-center justify-center md:flex">
-              <div className="relative h-[420px] w-[420px] lg:h-[500px] lg:w-[500px]">
-                <div
-                  className="relative h-full w-full"
-                  style={{
-                    maskImage: "radial-gradient(circle at center, black 52%, transparent 72%)",
-                    WebkitMaskImage: "radial-gradient(circle at center, black 52%, transparent 72%)",
-                  }}
-                >
-                  <Image
-                    src={epicImage.url}
-                    alt="Live Earth satellite imagery from NASA EPIC"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 1024px) 420px, 500px"
-                    priority
-                  />
-                </div>
-                <div className="absolute -bottom-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-black/60 px-3 py-1 text-[11px] uppercase tracking-wider text-gray-400 backdrop-blur-sm">
-                  Live · NASA EPIC ·{" "}
-                  {new Date(epicImage.date).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </div>
-              </div>
-            </div>
-          )}
+          <SatelliteDisplay sources={sources} />
           
           <div className="mx-auto max-w-5xl px-6 relative z-10">
             <FadeIn delay={0.1}>
