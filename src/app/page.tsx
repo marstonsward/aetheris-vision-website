@@ -71,12 +71,18 @@ export default async function Home() {
           {epicImage && (
             <div className="pointer-events-none absolute inset-y-0 right-8 z-0 hidden w-[48vw] max-w-[640px] items-center justify-center md:flex">
               <div className="relative h-[420px] w-[420px] lg:h-[500px] lg:w-[500px]">
-                <div className="relative h-full w-full">
+                <div
+                  className="relative h-full w-full"
+                  style={{
+                    maskImage: "radial-gradient(circle at center, black 52%, transparent 72%)",
+                    WebkitMaskImage: "radial-gradient(circle at center, black 52%, transparent 72%)",
+                  }}
+                >
                   <Image
                     src={epicImage.url}
                     alt="Live Earth satellite imagery from NASA EPIC"
                     fill
-                    className="object-contain mix-blend-screen"
+                    className="object-contain"
                     sizes="(max-width: 1024px) 420px, 500px"
                     priority
                   />
