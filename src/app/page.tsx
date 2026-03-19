@@ -57,25 +57,20 @@ async function getEpicSource(): Promise<SatelliteSource | null> {
   }
 }
 
-async function getHimawariSource(): Promise<SatelliteSource | null> {
-  try {
-    // NICT Japan — latest.json gives the most recent capture timestamp
-    const latestRes = await fetch(
-      "https://himawari8.nict.go.jp/img/D531106/latest/550/latest.json",
-      { next: { revalidate: 600 }, signal: AbortSignal.timeout(8_000) }
-    );
-    if (!latestRes.ok) return null;
-    const { date } = await latestRes.json(); // "2024-03-18 16:30:00"
-    const [datePart, timePart] = (date as string).split(" ");
-    const [y, m, d] = datePart.split("-");
-    const time = timePart.replace(/:/g, ""); // "163000"
-    // 1d = full disk in a single 550×550 tile
-    const url = sat(`https://himawari8.nict.go.jp/img/D531106/1d/550/${y}/${m}/${d}/${time}_0_0.png`);
-    return { url, label: "Himawari-9", region: "Asia · Pacific" };
-  } catch (err) {
-    console.error("[Himawari] failed:", err);
-    return null;
-  }
+function getHimawariSource(): SatelliteSource {
+  // Himawari-9 captures every 10 min; images available ~20 min after capture.
+  // Compute the most likely latest tile without calling the API, so this
+  // works even when Vercel can't reach himawari8.nict.go.jp.
+  const t = new Date(Date.now() - 20 * 60 * 1000); // 20-min lag
+  const y = t.getUTCFullYear();
+  const mo = String(t.getUTCMonth() + 1).padStart(2, "0");
+  const d = String(t.getUTCDate()).padStart(2, "0");
+  const h = String(t.getUTCHours()).padStart(2, "0");
+  const min = String(Math.floor(t.getUTCMinutes() / 10) * 10).padStart(2, "0");
+  const url = sat(
+    `https://himawari8.nict.go.jp/img/D531106/1d/550/${y}/${mo}/${d}/${h}${min}00_0_0.png`
+  );
+  return { url, label: "Himawari-9", region: "Asia · Pacific" };
 }
 
 async function getSpaceSource(): Promise<SatelliteSource | null> {
@@ -110,16 +105,15 @@ export const metadata = {
 };
 
 export default async function Home() {
-  const [epicSource, himawariSource, spaceSource] = await Promise.all([
+  const [epicSource, spaceSource] = await Promise.all([
     getEpicSource(),
-    getHimawariSource(),
     getSpaceSource(),
   ]);
 
   const sources: SatelliteSource[] = [
     ...STATIC_SOURCES,
+    getHimawariSource(),
     ...(epicSource ? [epicSource] : []),
-    ...(himawariSource ? [himawariSource] : []),
     ...(spaceSource ? [spaceSource] : []),
   ];
   return (
@@ -240,16 +234,6 @@ export default async function Home() {
 
         {/* Expertise Grid */}
         <section id="expertise" className="py-24 bg-[#0d0c0f] border-t border-white/5 relative overflow-hidden">
-          <div className="absolute inset-0 -z-20">
-            <Image 
-              src="https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=2500" 
-              alt="Deep Space Weather" 
-              fill
-              className="object-cover opacity-10 mix-blend-screen sepia-[0.2] hue-rotate-180"
-              sizes="100vw"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0c0f] via-[#0d0c0f]/95 to-[#0d0c0f]/80 -z-10" />
 
           <div className="mx-auto max-w-5xl px-6 relative z-10">
             <FadeIn>
