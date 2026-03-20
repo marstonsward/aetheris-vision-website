@@ -52,7 +52,7 @@ The company was founded by a meteorologist with 35 years of field-validated oper
 
 ### Build Packages (flat-rate, no hourly surprises)
 
-**Professional — $2,400**
+**Professional — $2,800**
 - Up to 7 pages with custom design architecture
 - Mobile-first responsive design with accessibility standards
 - Advanced contact forms with validation & CRM integration

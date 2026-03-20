@@ -1,6 +1,6 @@
 # Aetheris Vision — Web Development Pricing Guide
 
-*Last updated: March 19, 2026*
+*Last updated: March 19, 2026 (Professional tier raised)*
 *This document matches the live pricing on aetherisvision.com/portfolio.*
 
 ---
@@ -9,7 +9,7 @@
 
 No hourly billing surprises. Price is locked before work begins.
 
-### Professional — $2,400
+### Professional — $2,800
 *Enterprise-grade foundation for established businesses*
 
 **Deliverables:**
@@ -99,7 +99,7 @@ Cancel anytime. Add to any build package.
 
 | Package | Standard | Rush |
 |---|---|---|
-| Professional | 15 days | 7–8 days — $3,600 |
+| Professional | 15 days | 7–8 days — $4,200 |
 | Business | 21 days | 10–11 days — $7,200 |
 | Enterprise | 4–8 weeks | Negotiated |
 
@@ -118,6 +118,7 @@ Cancel anytime. Add to any build package.
 | HIPAA compliance (medical/healthcare) | +$1,800 |
 | Legal case management integration | +$1,200 |
 | IDX integration (real estate listings) | +$1,440 |
+| AI chat assistant (Claude, streaming, scoped Q&A) | +$800 |
 
 ---
 
@@ -164,6 +165,10 @@ Cancel anytime. Add to any build package.
 - Vercel Pro: ~$20/month
 - At 1–2 projects/month, tooling overhead is 3–9% of revenue — well within margin
 
-**Pricing note:** The Professional tier at $2,400 is competitive but on the low end for
-what's delivered (agencies charge $5–10k for equivalent work). Consider raising to
-$2,800–$3,200 once a portfolio of real client sites is established.
+**Pricing note:** Professional raised to $2,800 (Mar 2026). Agencies charge $5–10k for
+equivalent work — consider further raising to $3,200 once a portfolio of real client
+sites is established.
+
+**AI chat assistant add-on at $800** is benchmarked against the AV site build (~2-3 hrs:
+/api/chat route, ChatWidget component, rate limiter, system prompt). Rate limiting and
+security are always included in the scope — never optional.

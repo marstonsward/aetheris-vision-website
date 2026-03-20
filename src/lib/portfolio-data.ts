@@ -28,7 +28,7 @@ export interface Tier {
 export const tiers: Tier[] = [
   {
     name: "Professional",
-    price: "$2,400",
+    price: "$2,800",
     unit: "flat",
     tagline: "Enterprise-grade foundation",
     description:
