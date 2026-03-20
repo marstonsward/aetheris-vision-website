@@ -182,6 +182,7 @@ src/app/page.tsx        — The home page (aetherisvision.com/)
 
 src/app/about/
   page.tsx              — The /about page. Founder bio + credentials.
+  opengraph-image.tsx   — OG image for /about (Marston Ward + career credentials)
 
 src/app/capabilities/
   page.tsx              — The /capabilities page. NAICS/PSC codes, competencies.
@@ -192,6 +193,7 @@ src/app/capabilities/
                           4. Federal Contracting
                           5. Technical Leadership (IPT direction, emerging tech, workforce development)
                           6. Web & Digital Solutions
+  opengraph-image.tsx   — OG image for /capabilities (Capabilities Statement + NAICS codes)
 
 src/app/contact/
   page.tsx              — The /contact page layout. Uses the ContactForm component.
@@ -274,7 +276,10 @@ src/lib/posts.ts        — THIS IS WHERE ALL BLOG POSTS LIVE. To add a new blog
 src/lib/portfolio-data.ts — All web development pricing data. Edit this file to update
                             tier names, prices, deliverables, maintenance plans, FAQs,
                             and demo site listings. Changes here update /portfolio
-                            automatically.
+                            automatically. Current prices: Professional $2,800 /
+                            Business $4,800 / Enterprise $8,500+.
+
+src/app/portfolio/opengraph-image.tsx — OG image for /portfolio (pricing tiers + tech stack)
 
 src/lib/chat-context.ts — The system prompt for the AI chat assistant. Contains all
                           company information the chatbot is allowed to reference:

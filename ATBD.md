@@ -213,6 +213,7 @@ Visitor types question → /api/chat (POST)
 | Blog | ✅ | Markdown-driven with categories, comments (Giscus), subscriptions |
 | Booking | ✅ | Cal.com embedded scheduling |
 | SEO | ✅ | JSON-LD (Organization, WebSite, LocalBusiness), OG images, dynamic sitemap, robots.txt |
+| Per-page OG images | ✅ | opengraph-image.tsx in /about, /capabilities, /portfolio — page-specific social preview cards |
 | LocalBusiness schema | ✅ | PMB address (210 N Mustang Mall Terrace PMB 29, Mustang OK 73064) for Google Maps/GBP |
 | AI Chat Assistant | ✅ | Claude Haiku via /api/chat — streaming, rate-limited (20 req/IP/15min), scoped to Aetheris Vision content |
 | Web & Digital Solutions | ✅ | Added as 6th core competency on home + capabilities pages |
@@ -366,7 +367,7 @@ Separating data from display means:
 ```typescript
 // src/lib/portfolio-data.ts — DATA lives here
 export const tiers: Tier[] = [
-  { name: "Professional", price: "$2,400", deliverables: [...] },
+  { name: "Professional", price: "$2,800", deliverables: [...] },
   { name: "Business", price: "$4,800", deliverables: [...] },
   { name: "Enterprise", price: "$8,500+", deliverables: [...] },
 ];
@@ -560,7 +561,7 @@ export async function POST(req: NextRequest) {
       price_data: {
         currency: "usd",
         product_data: { name: `${tier} Website Package` },
-        unit_amount: tier === "Professional" ? 240000 : tier === "Business" ? 480000 : 850000, // cents
+        unit_amount: tier === "Professional" ? 280000 : tier === "Business" ? 480000 : 850000, // cents
       },
       quantity: 1,
     }],
@@ -589,7 +590,7 @@ const session = await stripe.checkout.sessions.create({
 
 ### Webhooks — How Stripe Talks Back to You
 
-**What is a webhook?** It's a message that one computer sends to another when something happens. Think of it like a text notification — when a customer pays, Stripe "texts" your server to say "Hey, someone just paid $2,400 for the Professional package."
+**What is a webhook?** It's a message that one computer sends to another when something happens. Think of it like a text notification — when a customer pays, Stripe "texts" your server to say "Hey, someone just paid $2,800 for the Professional package."
 
 **Why do you need this?** Without webhooks, your server would have no idea that a payment happened. With them, your server can automatically:
 
@@ -1026,7 +1027,7 @@ Before you build a feature, you need to know what it costs to run. Some services
 
 | Package      | Your Cost                              | What to Charge              | Your Margin |
 | ------------ | -------------------------------------- | --------------------------- | ----------- |
-| Professional | ~$20/mo hosting | $2,400 one-time      | High margin after labor     |             |
+| Professional | ~$20/mo hosting | $2,800 one-time      | High margin after labor     |             |
 | Business     | ~$45/mo infra | $4,800 + $149/mo care  | Excellent recurring revenue |             |
 | Enterprise   | ~$90/mo infra | $8,500+ + $299/mo care | Premium margin at scale     |             |
 
