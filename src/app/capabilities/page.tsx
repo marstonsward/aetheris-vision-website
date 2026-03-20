@@ -52,11 +52,12 @@ const competencies = [
     ],
   },
   {
-    title: "Federal Contracting",
+    title: "State & Federal Contracting",
     items: [
-      "Active SAM.gov registration",
-      "VOSB certification — Veterans First Contracting Program eligible",
+      "SAM.gov federal registration — CAGE code and UEI pending issuance",
+      "SDVOSB / VOSB — Veterans First Contracting Program eligible",
       "8(a) Business Development Program pathway active",
+      "Oklahoma Supplier Portal — registered bidder and supplier for state solicitations",
       "Prior DoD Secret clearance — reinstatement pathway available for sensitive program support",
     ],
   },
@@ -114,7 +115,7 @@ export default function CapabilitiesPage() {
               {[
                 { label: "Legal Name", value: SITE.legalName },
                 { label: "Business Type", value: "Veteran-Owned Small Business (VOSB)" },
-                { label: "SAM.gov", value: "Active Registration" },
+                { label: "SAM.gov", value: "Registration In Progress" },
                 { label: "8(a) Status", value: "Pathway Active" },
                 { label: "Security Clearance", value: "Prior DoD Secret" },
                 { label: "Primary Contact", value: SITE.email },
