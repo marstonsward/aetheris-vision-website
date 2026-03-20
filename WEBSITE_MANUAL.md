@@ -2,7 +2,7 @@
 
 **Written for:** Anyone who needs to maintain, rebuild, or hand off this website.  
 **Reading level:** No coding experience required. Technical terms are explained the first time they appear.  
-**Last updated:** March 1, 2026
+**Last updated:** March 19, 2026
 
 ---
 
@@ -28,26 +28,38 @@
 
 ## 1. What This Website Is
 
-This is the official website for **Aetheris Vision LLC**, a veteran-owned small business doing government and defense consulting in operational meteorology, AI/ML integration, and federal contracting.
+This is the official website for **Aetheris Vision LLC**, a veteran-owned small business providing operational meteorology, AI/ML integration, web & digital solutions, and state and federal contracting services.
 
 **What the website does:**
-- Describes the company and what it offers
-- Shows credentials (VOSB, clearance, NAICS codes)
+- Describes the company and all services it offers
+- Shows credentials (VOSB, clearance, NAICS codes) for state and federal procurement
+- Markets web development services with pricing, demos, and a project intake form
 - Hosts a blog with technical articles
 - Lets visitors book a 30-minute call
-- Lets visitors send a contact message
-- Shows comments on blog posts (powered by GitHub)
+- Lets visitors send a contact message or submit a project intake form
+- Provides an AI chat assistant (powered by Claude) to answer visitor questions 24/7
+- Admin portal for managing clients, projects, expenses, and documents
+- Client portal for client-facing project updates
 
 **URL:** https://aetherisvision.com
 
-**Pages:**
+**Public Pages:**
 - `/` — Home page
 - `/about` — Founder bio and credentials
 - `/capabilities` — Government-facing capabilities statement with NAICS/PSC codes
+- `/portfolio` — Web development packages, pricing, demos, and intake
+- `/portfolio/[demo]` — Individual demo sites (law-firm, restaurant, trades-contractor, etc.)
 - `/blog` — List of all blog posts
 - `/blog/[post-name]` — Individual blog post
 - `/book` — Cal.com booking calendar
+- `/intake` — Project intake form for web development prospects
 - `/contact` — Contact form
+- `/privacy` — Privacy policy
+- `/security` — Security policy
+
+**Internal Pages (password-protected):**
+- `/admin` — Admin dashboard (clients, projects, expenses, documents)
+- `/client` — Client dashboard
 
 ---
 
@@ -201,6 +213,11 @@ src/app/api/
                           the contact form, this code runs on Vercel's servers and
                           forwards the message to Formspree. Visitors never see this
                           file — it runs invisibly in the background.
+  chat/
+    route.ts            — The server-side AI chat handler. Receives visitor messages,
+                          enforces rate limiting (20 requests per IP per 15 minutes),
+                          and streams responses from the Claude API (Haiku model).
+                          Requires ANTHROPIC_API_KEY environment variable.
 ```
 
 ### `src/components/` folder — Reusable building blocks
@@ -233,6 +250,11 @@ Footer.tsx              — The footer at the bottom of every page. Contains nav
 Navbar.tsx              — The navigation bar at the top of every page. Contains
                           links: Expertise, About, Capabilities, Blog, Contact,
                           and the "Book a Call" button.
+
+ChatWidget.tsx          — The floating AI chat assistant button (bottom-right corner
+                          of every page). Opens a chat panel where visitors can ask
+                          questions about services, pricing, and contracting. Powered
+                          by the Claude API via /api/chat. Requires ANTHROPIC_API_KEY.
 ```
 
 ### `src/lib/` folder — Data and utility functions
@@ -241,6 +263,24 @@ Navbar.tsx              — The navigation bar at the top of every page. Contain
 src/lib/posts.ts        — THIS IS WHERE ALL BLOG POSTS LIVE. To add a new blog post,
                           you add an entry to the `posts` array in this file.
                           See Section 7 for exact instructions.
+
+src/lib/portfolio-data.ts — All web development pricing data. Edit this file to update
+                            tier names, prices, deliverables, maintenance plans, FAQs,
+                            and demo site listings. Changes here update /portfolio
+                            automatically.
+
+src/lib/chat-context.ts — The system prompt for the AI chat assistant. Contains all
+                          company information the chatbot is allowed to reference:
+                          services, pricing, credentials, contact info, and behavioral
+                          rules. Update this file whenever services or prices change.
+
+src/lib/constants.ts    — Core site-wide constants: company name, URL, email, tagline,
+                          and description. Changes here propagate across metadata,
+                          JSON-LD schema, and contact links site-wide.
+
+src/lib/jsonld.ts       — JSON-LD structured data for Google (Organization, WebSite,
+                          LocalBusiness schemas). Address: 210 N Mustang Mall Terrace
+                          PMB 29, Mustang, OK 73064. Update if address changes.
 ```
 
 ---
@@ -447,6 +487,14 @@ They live in two places:
 - **In production:** in Vercel's dashboard under Settings → Environment Variables
 
 ### Complete list
+
+#### ANTHROPIC_API_KEY
+- **What it does:** Authenticates requests to the Claude API that powers the AI chat assistant.
+- **How to get it:** Log into console.anthropic.com → API Keys → Create new key
+- **Format:** Starts with `sk-ant-...`
+- **Where to put it:** Vercel → Settings → Environment Variables → `ANTHROPIC_API_KEY`
+- **Security:** This is a secret key — never put it in code or commit it to GitHub. Server-side only (no `NEXT_PUBLIC_` prefix).
+- **Future:** Move to the Aetheris Vision business Anthropic account when created.
 
 #### PREVIEW_PASSWORD
 - **What it does:** Password-protects the site before it goes public. Anyone trying to visit aetherisvision.com must enter this password.

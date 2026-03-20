@@ -5,7 +5,72 @@ const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 export const runtime = "nodejs";
 
+// ---------------------------------------------------------------------------
+// In-memory rate limiter
+// Limits: 20 requests per IP per 15-minute window
+// ---------------------------------------------------------------------------
+const WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const MAX_REQUESTS = 20;
+
+interface RateLimitEntry {
+  count: number;
+  windowStart: number;
+}
+
+const rateLimitMap = new Map<string, RateLimitEntry>();
+
+// Purge stale entries every 15 minutes to prevent memory growth
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, entry] of rateLimitMap.entries()) {
+    if (now - entry.windowStart > WINDOW_MS) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, WINDOW_MS);
+
+function checkRateLimit(ip: string): { allowed: boolean; retryAfter: number } {
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+
+  if (!entry || now - entry.windowStart > WINDOW_MS) {
+    rateLimitMap.set(ip, { count: 1, windowStart: now });
+    return { allowed: true, retryAfter: 0 };
+  }
+
+  if (entry.count >= MAX_REQUESTS) {
+    const retryAfter = Math.ceil((WINDOW_MS - (now - entry.windowStart)) / 1000);
+    return { allowed: false, retryAfter };
+  }
+
+  entry.count += 1;
+  return { allowed: true, retryAfter: 0 };
+}
+
+function getClientIp(request: Request): string {
+  const forwarded = request.headers.get("x-forwarded-for");
+  if (forwarded) return forwarded.split(",")[0].trim();
+  return "unknown";
+}
+
+// ---------------------------------------------------------------------------
+// Route handler
+// ---------------------------------------------------------------------------
 export async function POST(request: Request) {
+  // Rate limit check
+  const ip = getClientIp(request);
+  const { allowed, retryAfter } = checkRateLimit(ip);
+
+  if (!allowed) {
+    return new Response("Too many requests. Please try again later.", {
+      status: 429,
+      headers: {
+        "Retry-After": String(retryAfter),
+        "Content-Type": "text/plain",
+      },
+    });
+  }
+
   try {
     const { messages } = await request.json();
 
@@ -13,15 +78,16 @@ export async function POST(request: Request) {
       return new Response("Invalid messages", { status: 400 });
     }
 
-    // Sanitize messages to only allow user/assistant roles with string content
+    // Sanitize: only user/assistant roles, string content, cap history at 20 turns
     const sanitized: Anthropic.MessageParam[] = messages
       .filter(
         (m) =>
           (m.role === "user" || m.role === "assistant") &&
           typeof m.content === "string" &&
-          m.content.trim().length > 0
+          m.content.trim().length > 0 &&
+          m.content.length <= 2000 // cap individual message length
       )
-      .slice(-20) // cap history at 20 turns
+      .slice(-20)
       .map((m) => ({ role: m.role, content: m.content.trim() }));
 
     if (sanitized.length === 0 || sanitized[0].role !== "user") {

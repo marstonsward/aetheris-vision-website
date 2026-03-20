@@ -1,153 +1,169 @@
-# Professional Web Development Pricing
+# Aetheris Vision — Web Development Pricing Guide
 
-## 🌟 **Core Website Packages**
-
-### **Essential** — $2,400
-*Perfect for small businesses establishing their online presence*
-
-**What's Included:**
-- ✅ **5 Pages**: Home, About, Services, Contact + 1 Custom
-- ✅ **Professional Design**: Custom layout, brand colors, typography
-- ✅ **Mobile Responsive**: Perfect on all devices
-- ✅ **Contact Integration**: Form processing, Google Maps
-- ✅ **Performance Optimized**: Lighthouse 95+ score
-- ✅ **SEO Foundation**: Meta tags, sitemap, structured data
-- ✅ **SSL Certificate**: Secure HTTPS connection
-- ✅ **Domain Setup**: Connect your domain (.com included if needed)
-
-**Timeline:** 7-10 business days  
-**Best For:** Consultants, small services, local businesses
+*Last updated: March 19, 2026*
+*This document matches the live pricing on aetherisvision.com/portfolio.*
 
 ---
 
-### **Growth** — $4,800
-*For businesses ready to compete professionally online*
+## Core Website Packages (Flat-Rate)
 
-**Everything in Essential, plus:**
-- ✅ **10 Pages**: Additional service pages, portfolio, testimonials
-- ✅ **Premium Design**: Advanced animations, interactive elements
-- ✅ **Content Management**: Easy text/image updates via admin panel
-- ✅ **Analytics Dashboard**: Traffic insights and goal tracking
-- ✅ **Lead Generation**: Advanced forms, newsletter signup
-- ✅ **Social Integration**: Instagram feed, social sharing
-- ✅ **Professional Photography**: 5 custom stock photos
-- ✅ **Speed Optimization**: Advanced caching, image optimization
+No hourly billing surprises. Price is locked before work begins.
 
-**Timeline:** 14-18 business days  
-**Best For:** Growing businesses, professional services, retail
+### Professional — $2,400
+*Enterprise-grade foundation for established businesses*
 
----
+**Deliverables:**
+- Up to 7 pages with custom design architecture
+- Mobile-first responsive design with accessibility standards
+- Advanced contact forms with validation & CRM integration
+- SEO optimization + structured data for rich results
+- Lighthouse 95+ performance guarantee
+- SSL A+ with security headers & CSP implementation
+- Privacy Policy + Terms of Service (legally compliant)
+- Vercel Pro deployment with custom domain
+- 2 rounds of professional revisions
+- 15-day delivery with comprehensive testing
+- 30-day warranty period
 
-### **Enterprise** — $8,400
-*For businesses requiring sophisticated functionality*
-
-**Everything in Growth, plus:**
-- ✅ **Unlimited Pages**: Full website architecture
-- ✅ **Custom Features**: Client portals, booking systems, calculators
-- ✅ **E-commerce Ready**: Payment processing, inventory management
-- ✅ **Advanced SEO**: Keyword optimization, local search setup
-- ✅ **Multi-language**: Spanish or other language versions
-- ✅ **Database Integration**: Customer management, automated workflows
-- ✅ **Premium Hosting**: High-performance servers, 99.9% uptime
-- ✅ **Professional Photos**: 15 custom stock photos + brand imagery
-
-**Timeline:** 21-28 business days  
-**Best For:** Established businesses, franchises, e-commerce
+**Best for:** Consultants, small professional services, local businesses
 
 ---
 
-## 📱 **Add-On Services**
+### Business — $4,800 *(Most Popular)*
+*Advanced business platform for growing companies*
 
-### **Visual Enhancement**
-- **Premium Photography Package**: 25 industry-specific stock photos — **$480**
-- **Custom Logo Design**: Professional brand identity — **$720**
-- **Video Integration**: Background videos, testimonials — **$360**
-- **Interactive Elements**: Calculators, forms, animations — **$600**
+**Everything in Professional, plus:**
+- Up to 15 pages with custom brand implementation
+- Advanced booking/scheduling system integration
+- Blog/CMS with editorial workflow
+- Analytics dashboard + monthly performance reports
+- Payment processing integration (Stripe/PayPal)
+- Email marketing automation setup
+- Advanced SEO with schema markup & local optimization
+- **Google Business Profile setup included**
+- Social media integration & Open Graph optimization
+- Professional email setup + domain configuration
+- 3 rounds of revisions with stakeholder reviews
+- 21-day delivery with user acceptance testing
+- 60-day warranty + performance monitoring
 
-### **Functionality Upgrades**
-- **E-commerce Store**: Product catalog, payments, inventory — **$1,800**
-- **Client Portal**: Login area, document sharing — **$1,200**
-- **Booking System**: Appointment scheduling, calendar sync — **$960**
-- **Multi-language**: Full site translation — **$840**
-
-### **Marketing & Analytics**
-- **Advanced SEO**: Keyword research, optimization — **$600**
-- **Google Ads Setup**: Campaign creation, tracking — **$480**
-- **Email Marketing**: Newsletter system, automation — **$360**
-- **Social Media Integration**: Advanced feeds, posting — **$240**
-
----
-
-## 🔄 **Ongoing Services** *(Optional)*
-
-### **Maintenance Plans**
-| Plan | Monthly | Features |
-|------|---------|----------|
-| **Basic** | $120 | Updates, backups, security monitoring |
-| **Plus** | $240 | Above + content updates, performance optimization |
-| **Premium** | $480 | Above + SEO monitoring, analytics reports, priority support |
-
-### **Content Services**
-- **Blog Management**: 4 posts/month, SEO optimized — **$480/month**
-- **Social Media**: Content creation, posting schedule — **$360/month**
-- **Photography**: Monthly stock photo updates — **$120/month**
+**Best for:** Growing businesses, professional services, retail
 
 ---
 
-## ⚡ **Express Services** *(Rush Delivery)*
+### Enterprise — Starting at $8,500
+*Full-scale business applications and custom platforms*
 
-**50% surcharge for expedited delivery:**
-- Essential: 3-5 days → **$3,600**
-- Growth: 7-10 days → **$7,200**
-- Enterprise: 14-18 days → **$12,600**
+**Everything in Business, plus:**
+- Custom business application development
+- User authentication & role-based access control
+- Database design & API architecture
+- Third-party integrations (CRM, ERP, payment systems)
+- Advanced security: 2FA, audit logging, compliance
+- Custom admin dashboards & reporting
+- Mobile API + progressive web app capabilities
+- Scalable cloud infrastructure on Vercel Pro
+- Comprehensive testing suite + documentation
+- White-glove onboarding & training
+- 90-day warranty + ongoing support options
+- Custom timeline (4–8 weeks)
 
----
-
-## 🎯 **Industry Specializations**
-
-### **Premium Packages by Sector**
-*(Includes industry-specific features and imagery)*
-
-- **Legal Firms**: Case management integration, legal forms — **+$1,200**
-- **Medical Practices**: HIPAA compliance, patient portals — **+$1,800**
-- **Restaurants**: Menu management, online ordering — **+$960**
-- **Real Estate**: Property listings, IDX integration — **+$1,440**
-- **E-commerce**: Advanced product management, analytics — **+$2,400**
-
----
-
-## 💼 **What Makes This Premium Quality**
-
-### **Technical Excellence**
-- **Lighthouse 95+ Scores**: Performance, accessibility, SEO, best practices
-- **Modern Framework**: Next.js, TypeScript, Tailwind CSS
-- **Security**: SSL, CSP headers, vulnerability monitoring
-- **Performance**: CDN, image optimization, caching strategies
-
-### **Professional Standards**
-- **Custom Design**: No templates, built from scratch
-- **Brand Integration**: Consistent visual identity
-- **Professional Photography**: Industry-specific stock imagery
-- **Quality Assurance**: Multi-device testing, accessibility compliance
-
-### **Business Impact**
-- **Lead Generation**: Optimized for conversions
-- **SEO Foundation**: Built for search visibility
-- **Professional Credibility**: Design that builds trust
-- **Scalable Architecture**: Grows with your business
+**Best for:** Established businesses, SaaS platforms, enterprise portals
 
 ---
 
-## 📞 **Getting Started**
+## Monthly Maintenance Plans *(Optional)*
 
-**Free Consultation**: 30-minute strategy session to determine the best package for your needs.
+Cancel anytime. Add to any build package.
 
-**Payment Terms**: 50% deposit, 50% on completion  
-**Guarantee**: 100% satisfaction or full refund  
-**Support**: 30 days of free adjustments after launch
+### Professional Care — $149/month
+- Monthly security & dependency updates
+- 24/7 uptime monitoring with instant alerts
+- Up to 3 content updates per month
+- Performance optimization & bug fixes
+- Priority email support (4-hour response)
+- Monthly Lighthouse performance audit
 
-**Ready to elevate your online presence?** Let's build something extraordinary together.
+### Business Care — $299/month
+- Everything in Professional Care
+- SEO monitoring & optimization recommendations
+- Analytics review with quarterly business insights
+- Up to 8 content updates per month
+- Minor feature additions & enhancements
+- Phone support during business hours
+- Emergency response (2-hour SLA)
 
 ---
 
-*All packages include one year of hosting, domain management, and basic support. Additional hosting charges apply after year one ($240/year for Essential/Growth, $480/year for Enterprise).*
+## Rush Delivery (50% surcharge)
+
+| Package | Standard | Rush |
+|---|---|---|
+| Professional | 15 days | 7–8 days — $3,600 |
+| Business | 21 days | 10–11 days — $7,200 |
+| Enterprise | 4–8 weeks | Negotiated |
+
+---
+
+## Industry Add-Ons
+
+| Add-On | Price |
+|---|---|
+| E-commerce store (Stripe, inventory) | +$1,800 |
+| Client portal (login, document sharing) | +$1,200 |
+| Booking system (calendar sync) | +$960 |
+| Multi-language (full site translation) | +$840 |
+| Advanced SEO (keyword research + optimization) | +$600 |
+| Interactive elements (calculators, animations) | +$600 |
+| HIPAA compliance (medical/healthcare) | +$1,800 |
+| Legal case management integration | +$1,200 |
+| IDX integration (real estate listings) | +$1,440 |
+
+---
+
+## What's Included With Every Build
+
+- Lighthouse 90+ score (Performance, Accessibility, Best Practices, SEO)
+- Privacy Policy page
+- SEO metadata, canonical URLs, XML sitemap
+- Open Graph + Twitter Card tags (social sharing previews)
+- SSL certificate (A+ rating, Qualys SSL Labs verified)
+- Automated Git backups (GitHub + GitLab)
+- 99.9% uptime on Vercel edge network
+- Same-day recovery SLA
+
+---
+
+## Service Level Agreements
+
+| Milestone | Commitment |
+|---|---|
+| Discovery & strategy call | Within 24 hours of inquiry |
+| Technical requirements & architecture | 48–72 hours after discovery |
+| Interactive prototype delivery | 5–7 business days |
+| Staging environment access | 10–14 business days |
+| Production deployment | 15–21 business days |
+| Quality assurance period | 30 days comprehensive warranty |
+| Priority support response | 4 hours business days / 8 hours weekends |
+| Performance guarantee | Lighthouse 90+ or full refund |
+
+---
+
+## Payment Terms
+
+- **Deposit:** 50% due at project kickoff
+- **Balance:** 50% due at launch
+- **Refund policy:** 100% satisfaction guarantee or full refund within warranty period
+
+---
+
+## Cost Considerations (Internal Reference)
+
+**Tooling costs per project (approximate):**
+- Claude Code Max subscription: ~$200/month (prorated per project)
+- Vercel Pro: ~$20/month
+- At 1–2 projects/month, tooling overhead is 3–9% of revenue — well within margin
+
+**Pricing note:** The Professional tier at $2,400 is competitive but on the low end for
+what's delivered (agencies charge $5–10k for equivalent work). Consider raising to
+$2,800–$3,200 once a portfolio of real client sites is established.
