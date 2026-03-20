@@ -18,7 +18,7 @@ const credentials = [
   },
   {
     icon: ShieldCheckIcon,
-    label: "Secret Clearance Eligible",
+    label: "Prior DoD Secret Clearance",
     description: "VOSB certified · SAM.gov registered · 8(a) pathway active",
   },
   {
@@ -85,7 +85,7 @@ export default function AboutPage() {
                   <div className="flex items-start gap-3">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                     <div>
-                      <p className="text-sm text-white font-medium">Secret Clearance Eligible</p>
+                      <p className="text-sm text-white font-medium">Prior DoD Secret Clearance</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">

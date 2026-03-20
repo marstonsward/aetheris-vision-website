@@ -57,7 +57,7 @@ const competencies = [
       "Active SAM.gov registration",
       "VOSB certification — Veterans First Contracting Program eligible",
       "8(a) Business Development Program pathway active",
-      "Secret clearance eligible — prior investigation history supports accelerated sponsorship",
+      "Prior DoD Secret clearance — reinstatement pathway available for sensitive program support",
     ],
   },
   {
@@ -116,7 +116,7 @@ export default function CapabilitiesPage() {
                 { label: "Business Type", value: "Veteran-Owned Small Business (VOSB)" },
                 { label: "SAM.gov", value: "Active Registration" },
                 { label: "8(a) Status", value: "Pathway Active" },
-                { label: "Security Clearance", value: "Secret-Eligible" },
+                { label: "Security Clearance", value: "Prior DoD Secret" },
                 { label: "Primary Contact", value: SITE.email },
               ].map((item) => (
                 <div key={item.label} className="rounded-lg border border-white/5 bg-white/[0.02] p-4">
@@ -204,7 +204,7 @@ export default function CapabilitiesPage() {
                     },
                     {
                       title: "Streamlined Acquisition",
-                      body: "VOSB set-aside and 8(a) sole-source pathways reduce acquisition complexity. Secret-clearance eligibility with prior investigation history supports accelerated onboarding for sensitive programs.",
+                      body: "VOSB set-aside and 8(a) sole-source pathways reduce acquisition complexity. Prior DoD Secret clearance supports accelerated onboarding for sensitive programs.",
                     },
                   ].map((d) => (
                     <div key={d.title}>

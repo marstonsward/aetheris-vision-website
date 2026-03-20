@@ -88,7 +88,7 @@ The federal procurement landscape is vast, and for agencies seeking specialized 
 
 ## Where Technical Consulting Fits
 
-Many program offices default to large integrators for technical consulting because they're already on existing contract vehicles. This often results in overpaying for generalist support when what the mission requires is deep domain expertise. A small business with a narrow, credentialed specialization — 35 years of operational meteorology, Secret clearance eligibility, demonstrated AI/ML capability — can deliver superior outcomes at a fraction of the cost through the right contracting mechanism.
+Many program offices default to large integrators for technical consulting because they're already on existing contract vehicles. This often results in overpaying for generalist support when what the mission requires is deep domain expertise. A small business with a narrow, credentialed specialization — 35 years of operational meteorology, prior DoD Secret clearance, demonstrated AI/ML capability — can deliver superior outcomes at a fraction of the cost through the right contracting mechanism.
 
 ## Practical Pathways for Contracting Officers
 

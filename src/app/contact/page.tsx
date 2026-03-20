@@ -94,7 +94,7 @@ export default function ContactPage() {
                     <p>VOSB Certified</p>
                     <p>8(a) Pathway Active</p>
                     <p>SAM.gov Registered</p>
-                    <p>Secret Clearance Eligible</p>
+                    <p>Prior DoD Secret Clearance</p>
                   </div>
                   <a
                     href="/capabilities"
