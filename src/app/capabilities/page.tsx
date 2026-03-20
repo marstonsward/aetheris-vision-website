@@ -60,6 +60,15 @@ const competencies = [
       "Active Secret Clearance — suitable for sensitive program support",
     ],
   },
+  {
+    title: "Web & Digital Solutions",
+    items: [
+      "Custom website design and development (Next.js, React, TypeScript)",
+      "Performance-optimized, mobile-first deployments on Vercel and cloud platforms",
+      "API integration, serverless back-end architecture, and database design",
+      "Ongoing maintenance, analytics, and iterative feature development",
+    ],
+  },
 ];
 
 export default function CapabilitiesPage() {
@@ -150,7 +159,7 @@ export default function CapabilitiesPage() {
             </FadeIn>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {competencies.map((section, i) => (
-                <FadeIn key={section.title} delay={i * 0.05} direction="up">
+                <FadeIn key={section.title} delay={i * 0.05} direction="up" className={i === competencies.length - 1 && competencies.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto md:w-full" : undefined}>
                   <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 h-full">
                     <h3 className="text-white font-medium mb-4">{section.title}</h3>
                     <ul className="space-y-2">
