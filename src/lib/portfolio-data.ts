@@ -313,6 +313,88 @@ export const demos = [
     desc: "Full-stack business portal — user management, role-based dashboards, plugin system, CRM features. Modern Drupal replacement.",
     color: "from-[#6366f1] via-[#8b5cf6] to-[#a855f7]",
   },
+  {
+    slug: "healthcare",
+    title: "Clarity Health Group",
+    industry: "Healthcare",
+    desc: "Multi-specialty medical practice — physician profiles, services grid, insurance lookup, appointment booking. Clean clinical light theme.",
+    color: "from-[#0369a1] via-[#0ea5e9] to-[#e0f2fe]",
+  },
+  {
+    slug: "wp-editorial",
+    title: "The Prairie Standard",
+    industry: "Editorial / Publishing",
+    desc: "Headless WordPress editorial publication — article grid, categories, WPGraphQL integration callout. Georgia serif newspaper aesthetic.",
+    color: "from-[#1c1917] via-[#44403c] to-[#a8a29e]",
+  },
+  {
+    slug: "real-estate",
+    title: "Pinnacle Realty Group",
+    industry: "Real Estate",
+    desc: "Full-service realty site — property listings with search filters, agent profiles, home valuation form. Warm stone & amber palette.",
+    color: "from-[#92400e] via-[#b45309] to-[#fef3c7]",
+  },
+  {
+    slug: "fitness",
+    title: "Iron District Fitness",
+    industry: "Fitness & Gym",
+    desc: "High-energy gym site — class schedule, membership tiers, free trial CTA. All-black with neon green accent. Completely unique visual register.",
+    color: "from-[#052e16] via-[#14532d] to-[#22c55e]",
+  },
+];
+
+/* ── WordPress Services ── */
+
+export interface WpTier {
+  name: string;
+  subtitle: string;
+  price: string;
+  unit: string;
+  tagline: string;
+  features: string[];
+  highlight: boolean;
+  cta: string;
+}
+
+export const wpTiers: WpTier[] = [
+  {
+    name: "Headless WordPress",
+    subtitle: "Option A",
+    price: "$4,800+",
+    unit: "flat",
+    tagline: "Editorial power, modern speed",
+    features: [
+      "WordPress CMS backend (self-hosted or WP.com)",
+      "Custom Next.js frontend — fast, SEO-optimized",
+      "WPGraphQL API integration",
+      "Your editors use the familiar WP dashboard",
+      "Custom post types, taxonomies & ACF fields",
+      "Unlimited pages & articles — no developer needed",
+      "Media library, categories, authors all managed in WP",
+      "Deployed to Vercel with automatic preview builds",
+    ],
+    highlight: true,
+    cta: "Best for content-heavy sites",
+  },
+  {
+    name: "WordPress Managed",
+    subtitle: "Option B",
+    price: "$199",
+    unit: "/mo",
+    tagline: "Hands-off, always up to date",
+    features: [
+      "Fully managed WordPress hosting (WP Engine or Kinsta)",
+      "Custom theme built to your brand",
+      "Plugin selection, install & configuration",
+      "Weekly core, theme & plugin updates",
+      "Daily backups with 30-day retention",
+      "Uptime monitoring + instant alerts",
+      "Security hardening & malware scanning",
+      "Up to 5 content updates per month",
+    ],
+    highlight: false,
+    cta: "Best for existing WP users",
+  },
 ];
 
 /* ── Maintenance Plans ── */

@@ -12,6 +12,7 @@ import {
   faqs,
   demos,
   maintenancePlans,
+  wpTiers,
 } from "@/lib/portfolio-data";
 import { CheckIcon, ClockIcon, ShieldCheckIcon, CpuChipIcon, ArrowRightIcon, BoltIcon, LockClosedIcon, SparklesIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -267,6 +268,52 @@ export default function PortfolioPage() {
                     </div>
                   </div>
                 </Link>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* ── WordPress Services ── */}
+          <FadeIn>
+            <p className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-3">WordPress Services</p>
+            <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4 tracking-tight">We Handle WordPress Clients Too</h2>
+            <p className="text-gray-400 mb-12 max-w-xl">
+              Already on WordPress — or need to be? Two service paths: a fast, modern headless stack or a fully managed hands-off setup.
+            </p>
+          </FadeIn>
+
+          <div className="mb-24 grid gap-6 sm:grid-cols-2 max-w-3xl">
+            {wpTiers.map((tier, i) => (
+              <FadeIn key={tier.name} delay={i * 0.1}>
+                <div className={`relative flex flex-col h-full rounded-xl border p-6 ${tier.highlight ? "border-blue-500/60 bg-blue-950/20" : "border-white/8 bg-white/[0.03]"}`}>
+                  {tier.highlight && (
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue-500 px-4 py-0.5 text-xs font-bold text-white">
+                      RECOMMENDED
+                    </div>
+                  )}
+                  <div className="mb-4">
+                    <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-0.5">{tier.subtitle}</p>
+                    <p className="text-base font-bold text-white mb-1">{tier.name}</p>
+                    <div className="flex items-end gap-1.5 mb-1">
+                      <span className="text-3xl font-bold text-white">{tier.price}</span>
+                      <span className="text-sm text-gray-500 mb-1">{tier.unit === "flat" ? "flat" : tier.unit}</span>
+                    </div>
+                    <p className="text-sm font-medium text-blue-400">{tier.tagline}</p>
+                  </div>
+                  <ul className="flex-1 space-y-2.5 mb-8">
+                    {tier.features.map((f) => (
+                      <li key={f} className="flex items-start gap-2 text-sm text-gray-300">
+                        <CheckIcon className="h-4 w-4 text-blue-400 mt-0.5 shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="/book"
+                    className={`block rounded-md py-2.5 text-center text-sm font-semibold transition-colors ${tier.highlight ? "bg-blue-500 text-white hover:bg-blue-400" : "border border-white/10 text-white hover:bg-white/5"}`}
+                  >
+                    {tier.cta}
+                  </a>
+                </div>
               </FadeIn>
             ))}
           </div>
