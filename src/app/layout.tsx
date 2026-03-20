@@ -7,6 +7,7 @@ import { SITE } from "@/lib/constants";
 import { organizationJsonLd, websiteJsonLd, localBusinessJsonLd } from "@/lib/jsonld";
 import "./globals.css";
 import BackToTop from "@/components/BackToTop";
+import ChatWidget from "@/components/ChatWidget";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -70,6 +71,7 @@ export default async function RootLayout({
         </a>
         {children}
         <BackToTop />
+        <ChatWidget />
         <Analytics />
 
         {/* Google Analytics */}
