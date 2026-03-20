@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { XMarkIcon, ChatBubbleLeftRightIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon, ChatBubbleOvalLeftEllipsisIcon, PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
 interface Message {
   role: "user" | "assistant";
@@ -115,7 +115,7 @@ export default function ChatWidget() {
         {open ? (
           <XMarkIcon className="h-6 w-6" />
         ) : (
-          <ChatBubbleLeftRightIcon className="h-6 w-6" />
+          <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
         )}
       </button>
 
@@ -127,7 +127,7 @@ export default function ChatWidget() {
           {/* Header */}
           <div className="flex items-center gap-3 border-b border-white/8 bg-black/40 px-4 py-3 shrink-0">
             <div className="h-8 w-8 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center">
-              <ChatBubbleLeftRightIcon className="h-4 w-4 text-blue-400" />
+              <ChatBubbleOvalLeftEllipsisIcon className="h-4 w-4 text-blue-400" />
             </div>
             <div>
               <p className="text-sm font-medium text-white">Aetheris Vision</p>
