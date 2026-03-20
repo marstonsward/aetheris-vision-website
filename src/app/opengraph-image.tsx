@@ -14,7 +14,7 @@ const badgeStyle = {
   padding: "6px 16px",
 } as const;
 
-const badges = ["VOSB Certified", "Active Secret Clearance", "8(a) Pathway Active"];
+const badges = ["VOSB Certified", "Secret Clearance Eligible", "8(a) Pathway Active"];
 
 export default function OGImage() {
   return new ImageResponse(

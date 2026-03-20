@@ -38,7 +38,7 @@ The company was founded by a meteorologist with 35 years of field-validated oper
 - Active SAM.gov registration
 - VOSB certification — Veterans First Contracting Program eligible
 - 8(a) Business Development Program pathway active
-- Active Secret Clearance — suitable for sensitive program support
+- Secret clearance eligible — prior investigation history supports accelerated sponsorship
 
 ### 5. Web & Digital Solutions
 - Custom website design and development (Next.js, React, TypeScript)
@@ -129,7 +129,7 @@ The company was founded by a meteorologist with 35 years of field-validated oper
 - VOSB — Veterans First Contracting Program eligible
 - 8(a) Business Development Program pathway active
 - Active SAM.gov registration
-- Active Secret Clearance
+- Secret clearance eligible
 
 ---
 

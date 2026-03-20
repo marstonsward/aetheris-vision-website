@@ -89,7 +89,7 @@ export default async function Home() {
             <FadeIn delay={0.1}>
               <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300 mb-8 backdrop-blur-sm">
                 <span className="flex h-2 w-2 rounded-full bg-blue-500 mr-2 animate-pulse"></span>
-                VOSB, 8(a) Ready & Active Secret Clearance
+                VOSB, 8(a) Ready & Secret Clearance Eligible
               </div>
             </FadeIn>
             
@@ -253,7 +253,7 @@ export default async function Home() {
                   </div>
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">State & Federal Contracting</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                    Registered in SAM.gov with Active Secret Clearance, VOSB certification, and active 8(a) pathway pursuit. Purpose-built to work directly with state and federal agencies on specialized weather, AI, and defense system requirements.
+                    Registered in SAM.gov with Secret clearance eligibility, VOSB certification, and active 8(a) pathway pursuit. Purpose-built to work directly with state and federal agencies on specialized weather, AI, and defense system requirements.
                   </p>
                 </div>
               </div>
