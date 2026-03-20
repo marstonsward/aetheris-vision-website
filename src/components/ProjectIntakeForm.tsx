@@ -51,6 +51,9 @@ interface FormData {
   backupNeeds: string;
   supportRequirements: string;
   
+  // Platform
+  platformPreference: string;
+
   // Timeline & Budget
   timeline: string;
   targetDate: string;
@@ -63,14 +66,18 @@ interface FormData {
 }
 
 const portfolioOptions = [
-  { id: "analytics-dashboard", label: "Analytics Dashboard - Enterprise SaaS platform with real-time metrics" },
-  { id: "international-market", label: "International Market - E-commerce with cultural sections and product management" },
-  { id: "portal-pro", label: "Portal Pro - Comprehensive business platform with role-based authentication" },
-  { id: "law-firm", label: "Law Firm - Professional services with case studies and client testimonials" },
-  { id: "restaurant", label: "Restaurant - Local business with menu, reservations, and online ordering" },
-  { id: "trades-contractor", label: "Trades Contractor - Service business with project galleries and quote requests" },
-  { id: "veteran-nonprofit", label: "Veteran Nonprofit - Mission-driven organization with donation and volunteer systems" },
-  { id: "none", label: "None match - I need something completely different" },
+  { id: "analytics-dashboard", label: "Analytics Dashboard — Enterprise SaaS platform with real-time metrics" },
+  { id: "international-market", label: "International Market — E-commerce with cultural sections and product management" },
+  { id: "portal-pro", label: "Portal Pro — Comprehensive business platform with role-based authentication" },
+  { id: "law-firm", label: "Law Firm — Professional services with case studies and client testimonials" },
+  { id: "restaurant", label: "Restaurant — Local business with menu, reservations, and online ordering" },
+  { id: "trades-contractor", label: "Trades Contractor — Service business with project galleries and quote requests" },
+  { id: "veteran-nonprofit", label: "Veteran Nonprofit — Mission-driven organization with donation and volunteer systems" },
+  { id: "healthcare", label: "Healthcare — Medical practice with physician profiles, insurance info, and appointment booking" },
+  { id: "wp-editorial", label: "Editorial / Publishing — Content-heavy publication managed via WordPress CMS" },
+  { id: "real-estate", label: "Real Estate — Property listings, agent profiles, and home valuation form" },
+  { id: "fitness", label: "Fitness / Gym — Membership tiers, class schedule, and free trial CTA" },
+  { id: "none", label: "None match — I need something completely different" },
 ];
 
 export default function ProjectIntakeForm() {
@@ -111,6 +118,7 @@ export default function ProjectIntakeForm() {
     timeline: "",
     targetDate: "",
     budgetRange: "",
+    platformPreference: "",
     maintenancePreference: "",
     specialRequirements: "",
     questionsForUs: "",
@@ -475,10 +483,41 @@ export default function ProjectIntakeForm() {
         </div>
       </section>
 
-      {/* Budget & Timeline */}
+      {/* Platform Preference */}
       <section>
         <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-semibold text-white mr-3">4</span>
+          Platform Preference
+        </h3>
+        <div className="space-y-4">
+          <p className="text-sm text-gray-400">Not sure? Leave this on "Help me decide" and we'll recommend the right stack based on your goals.</p>
+          <div className="grid grid-cols-1 gap-3">
+            {[
+              { id: "nextjs", label: "Custom Next.js — Fast, modern, fully custom frontend. Best for performance and brand differentiation." },
+              { id: "headless-wp", label: "Headless WordPress — WordPress CMS for editors + Next.js frontend. Best for content-heavy, editorial, or publication sites." },
+              { id: "managed-wp", label: "Managed WordPress — Standard WordPress with custom theme and full monthly maintenance. Best if you're already on WP or want the familiar dashboard." },
+              { id: "decide", label: "Help me decide — I'm not sure yet. Recommend based on my goals." },
+            ].map((option) => (
+              <label key={option.id} className="flex items-start cursor-pointer">
+                <input
+                  type="radio"
+                  name="platformPreference"
+                  value={option.id}
+                  checked={formData.platformPreference === option.id}
+                  onChange={(e) => handleInputChange("platformPreference", e.target.value)}
+                  className="h-4 w-4 mt-1 border-white/10 bg-white/5 text-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+                <span className="ml-3 text-sm text-gray-300">{option.label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Budget & Timeline */}
+      <section>
+        <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-semibold text-white mr-3">5</span>
           Timeline & Budget
         </h3>
 
@@ -545,7 +584,7 @@ export default function ProjectIntakeForm() {
       {/* Additional Information */}
       <section>
         <h3 className="text-xl font-semibold text-white mb-6 flex items-center">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-semibold text-white mr-3">5</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-sm font-semibold text-white mr-3">6</span>
           Additional Information
         </h3>
 
