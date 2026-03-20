@@ -26,18 +26,6 @@ const STATIC_SOURCES: SatelliteSource[] = [
     label: "GOES-18 West",
     region: "Americas · Pacific",
   },
-  {
-    // MSG Prime - Europe/Africa coverage
-    url: sat("https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&layers=msg_fes:rgb_naturalenhncd&format=image/jpeg&crs=EPSG:4326&bbox=-77,-77,77,77&width=1000&height=1000"),
-    label: "MSG Prime",
-    region: "Europe · Africa",
-  },
-  {
-    // MSG Indian Ocean - Indian Ocean coverage
-    url: sat("https://view.eumetsat.int/geoserver/wms?service=WMS&version=1.3.0&request=GetMap&layers=iodc_fes:rgb_naturalenhncd&format=image/jpeg&crs=EPSG:4326&bbox=-77,-77,77,77&width=1000&height=1000"),
-    label: "MSG Indian Ocean",
-    region: "Indian Ocean · Asia",
-  },
 ];
 
 
