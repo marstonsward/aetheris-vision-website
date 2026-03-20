@@ -1,4 +1,4 @@
-import { ArrowRightIcon, GlobeAltIcon, CpuChipIcon, ShieldCheckIcon, ChartBarIcon, EnvelopeIcon, CodeBracketIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, GlobeAltIcon, CpuChipIcon, ShieldCheckIcon, ChartBarIcon, EnvelopeIcon, CodeBracketIcon, AcademicCapIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import { SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
@@ -284,8 +284,23 @@ export default async function Home() {
               </div>
               </FadeIn>
 
-              {/* Card 5 — Web & Digital Solutions */}
-              <FadeIn delay={0.25} direction="up" className="h-full md:col-span-2 md:max-w-[calc(50%-1rem)] md:mx-auto md:w-full">
+              {/* Card 5 — Technical Leadership */}
+              <FadeIn delay={0.25} direction="up" className="h-full">
+              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
+                <div className="relative z-10">
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
+                    <AcademicCapIcon className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Technical Leadership</h3>
+                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
+                    Program and project technical direction for defense and civil agency missions. IPT leadership, emerging technology assessment, and workforce capability development for operational environments.
+                  </p>
+                </div>
+              </div>
+              </FadeIn>
+
+              {/* Card 6 — Web & Digital Solutions */}
+              <FadeIn delay={0.3} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <Image

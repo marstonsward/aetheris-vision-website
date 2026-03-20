@@ -61,6 +61,15 @@ const competencies = [
     ],
   },
   {
+    title: "Technical Leadership",
+    items: [
+      "Program and project technical direction for defense and civil agency missions",
+      "Integrated product team (IPT) leadership and cross-functional coordination",
+      "Emerging technology assessment and adoption roadmaps for operational environments",
+      "Mentorship and capability development for junior technical staff",
+    ],
+  },
+  {
     title: "Web & Digital Solutions",
     items: [
       "Custom website design and development (Next.js, React, TypeScript)",
