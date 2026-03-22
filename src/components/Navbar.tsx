@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
@@ -20,6 +21,16 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+
+  function handleExpertiseClick(e: React.MouseEvent) {
+    e.preventDefault();
+    if (pathname === "/") {
+      document.getElementById("expertise")?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/#expertise");
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -57,7 +68,7 @@ export default function Navbar() {
         )}
       >
         {/* Logo */}
-        <a href="/" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
           <Image
             src="/logo/aetheris-logo.svg"
             alt="Aetheris Vision Logo"
@@ -71,7 +82,7 @@ export default function Navbar() {
           <div className="text-xl md:text-2xl font-bold tracking-tight text-white">
             <span className="font-light text-gray-400">Aetheris</span>Vision
           </div>
-        </a>
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6 text-sm">
@@ -80,6 +91,7 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={link.label === "Expertise" ? handleExpertiseClick : undefined}
                 className={clsx(
                   "transition-colors flex flex-col items-center",
                   isActive(link.href)
@@ -124,7 +136,10 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
+                onClick={(e) => {
+                  setMobileOpen(false);
+                  if (link.label === "Expertise") handleExpertiseClick(e);
+                }}
                 className={clsx(
                   "py-3 px-2 text-sm transition border-b border-white/5 last:border-0",
                   isActive(link.href)
