@@ -18,8 +18,8 @@ const credentials = [
   },
   {
     icon: ShieldCheckIcon,
-    label: "Prior DoD Secret Clearance",
-    description: "VOSB certified · SAM.gov registered · 8(a) pathway active",
+    label: "Active DoD Secret Clearance",
+    description: "VOSB eligible · SAM.gov registration in progress",
   },
   {
     icon: AcademicCapIcon,
@@ -85,27 +85,27 @@ export default function AboutPage() {
                   <div className="flex items-start gap-3">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                     <div>
-                      <p className="text-sm text-white font-medium">Prior DoD Secret Clearance</p>
+                      <p className="text-sm text-white font-medium">Active DoD Secret Clearance</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                     <div>
-                      <p className="text-sm text-white font-medium">VOSB Certified</p>
+                      <p className="text-sm text-white font-medium">VOSB Eligible</p>
                       <p className="text-xs text-gray-500 mt-0.5">Veteran-Owned Small Business</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                     <div>
-                      <p className="text-sm text-white font-medium">SAM.gov Registered</p>
-                      <p className="text-xs text-gray-500 mt-0.5">Active federal procurement registration</p>
+                      <p className="text-sm text-white font-medium">SAM.gov Registration In Progress</p>
+                      <p className="text-xs text-gray-500 mt-0.5">Federal procurement registration pending</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 mt-2 shrink-0" />
                     <div>
-                      <p className="text-sm text-white font-medium">8(a) Pathway Active</p>
+                      <p className="text-sm text-white font-medium">8(a) Eligibility Under Review</p>
                       <p className="text-xs text-gray-500 mt-0.5">SBA Business Development Program</p>
                     </div>
                   </div>

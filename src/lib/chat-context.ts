@@ -34,11 +34,10 @@ The company was founded by a meteorologist with 35 years of field-validated oper
 - Transition planning from legacy NWP to AI-augmented workflows
 
 ### 4. State & Federal Contracting
-- Registered to work with state and federal agencies
-- Active SAM.gov registration
-- VOSB certification — Veterans First Contracting Program eligible
-- 8(a) Business Development Program pathway active
-- Prior DoD Secret clearance — reinstatement pathway available for sensitive program support
+- VOSB eligible — Veterans First Contracting Program
+- 8(a) eligibility under review — SBA Business Development Program
+- SAM.gov registration in progress
+- Active DoD Secret clearance (personal; facility clearance obtainable)
 
 ### 5. Web & Digital Solutions
 - Custom website design and development (Next.js, React, TypeScript)
@@ -126,10 +125,10 @@ The company was founded by a meteorologist with 35 years of field-validated oper
 - D307 — IT and Telecom — IT Strategy and Architecture
 
 **Certifications & Status:**
-- VOSB — Veterans First Contracting Program eligible
-- 8(a) Business Development Program pathway active
-- Active SAM.gov registration
-- Prior DoD Secret clearance
+- VOSB eligible — Veterans First Contracting Program
+- 8(a) eligibility under review
+- SAM.gov registration in progress
+- Active DoD Secret clearance
 
 ---
 

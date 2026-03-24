@@ -117,7 +117,7 @@ export default function CapabilitiesPage() {
                 { label: "Business Type", value: "Veteran-Owned Small Business (VOSB)" },
                 { label: "SAM.gov", value: "Registration In Progress" },
                 { label: "8(a) Status", value: "Eligibility Under Review" },
-                { label: "Security Clearance", value: "Prior DoD Secret" },
+                { label: "Security Clearance", value: "Active DoD Secret (Personal)" },
                 { label: "Primary Contact", value: SITE.email },
               ].map((item) => (
                 <div key={item.label} className="rounded-lg border border-white/5 bg-white/[0.02] p-4">

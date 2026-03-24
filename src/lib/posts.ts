@@ -234,6 +234,71 @@ If you're running a business in the OKC metro and you're not sure whether your w
 [Start a project →](/intake)
     `.trim(),
   },
+  {
+    id: 5,
+    slug: "nextjs-react-vs-wordpress",
+    title: "Next.js vs WordPress: An Honest Comparison for Small Business Owners",
+    date: "Mar 23, 2026",
+    category: "Web Development",
+    featured: false,
+    author: {
+      name: "Marston Ward",
+      title: "Founder, Aetheris Vision LLC",
+      initials: "MW",
+    },
+    summary:
+      "WordPress powers 43% of the web. Next.js powers some of the fastest sites on it. Here's what actually matters when choosing between them for your business.",
+    readTime: "5 min read",
+    content: `
+WordPress powers 43% of the web. That's a remarkable number, and it's not an accident — WordPress democratized publishing and made it possible for anyone to get online without writing a line of code. That's a genuine achievement worth respecting.
+
+But "powers 43% of the web" and "is the right choice for your business" are different claims. Here's what actually matters when you're making this decision.
+
+## What WordPress Is Good At
+
+WordPress is a content management system (CMS) at its core. It was built to publish articles. That origin shapes everything about it — the admin interface, the plugin ecosystem, the theming system, all of it is organized around creating and managing written content.
+
+If you're running a blog, a news site, or a content-heavy publication, WordPress is a reasonable choice. The editor is approachable, the hosting is widely available, and there's a massive ecosystem of themes and plugins for common use cases.
+
+## Where WordPress Shows Its Limits
+
+The problems emerge when you push WordPress beyond its origin as a publishing platform.
+
+**Performance.** A default WordPress installation is not fast. Every page request typically triggers a PHP process that queries a MySQL database, assembles HTML, and sends it to the browser — often with dozens of plugin hooks running along the way. Caching plugins mitigate this, but they're working against the architecture, not with it.
+
+Next.js applications, by contrast, generate static HTML at build time for pages that don't need real-time data. A request for a static page is served from a CDN edge node in milliseconds — no database query, no PHP execution, no caching layer needed.
+
+For a local Oklahoma business where your customers are increasingly on mobile with variable connections, this difference is measurable and it affects whether people stay on your site.
+
+**Security.** WordPress is the most-targeted CMS on the web, by a wide margin. Its popularity is the reason. Automated bots constantly scan for known plugin vulnerabilities, outdated core versions, and weak credentials. Most small business WordPress sites are not maintained with the rigor that security requires — updates get skipped, plugins go unmaintained, and eventually something breaks or gets compromised.
+
+A Next.js application deployed on Vercel has a fundamentally smaller attack surface. There's no database directly exposed to the web, no plugin ecosystem with thousands of third-party code paths, no PHP interpreter to exploit.
+
+**Customization ceiling.** WordPress themes and page builders like Elementor or Divi let you customize a lot — until you need something they don't support. Then you're either finding a plugin (adding complexity and potential security exposure) or hiring a PHP developer to extend core functionality in ways that may break on the next update.
+
+With Next.js and React, the customization ceiling is essentially the web platform itself. If it's possible in a browser, it's buildable. Client portals, real-time data displays, custom booking flows, role-based access, API integrations — these are first-class patterns, not workarounds.
+
+**Ownership and portability.** A WordPress site is meaningfully portable — the files and database can be moved between hosts. But in practice, migration is complex and disruptive, which is why many businesses stay locked into hosting providers they've outgrown.
+
+A Next.js project is a standard Node.js application that runs anywhere Node runs. The code is yours. The deployment is a git push. Switching hosts is a configuration change.
+
+## The Honest Trade-off
+
+WordPress has a lower barrier to entry. If you need a simple informational site quickly and you want to manage the content yourself without touching code, WordPress is a legitimate option — provided you stay on top of updates and security.
+
+Next.js requires a developer. You can't self-serve a Next.js site without technical knowledge. That's a real cost, and it's appropriate to acknowledge it.
+
+What you get in exchange: a faster, more secure, more maintainable application that's built around your specific business needs rather than adapted from a general-purpose CMS. For businesses that treat their website as a sales and operations tool rather than a brochure, that trade-off typically favors custom development.
+
+## What We Build and Why
+
+At Aetheris Vision, we build on Next.js, React, TypeScript, and Vercel. Not because it's newer or more impressive — because for the kinds of projects our clients need (client portals, booking integrations, custom data flows, performance-sensitive marketing sites), it produces better outcomes.
+
+We don't build WordPress sites. That's not a judgment on WordPress — it's a focus decision. We're better at one stack, and our clients get better results because of it.
+
+If you're trying to decide which path is right for your business, [we're happy to talk it through](/intake). No obligation — just a straight answer.
+    `.trim(),
+  },
 ];
 
 // ── Draft posts (not yet published) ──────────────────────────────────────────
