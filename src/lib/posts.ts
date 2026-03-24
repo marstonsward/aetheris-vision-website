@@ -292,11 +292,78 @@ What you get in exchange: a faster, more secure, more maintainable application t
 
 ## What We Build and Why
 
-At Aetheris Vision, we build on Next.js, React, TypeScript, and Vercel. Not because it's newer or more impressive — because for the kinds of projects our clients need (client portals, booking integrations, custom data flows, performance-sensitive marketing sites), it produces better outcomes.
+At Aetheris Vision, we build both. Custom Next.js applications when the project calls for performance, complex integrations, or a client portal. WordPress when a client needs editorial control, a familiar admin interface, or a content-heavy site on a straightforward budget. The right tool depends on what you're building and how you'll use it.
 
-We don't build WordPress sites. That's not a judgment on WordPress — it's a focus decision. We're better at one stack, and our clients get better results because of it.
+What we don't do is default to one or the other without understanding the requirement first. That conversation starts with your goals — not our preferences.
 
-If you're trying to decide which path is right for your business, [we're happy to talk it through](/intake). No obligation — just a straight answer.
+If you're trying to decide which path is right for your organization, [we're happy to talk it through](/intake). No obligation — just a straight answer.
+    `.trim(),
+  },
+  {
+    id: 6,
+    slug: "every-organization-needs-a-great-website",
+    title: "Every Organization Needs a Great Website. Most Don't Have One.",
+    date: "Mar 23, 2026",
+    category: "Web Development",
+    featured: false,
+    author: {
+      name: "Marston Ward",
+      title: "Founder, Aetheris Vision LLC",
+      initials: "MW",
+    },
+    summary:
+      "It doesn't matter whether you run a restaurant, a law firm, a nonprofit, a government agency, or a solo consulting practice. Your website is doing a job whether you manage it or not.",
+    readTime: "4 min read",
+    content: `
+Your website is working right now. The question is whether it's working *for* you or *against* you.
+
+Every time someone hears your name — from a referral, a business card, a social post, a search result — the first thing they do is look you up. What they find in those first few seconds determines whether they contact you, hire you, donate to you, or move on. That's true for every type of organization, in every industry, in every country.
+
+## The Organizations That Get This Wrong
+
+It's not just small businesses that neglect their websites. The pattern is consistent across every sector:
+
+**Restaurants** with menus that haven't been updated in two years. Phone numbers that go to voicemail. No online reservation system, even though every competitor has one. The food is excellent — the first impression isn't.
+
+**Law firms and professional services** with sites that look like they were built in 2009. Dense walls of text, no clear call to action, no indication of what it actually feels like to work with them. They win clients despite their website, not because of it.
+
+**Nonprofits** whose donation experience is so confusing that willing donors abandon it. Impact stories buried five clicks deep. A volunteer sign-up form that breaks on mobile.
+
+**Trades and contractors** who rely entirely on word of mouth but have no way to capture the people who were referred to them and then searched their name — and found nothing worth trusting.
+
+**Government agencies and public institutions** with accessibility failures, outdated information, and navigation that no one tested with a real user. The people who depend on these services most are often the ones least able to work around a broken web experience.
+
+**Startups and early-stage companies** who launch with a placeholder site and then never update it because shipping the product feels more urgent — until they need to raise money or hire and the site undercuts everything else they've built.
+
+The specifics differ. The problem is the same: the website exists, but it isn't doing any work.
+
+## What a Great Website Actually Does
+
+A great website isn't defined by how it looks, though that matters. It's defined by what it accomplishes.
+
+**It builds trust before the first conversation.** People decide whether to trust you in seconds. The quality of your site signals the quality of your work. A well-crafted site tells a visitor: this organization is serious, organized, and worth my time. A broken, outdated, or generic site tells them the opposite.
+
+**It answers the right questions at the right time.** What do you do? Who is it for? Why should I trust you? What do I do next? A great website answers these questions clearly and in the right order. Most sites either bury the answers or never provide them at all.
+
+**It removes friction from the path to action.** Whatever you want people to do — call you, book an appointment, donate, apply, purchase — a great website makes that path obvious and easy. Every unnecessary click, every form that's too long, every page that loads too slowly is a door closing in someone's face.
+
+**It works everywhere, for everyone.** Mobile devices account for the majority of web traffic worldwide. Accessibility isn't optional — it's a legal requirement in many jurisdictions and a basic obligation to the people you serve. A site that only works well on a desktop for a sighted user with a fast connection is failing most of its visitors.
+
+**It earns its place in search results.** People are searching for what you offer right now. Whether they find you depends on how your site is built, how fast it loads, and whether the content clearly communicates what you do. Technical SEO is not a marketing gimmick — it's how you get discovered by people who already want what you have.
+
+## The Cost of Not Investing
+
+The organizations that treat their website as a sunk cost — something to build once and leave — pay for that choice continuously. In lost inquiries that went to a competitor. In donor skepticism that killed a campaign before it started. In qualified candidates who looked at the careers page and passed. In constituents who couldn't find the form they needed and gave up.
+
+These costs are invisible, which is why they're so easy to ignore. No one sends you an email saying "I was going to hire you but your website convinced me not to." They just don't call.
+
+## What to Do About It
+
+The starting point is an honest audit. Look at your site the way a stranger would. Load it on your phone. Try to complete the most important action a visitor would take. Ask someone who has never seen your organization to tell you what you do based only on the homepage.
+
+What you find will tell you where to start.
+
+If you want a second opinion from someone who builds these systems professionally, [we're happy to take a look](/intake). No obligation — just an honest assessment.
     `.trim(),
   },
 ];
