@@ -33,7 +33,7 @@ const STATIC_SOURCES: SatelliteSource[] = [
 export const metadata = {
   title: `${SITE.name} | ${SITE.tagline}`,
   description:
-    "Advanced AI/ML weather prediction, operational meteorology, and specialized technical consulting for state and federal defense missions via VOSB and 8(a) pathways.",
+    "Custom websites, web applications, and client portals for Oklahoma businesses. Veteran-owned. Based in Mustang, OK.",
 };
 
 export default async function Home() {
@@ -83,7 +83,7 @@ export default async function Home() {
             
             <FadeIn delay={0.3}>
               <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed font-light">
-                Providing advanced AI/ML weather prediction algorithms, deep operational meteorology insight, and specialized technical consulting for state agencies and federal defense missions via 8(a) and VOSB pathways.
+                Custom websites, web applications, and client portals built for Oklahoma businesses — and advanced AI/ML meteorology for federal defense missions. Veteran-owned. Mustang, OK.
               </p>
             </FadeIn>
             
@@ -163,8 +163,36 @@ export default async function Home() {
             </FadeIn>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {/* Card 1 — Operational Meteorology */}
+              {/* Card 1 — Web & Digital Solutions */}
               <FadeIn delay={0.05} direction="up" className="h-full">
+              <div className="group relative rounded-xl border border-blue-500/20 bg-blue-500/[0.04] p-6 md:p-8 transition hover:bg-blue-500/[0.07] hover:border-blue-500/30 flex flex-col h-full overflow-hidden">
+                <div className="absolute inset-0 rounded-xl overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200"
+                    alt=""
+                    aria-hidden="true"
+                    fill
+                    className="object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+                <div className="relative z-10">
+                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-blue-500/30 flex items-center justify-center mb-6">
+                    <CodeBracketIcon className="h-6 w-6 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Web & Digital Solutions</h3>
+                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base mb-4">
+                    Custom websites, web applications, and client portals built for Oklahoma businesses. Performance-first, mobile-first, engineered to last — not templated and forgotten.
+                  </p>
+                  <a href="/services/web" className="inline-flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300 transition">
+                    See what we build <ArrowRightIcon className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+              </div>
+              </FadeIn>
+
+              {/* Card 2 — Operational Meteorology */}
+              <FadeIn delay={0.1} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <Image
@@ -182,14 +210,14 @@ export default async function Home() {
                   </div>
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Operational Meteorology</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                    Over 35 years of global atmospheric modeling and operational forecasting. Expertise honed through extensive unclassified strategic deployments with the <strong className="text-gray-200">United States Air Force (USAF)</strong> and research collaborations with <strong className="text-gray-200">Stockholm University</strong> and <strong className="text-gray-200">Chalmers University of Technology</strong>.
+                    Over 35 years of global atmospheric modeling and operational forecasting. Expertise honed through deployments with the <strong className="text-gray-200">United States Air Force</strong> and research with <strong className="text-gray-200">Stockholm University</strong> and <strong className="text-gray-200">Chalmers University of Technology</strong>.
                   </p>
                 </div>
               </div>
               </FadeIn>
 
-              {/* Card 2 — AI / ML Integration */}
-              <FadeIn delay={0.1} direction="up" className="h-full">
+              {/* Card 3 — AI / ML Integration */}
+              <FadeIn delay={0.15} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <Image
@@ -208,31 +236,6 @@ export default async function Home() {
                   <h3 className="text-xl md:text-2xl font-medium text-white mb-3">AI / ML Integration</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
                     Pioneering machine learning techniques tailored for complex, large-scale meteorological datasets to increase predictive accuracy and mission readiness.
-                  </p>
-                </div>
-              </div>
-              </FadeIn>
-
-              {/* Card 3 — State & Federal Contracting */}
-              <FadeIn delay={0.15} direction="up" className="h-full">
-              <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
-                <div className="absolute inset-0 rounded-xl overflow-hidden">
-                  <Image
-                    src="https://images.unsplash.com/photo-1562408590-e32931084e23?q=80&w=1200"
-                    alt=""
-                    aria-hidden="true"
-                    fill
-                    className="object-cover opacity-[0.12] mix-blend-screen group-hover:opacity-[0.18] transition-opacity duration-500"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-                <div className="relative z-10">
-                  <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
-                    <ShieldCheckIcon className="h-6 w-6 text-blue-400" />
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">State & Federal Contracting</h3>
-                  <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                    SAM.gov registration in progress, VOSB eligible, and 8(a) eligibility under review. Active DoD Secret clearance. Purpose-built to work directly with state and federal agencies on specialized weather, AI, and defense system requirements.
                   </p>
                 </div>
               </div>
@@ -278,12 +281,12 @@ export default async function Home() {
               </div>
               </FadeIn>
 
-              {/* Card 6 — Web & Digital Solutions */}
+              {/* Card 6 — State & Federal Contracting */}
               <FadeIn delay={0.3} direction="up" className="h-full">
               <div className="group relative rounded-xl border border-white/5 bg-white/[0.02] p-6 md:p-8 transition hover:bg-white/[0.04] hover:border-white/10 flex flex-col h-full overflow-hidden">
                 <div className="absolute inset-0 rounded-xl overflow-hidden">
                   <Image
-                    src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200"
+                    src="https://images.unsplash.com/photo-1562408590-e32931084e23?q=80&w=1200"
                     alt=""
                     aria-hidden="true"
                     fill
@@ -293,11 +296,11 @@ export default async function Home() {
                 </div>
                 <div className="relative z-10">
                   <div className="h-12 w-12 rounded-lg bg-gray-900 border border-white/10 flex items-center justify-center mb-6">
-                    <CodeBracketIcon className="h-6 w-6 text-blue-400" />
+                    <ShieldCheckIcon className="h-6 w-6 text-blue-400" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">Web & Digital Solutions</h3>
+                  <h3 className="text-xl md:text-2xl font-medium text-white mb-3">State & Federal Contracting</h3>
                   <p className="text-gray-400 font-light leading-relaxed text-sm md:text-base">
-                    Custom website design and development — performance-optimized, mobile-first, and built to convert. From landing pages to full-stack web applications deployed on modern cloud infrastructure.
+                    SAM.gov registration in progress, VOSB eligible, and 8(a) eligibility under review. Active DoD Secret clearance. Purpose-built to work directly with state and federal agencies on specialized weather, AI, and defense system requirements.
                   </p>
                 </div>
               </div>
@@ -316,13 +319,13 @@ export default async function Home() {
 
                 <div className="relative z-10 max-w-xl">
                   <div className="flex items-center gap-2 text-blue-400 text-sm font-semibold tracking-widest uppercase mb-4">
-                    <span className="h-px w-6 bg-blue-500"></span> Work With Us
+                    <span className="h-px w-6 bg-blue-500"></span> Start a Project
                   </div>
                   <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
-                    Ready to discuss your mission requirements?
+                    Ready to build something?
                   </h2>
                   <p className="text-gray-400 font-light leading-relaxed">
-                    We engage directly with program offices, contracting officers, and technical leads. Reach out to start a conversation about your weather, AI, or defense technology needs.
+                    Tell us about your project and we'll respond within one business day. No pressure, no sales pitch — just an honest conversation about what you need and whether we're the right fit.
                   </p>
                 </div>
 
