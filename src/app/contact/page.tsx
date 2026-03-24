@@ -8,7 +8,7 @@ import { SITE } from "@/lib/constants";
 export const metadata = {
   title: `Contact | ${SITE.name}`,
   description:
-    "Contact Aetheris Vision to discuss your weather, AI/ML, or defense technology requirements. We engage directly with program offices and contracting officers.",
+    "Start a web project or ask a question — we respond within one business day. Veteran-owned, based in Mustang, OK.",
 };
 
 export default function ContactPage() {
@@ -28,7 +28,7 @@ export default function ContactPage() {
               Contact Us
             </h1>
             <p className="text-gray-400 font-light text-lg max-w-2xl leading-relaxed mb-10">
-              We engage directly with program offices, contracting officers, and technical leads. Tell us about your requirement and we will respond within one business day.
+              Have a web project in mind, or just want to ask a question? Send a message and we'll respond within one business day. No sales pitch — just a straight answer.
             </p>
           </FadeIn>
 
@@ -88,13 +88,13 @@ export default function ContactPage() {
 
                 <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6">
                   <p className="text-xs font-semibold tracking-widest text-gray-500 uppercase mb-3">
-                    Contracting
+                    Federal Contracting
                   </p>
                   <div className="space-y-1 text-sm text-gray-400 font-light">
-                    <p>VOSB Certified</p>
-                    <p>8(a) Pathway Active</p>
-                    <p>SAM.gov Registered</p>
-                    <p>Prior DoD Secret Clearance</p>
+                    <p>VOSB Eligible</p>
+                    <p>8(a) Eligibility Under Review</p>
+                    <p>SAM.gov Registration In Progress</p>
+                    <p>Active DoD Secret Clearance</p>
                   </div>
                   <a
                     href="/capabilities"
