@@ -3,10 +3,14 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ContactForm from "@/components/ContactForm";
 
-/** Set uncontrolled form field values so FormData picks them up. */
 function setField(id: string, value: string) {
   const el = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
   fireEvent.change(el, { target: { value } });
+}
+
+function blurField(id: string) {
+  const el = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement;
+  fireEvent.blur(el);
 }
 
 function fillValidFields() {
@@ -15,22 +19,27 @@ function fillValidFields() {
   setField("message", "This is a valid message long enough.");
 }
 
-describe("ContactForm — inline validation", () => {
+describe("ContactForm — submit validation", () => {
   it("shows all required field errors when submitted empty", async () => {
     render(<ContactForm />);
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     expect(await screen.findByText("Name is required.")).toBeInTheDocument();
-    expect(screen.getByText("Valid email address required.")).toBeInTheDocument();
-    expect(screen.getByText("Message must be at least 10 characters.")).toBeInTheDocument();
+    expect(screen.getByText("Email address is required.")).toBeInTheDocument();
+    expect(screen.getByText("Message is required.")).toBeInTheDocument();
   });
 
-  it("clears name error when name is typed", async () => {
-    const user = userEvent.setup();
+  it("shows error for name under 2 characters", async () => {
     render(<ContactForm />);
+    setField("name", "A");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
-    await screen.findByText("Name is required.");
-    await user.type(screen.getByLabelText(/^name/i), "Jane");
-    expect(screen.queryByText("Name is required.")).not.toBeInTheDocument();
+    expect(await screen.findByText("Name must be at least 2 characters.")).toBeInTheDocument();
+  });
+
+  it("shows error for invalid characters in name", async () => {
+    render(<ContactForm />);
+    setField("name", "Jane123");
+    fireEvent.click(screen.getByRole("button", { name: /send message/i }));
+    expect(await screen.findByText("Name contains invalid characters.")).toBeInTheDocument();
   });
 
   it("shows error for invalid email format", async () => {
@@ -39,7 +48,16 @@ describe("ContactForm — inline validation", () => {
     setField("email", "not-an-email");
     setField("message", "This is a valid message long enough.");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
-    expect(await screen.findByText("Valid email address required.")).toBeInTheDocument();
+    expect(await screen.findByText("Enter a valid email address.")).toBeInTheDocument();
+  });
+
+  it("shows error for email missing TLD", async () => {
+    render(<ContactForm />);
+    setField("name", "Jane Doe");
+    setField("email", "jane@example");
+    setField("message", "This is a valid message long enough.");
+    fireEvent.click(screen.getByRole("button", { name: /send message/i }));
+    expect(await screen.findByText("Enter a valid email address.")).toBeInTheDocument();
   });
 
   it("shows error when message is under 10 characters", async () => {
@@ -49,6 +67,70 @@ describe("ContactForm — inline validation", () => {
     setField("message", "Short");
     fireEvent.click(screen.getByRole("button", { name: /send message/i }));
     expect(await screen.findByText("Message must be at least 10 characters.")).toBeInTheDocument();
+  });
+
+  it("accepts names with hyphens and apostrophes", async () => {
+    render(<ContactForm />);
+    setField("name", "Mary-Jane O'Brien");
+    setField("email", "mj@example.com");
+    setField("message", "This is a valid message long enough.");
+    fireEvent.click(screen.getByRole("button", { name: /send message/i }));
+    expect(screen.queryByText(/name is required|name must|name contains/i)).not.toBeInTheDocument();
+  });
+});
+
+describe("ContactForm — blur validation", () => {
+  it("shows name error on blur when empty", async () => {
+    render(<ContactForm />);
+    blurField("name");
+    expect(await screen.findByText("Name is required.")).toBeInTheDocument();
+  });
+
+  it("shows email error on blur when invalid", async () => {
+    render(<ContactForm />);
+    setField("email", "bad@email");
+    blurField("email");
+    expect(await screen.findByText("Enter a valid email address.")).toBeInTheDocument();
+  });
+
+  it("shows message error on blur when too short", async () => {
+    render(<ContactForm />);
+    setField("message", "Hi");
+    blurField("message");
+    expect(await screen.findByText("Message must be at least 10 characters.")).toBeInTheDocument();
+  });
+
+  it("clears error when field is corrected after blur", async () => {
+    const user = userEvent.setup();
+    render(<ContactForm />);
+    blurField("name");
+    await screen.findByText("Name is required.");
+    await user.type(screen.getByLabelText(/^name/i), "Jane Doe");
+    expect(screen.queryByText("Name is required.")).not.toBeInTheDocument();
+  });
+
+  it("re-validates live after field has been touched", async () => {
+    render(<ContactForm />);
+    // Touch the email field with an invalid value
+    setField("email", "bad");
+    blurField("email");
+    await screen.findByText("Enter a valid email address.");
+    // Now fix it — error should clear immediately
+    setField("email", "jane@example.com");
+    expect(screen.queryByText("Enter a valid email address.")).not.toBeInTheDocument();
+  });
+});
+
+describe("ContactForm — character count", () => {
+  it("shows character counter when message has content", () => {
+    render(<ContactForm />);
+    setField("message", "Hello world");
+    expect(screen.getByText(/11 \/ 5,000/)).toBeInTheDocument();
+  });
+
+  it("does not show counter when message is empty", () => {
+    render(<ContactForm />);
+    expect(screen.queryByText(/\/ 5,000/)).not.toBeInTheDocument();
   });
 });
 

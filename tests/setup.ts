@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom/vitest";
+import { vi } from "vitest";
 
 // framer-motion uses IntersectionObserver which jsdom doesn't support.
 // Stub it so components using FadeIn render correctly in tests.

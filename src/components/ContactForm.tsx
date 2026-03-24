@@ -16,6 +16,11 @@ const requirementTypes = [
   "Other",
 ];
 
+const NAME_MAX = 100;
+const ORG_MAX = 200;
+const MESSAGE_MIN = 10;
+const MESSAGE_MAX = 5000;
+
 interface Fields {
   name: string;
   email: string;
@@ -28,6 +33,7 @@ interface Fields {
 interface FieldErrors {
   name?: string;
   email?: string;
+  organization?: string;
   message?: string;
 }
 
@@ -35,37 +41,82 @@ const EMPTY: Fields = {
   name: "", email: "", organization: "", requirement: "", message: "", _gotcha: "",
 };
 
-function validate(fields: Fields): FieldErrors {
+/** Validate a single field. Returns an error string or undefined. */
+function validateField(key: keyof FieldErrors, value: string): string | undefined {
+  switch (key) {
+    case "name": {
+      const v = value.trim();
+      if (!v) return "Name is required.";
+      if (v.length < 2) return "Name must be at least 2 characters.";
+      if (v.length > NAME_MAX) return `Name must be ${NAME_MAX} characters or fewer.`;
+      if (!/^[\p{L}\p{M}'\-\s.]+$/u.test(v)) return "Name contains invalid characters.";
+      return undefined;
+    }
+    case "email": {
+      const v = value.trim();
+      if (!v) return "Email address is required.";
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return "Enter a valid email address.";
+      if (v.length > 254) return "Email address is too long.";
+      return undefined;
+    }
+    case "organization": {
+      const v = value.trim();
+      if (v.length > ORG_MAX) return `Organization name must be ${ORG_MAX} characters or fewer.`;
+      return undefined;
+    }
+    case "message": {
+      const v = value.trim();
+      if (!v) return "Message is required.";
+      if (v.length < MESSAGE_MIN) return `Message must be at least ${MESSAGE_MIN} characters.`;
+      if (v.length > MESSAGE_MAX) return `Message must be ${MESSAGE_MAX.toLocaleString()} characters or fewer.`;
+      return undefined;
+    }
+  }
+}
+
+function validateAll(fields: Fields): FieldErrors {
   const errs: FieldErrors = {};
-  if (!fields.name.trim() || fields.name.trim().length < 2) errs.name = "Name is required.";
-  if (!fields.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.trim())) errs.email = "Valid email address required.";
-  if (!fields.message.trim() || fields.message.trim().length < 10) errs.message = "Message must be at least 10 characters.";
+  for (const key of ["name", "email", "organization", "message"] as const) {
+    const err = validateField(key, fields[key]);
+    if (err) errs[key] = err;
+  }
   return errs;
 }
 
 export default function ContactForm() {
   const [fields, setFields] = useState<Fields>(EMPTY);
+  const [touched, setTouched] = useState<Partial<Record<keyof FieldErrors, boolean>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorDetail, setErrorDetail] = useState<string>("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
 
   function update(key: keyof Fields, value: string) {
     setFields((f) => ({ ...f, [key]: value }));
-    setFieldErrors((e) => ({ ...e, [key]: undefined }));
+    // Re-validate live once a field has been touched
+    if (touched[key as keyof FieldErrors]) {
+      const err = validateField(key as keyof FieldErrors, value);
+      setFieldErrors((e) => ({ ...e, [key]: err }));
+    }
+  }
+
+  function handleBlur(key: keyof FieldErrors) {
+    setTouched((t) => ({ ...t, [key]: true }));
+    const err = validateField(key, fields[key]);
+    setFieldErrors((e) => ({ ...e, [key]: err }));
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    // Honeypot
     if (fields._gotcha) return;
 
-    const errs = validate(fields);
+    // Mark all fields touched so errors show
+    setTouched({ name: true, email: true, organization: true, message: true });
+
+    const errs = validateAll(fields);
     if (Object.keys(errs).length > 0) {
       setFieldErrors(errs);
       const form = e.currentTarget;
-      const firstErr = form.querySelector("[data-error]");
-      firstErr?.scrollIntoView({ behavior: "smooth", block: "center" });
+      form.querySelector("[data-error]")?.scrollIntoView({ behavior: "smooth", block: "center" });
       return;
     }
     setFieldErrors({});
@@ -96,6 +147,7 @@ export default function ContactForm() {
         setStatus("success");
         setFields(EMPTY);
         setFieldErrors({});
+        setTouched({});
       } else if (res.status === 429) {
         setErrorDetail("Too many submissions — please wait a few minutes and try again.");
         setStatus("error");
@@ -113,6 +165,12 @@ export default function ContactForm() {
       setStatus("error");
     }
   }
+
+  const messageLen = fields.message.trim().length;
+  const messageLenColor =
+    messageLen > MESSAGE_MAX ? "text-red-400" :
+    messageLen > MESSAGE_MAX * 0.9 ? "text-yellow-400" :
+    "text-gray-600";
 
   if (status === "success") {
     return (
@@ -136,6 +194,8 @@ export default function ContactForm() {
     <FadeIn>
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+          {/* Name */}
           <div>
             <label htmlFor="name" className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-widest">
               Name <span className="text-blue-500">*</span>
@@ -144,16 +204,21 @@ export default function ContactForm() {
               id="name"
               name="name"
               type="text"
+              autoComplete="name"
+              maxLength={NAME_MAX}
               value={fields.name}
               onChange={(e) => update("name", e.target.value)}
+              onBlur={() => handleBlur("name")}
               data-error={fieldErrors.name ? true : undefined}
-              placeholder="Your name"
+              placeholder="Your full name"
               className={`w-full rounded-lg border px-4 py-3 text-sm text-white placeholder:text-gray-600 bg-white/[0.03] focus:outline-none focus:bg-white/[0.05] transition ${
                 fieldErrors.name ? "border-red-500/60" : "border-white/10 focus:border-blue-500/50"
               }`}
             />
-            {fieldErrors.name && <p className="mt-1.5 text-xs text-red-400">{fieldErrors.name}</p>}
+            {fieldErrors.name && <p role="alert" className="mt-1.5 text-xs text-red-400">{fieldErrors.name}</p>}
           </div>
+
+          {/* Email */}
           <div>
             <label htmlFor="email" className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-widest">
               Email <span className="text-blue-500">*</span>
@@ -162,18 +227,21 @@ export default function ContactForm() {
               id="email"
               name="email"
               type="email"
+              autoComplete="email"
               value={fields.email}
               onChange={(e) => update("email", e.target.value)}
+              onBlur={() => handleBlur("email")}
               data-error={fieldErrors.email ? true : undefined}
               placeholder="you@company.com"
               className={`w-full rounded-lg border px-4 py-3 text-sm text-white placeholder:text-gray-600 bg-white/[0.03] focus:outline-none focus:bg-white/[0.05] transition ${
                 fieldErrors.email ? "border-red-500/60" : "border-white/10 focus:border-blue-500/50"
               }`}
             />
-            {fieldErrors.email && <p className="mt-1.5 text-xs text-red-400">{fieldErrors.email}</p>}
+            {fieldErrors.email && <p role="alert" className="mt-1.5 text-xs text-red-400">{fieldErrors.email}</p>}
           </div>
         </div>
 
+        {/* Organization */}
         <div>
           <label htmlFor="organization" className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-widest">
             Organization
@@ -182,13 +250,21 @@ export default function ContactForm() {
             id="organization"
             name="organization"
             type="text"
+            autoComplete="organization"
+            maxLength={ORG_MAX}
             value={fields.organization}
             onChange={(e) => update("organization", e.target.value)}
+            onBlur={() => handleBlur("organization")}
+            data-error={fieldErrors.organization ? true : undefined}
             placeholder="Agency, department, or company"
-            className="w-full rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-blue-500/50 focus:bg-white/[0.05] transition"
+            className={`w-full rounded-lg border px-4 py-3 text-sm text-white placeholder:text-gray-600 bg-white/[0.03] focus:outline-none focus:bg-white/[0.05] transition ${
+              fieldErrors.organization ? "border-red-500/60" : "border-white/10 focus:border-blue-500/50"
+            }`}
           />
+          {fieldErrors.organization && <p role="alert" className="mt-1.5 text-xs text-red-400">{fieldErrors.organization}</p>}
         </div>
 
+        {/* Requirement */}
         <div>
           <label htmlFor="requirement" className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-widest">
             Requirement Type
@@ -207,23 +283,33 @@ export default function ContactForm() {
           </select>
         </div>
 
+        {/* Message */}
         <div>
-          <label htmlFor="message" className="block text-xs font-medium text-gray-400 mb-2 uppercase tracking-widest">
-            Message <span className="text-blue-500">*</span>
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="message" className="block text-xs font-medium text-gray-400 uppercase tracking-widest">
+              Message <span className="text-blue-500">*</span>
+            </label>
+            {messageLen > 0 && (
+              <span className={`text-xs ${messageLenColor}`}>
+                {messageLen.toLocaleString()} / {MESSAGE_MAX.toLocaleString()}
+              </span>
+            )}
+          </div>
           <textarea
             id="message"
             name="message"
             rows={5}
+            maxLength={MESSAGE_MAX}
             value={fields.message}
             onChange={(e) => update("message", e.target.value)}
+            onBlur={() => handleBlur("message")}
             data-error={fieldErrors.message ? true : undefined}
             placeholder="Describe your requirement, timeline, and any relevant context..."
             className={`w-full rounded-lg border px-4 py-3 text-sm text-white placeholder:text-gray-600 bg-white/[0.03] focus:outline-none focus:bg-white/[0.05] transition resize-none ${
               fieldErrors.message ? "border-red-500/60" : "border-white/10 focus:border-blue-500/50"
             }`}
           />
-          {fieldErrors.message && <p className="mt-1.5 text-xs text-red-400">{fieldErrors.message}</p>}
+          {fieldErrors.message && <p role="alert" className="mt-1.5 text-xs text-red-400">{fieldErrors.message}</p>}
         </div>
 
         {status === "error" && (
@@ -233,7 +319,7 @@ export default function ContactForm() {
           </p>
         )}
 
-        {/* Honeypot — hidden from humans */}
+        {/* Honeypot */}
         <input
           type="text"
           name="_gotcha"
