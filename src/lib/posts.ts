@@ -268,7 +268,7 @@ The problems emerge when you push WordPress beyond its origin as a publishing pl
 
 Next.js applications, by contrast, generate static HTML at build time for pages that don't need real-time data. A request for a static page is served from a CDN edge node in milliseconds — no database query, no PHP execution, no caching layer needed.
 
-For a local Oklahoma business where your customers are increasingly on mobile with variable connections, this difference is measurable and it affects whether people stay on your site.
+For any business where customers arrive on mobile — which is now the majority of web traffic globally — this difference is measurable and it directly affects whether people stay on your site.
 
 **Security.** WordPress is the most-targeted CMS on the web, by a wide margin. Its popularity is the reason. Automated bots constantly scan for known plugin vulnerabilities, outdated core versions, and weak credentials. Most small business WordPress sites are not maintained with the rigor that security requires — updates get skipped, plugins go unmaintained, and eventually something breaks or gets compromised.
 
