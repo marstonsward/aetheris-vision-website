@@ -8,12 +8,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
 const navLinks = [
-  { label: "Expertise", href: "/#expertise" },
+  { label: "Services", href: "/services/web" },
   { label: "About", href: "/about" },
-  { label: "Capabilities", href: "/capabilities" },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Security", href: "/security" },
   { label: "Blog", href: "/blog" },
+  { label: "Capabilities", href: "/capabilities" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -46,9 +45,8 @@ export default function Navbar() {
     if (href === "/about") return pathname === "/about";
     if (href === "/capabilities") return pathname === "/capabilities";
     if (href === "/portfolio") return pathname.startsWith("/portfolio");
-    if (href === "/security") return pathname === "/security";
     if (href === "/contact") return pathname === "/contact";
-    if (href === "/intake") return pathname === "/intake";
+    if (href === "/services/web") return pathname.startsWith("/services");
     return false;
   }
 

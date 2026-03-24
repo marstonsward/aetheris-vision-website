@@ -173,6 +173,67 @@ Richardson understood this. His forecast factory was not a claim of perfect pred
 That remains the standard.
     `.trim(),
   },
+  {
+    id: 4,
+    slug: "why-oklahoma-businesses-need-custom-websites",
+    title: "Why Oklahoma Small Businesses Need Custom Websites — Not Templates",
+    date: "Mar 23, 2026",
+    category: "Web Development",
+    featured: false,
+    author: {
+      name: "Marston Ward",
+      title: "Founder, Aetheris Vision LLC",
+      initials: "MW",
+    },
+    summary:
+      "A template gets you online. A custom site gets you business. Here's the practical difference — and why it matters more than most small business owners realize.",
+    readTime: "4 min read",
+    content: `
+I spent 35 years building systems where failure was not an option. Weather forecasting for combat operations, atmospheric modeling for federal research missions, software pipelines for NASA satellite data. Every system had to work — not most of the time, not under ideal conditions, but reliably, every time.
+
+When I started Aetheris Vision and began working with small businesses on their websites, I expected web projects to be simpler than what I'd built before. In some ways they are. In one critical way, they're not: most small business owners have no idea whether their website is actually working.
+
+## The Template Problem
+
+Website builders like Wix, Squarespace, and WordPress with premium themes made it easy to launch a site. That's genuinely valuable — the barrier to getting online dropped to zero. But "online" and "effective" are not the same thing.
+
+Here's what typically happens with a template site:
+
+**Performance.** Template platforms load dozens of plugins, scripts, and stylesheets that slow page load times. Google's Core Web Vitals data is unambiguous: every additional second of load time reduces conversions. A site built on modern infrastructure (Next.js, Vercel's edge network) loads in under a second. A bloated WordPress site routinely takes 4–6 seconds — on a good day.
+
+**Mobile.** Over 60% of web traffic in 2026 is mobile. Template sites claim to be "mobile responsive," and technically they are. But there's a difference between a site that doesn't break on mobile and a site that's designed from the start for the way people actually use their phones. The difference shows up in whether someone calls you or bounces.
+
+**Ownership.** When you build on a hosted platform, you don't own your site. You're renting space on their infrastructure, subject to their pricing changes, their feature decisions, and their company's future. A custom-built site can be exported, migrated, and handed off. You own the code.
+
+**Fit.** A restaurant has different needs than a law firm, which has different needs than a trades contractor. Templates are built to be general enough for everyone — which means they're optimized for no one. A custom build starts with your customers, your conversion path, and your specific workflow.
+
+## What "Custom" Actually Means
+
+Custom doesn't mean more expensive for its own sake. It means the site is built around what your business actually needs instead of what a template happens to offer.
+
+For a service business in Oklahoma, that might mean:
+- A booking flow that connects to your actual calendar
+- A contact form that routes inquiries to the right person automatically
+- A client-facing area where customers can view proposals or sign documents
+- Performance optimized for the geographic area you serve
+
+None of those require a massive build. They require a developer who listens first and codes second.
+
+## The Real Cost of "Free"
+
+The real cost of a template site isn't the monthly fee. It's the leads you don't get because the site is slow, the customers you lose because the mobile experience is frustrating, and the time you spend fighting a platform that wasn't built for your specific situation.
+
+A well-built custom site typically pays for itself within the first year through improved conversion and reduced maintenance overhead. That's not a sales pitch — it's math.
+
+## What We Build at Aetheris Vision
+
+We build custom websites and web applications for small businesses in Oklahoma. Next.js, React, TypeScript, deployed on Vercel's global edge infrastructure. Every project is scoped, priced, and delivered with a fixed contract — no hourly surprises, no disappearing after launch.
+
+If you're running a business in the OKC metro and you're not sure whether your website is actually working for you, that's worth a conversation.
+
+[Start a project →](/intake)
+    `.trim(),
+  },
 ];
 
 // ── Draft posts (not yet published) ──────────────────────────────────────────
