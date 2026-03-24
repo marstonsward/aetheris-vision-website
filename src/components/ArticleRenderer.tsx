@@ -7,8 +7,8 @@ import React from "react";
 // ---------------------------------------------------------------------------
 function parseInline(text: string): React.ReactNode[] {
   const tokens: React.ReactNode[] = [];
-  // Split on **bold** or `code` patterns
-  const re = /(\*\*([^*]+)\*\*|`([^`]+)`)/g;
+  // Split on **bold**, `code`, or [text](url) patterns
+  const re = /(\*\*([^*]+)\*\*|`([^`]+)`|\[([^\]]+)\]\(([^)]+)\))/g;
   let last = 0;
   let match: RegExpExecArray | null;
 
@@ -30,6 +30,18 @@ function parseInline(text: string): React.ReactNode[] {
         >
           {match[3]}
         </code>
+      );
+    } else if (match[4] && match[5]) {
+      const isInternal = match[5].startsWith("/");
+      tokens.push(
+        <a
+          key={match.index}
+          href={match[5]}
+          {...(!isInternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          className="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition"
+        >
+          {match[4]}
+        </a>
       );
     }
     last = match.index + match[0].length;

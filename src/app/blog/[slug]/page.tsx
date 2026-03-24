@@ -132,17 +132,25 @@ export default async function BlogPost({ params }: Props) {
           {/* CTA */}
           <div className="rounded-xl border border-white/5 bg-white/[0.02] p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <p className="text-white font-medium mb-1">Ready to engage?</p>
+              <p className="text-white font-medium mb-1">Have a project in mind?</p>
               <p className="text-gray-500 text-sm font-light">
-                We work with state and federal agencies through VOSB and 8(a) pathways.
+                We build custom websites and web applications for Oklahoma businesses. Veteran-owned, based in Mustang, OK.
               </p>
             </div>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="shrink-0 inline-flex h-10 items-center justify-center rounded-md bg-white px-6 text-sm font-medium text-black hover:bg-gray-200 transition"
-            >
-              Contact Us
-            </a>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <a
+                href="/intake"
+                className="inline-flex h-10 items-center justify-center rounded-md bg-white px-6 text-sm font-medium text-black hover:bg-gray-200 transition"
+              >
+                Start a Project
+              </a>
+              <a
+                href={`mailto:${SITE.email}`}
+                className="inline-flex h-10 items-center justify-center rounded-md border border-white/10 px-6 text-sm font-medium text-white hover:bg-white/5 transition"
+              >
+                Email Us
+              </a>
+            </div>
           </div>
         </div>
       </main>
