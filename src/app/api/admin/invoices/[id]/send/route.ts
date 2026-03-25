@@ -9,10 +9,11 @@ function isAdmin(req: NextRequest) {
   return req.cookies.get('av-admin-session')?.value === 'authenticated'
 }
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const id = Number(params.id)
+  const { id: idStr } = await params
+  const id = Number(idStr)
 
   // Load invoice + client
   const rows = await sql`

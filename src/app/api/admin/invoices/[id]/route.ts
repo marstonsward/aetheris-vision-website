@@ -5,11 +5,12 @@ function isAdmin(req: NextRequest) {
   return req.cookies.get('av-admin-session')?.value === 'authenticated'
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { description, amount_cents, due_date, status } = await req.json()
-  const id = Number(params.id)
+  const { id: idStr } = await params
+  const id = Number(idStr)
 
   await sql`
     UPDATE invoices SET
@@ -24,10 +25,11 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   return NextResponse.json({ invoice: rows[0] })
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   if (!isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const id = Number(params.id)
+  const { id: idStr } = await params
+  const id = Number(idStr)
   await sql`DELETE FROM invoices WHERE id = ${id}`
   return NextResponse.json({ ok: true })
 }
