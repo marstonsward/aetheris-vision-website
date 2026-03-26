@@ -93,7 +93,7 @@ export default function PerformancePage() {
   }, [])
 
   const calculateGrade = (metric: number | null, thresholds: number[]): PerformanceGrade => {
-    if (metric === null) return { score: 0, grade: 'F', color: 'text-gray-400' }
+    if (metric === null) return { score: -1, grade: 'F', color: 'text-gray-400' }
     
     if (metric <= thresholds[0]) return { score: 95, grade: 'A+', color: 'text-emerald-500' }
     if (metric <= thresholds[1]) return { score: 85, grade: 'A', color: 'text-green-500' }
@@ -127,7 +127,7 @@ export default function PerformancePage() {
             <h3 className="font-semibold text-slate-900 dark:text-slate-100">{title}</h3>
           </div>
           <div className={`text-2xl font-bold ${grade.color}`}>
-            {grade.grade}
+            {grade.score < 0 ? '—' : grade.grade}
           </div>
         </div>
         
@@ -173,12 +173,15 @@ export default function PerformancePage() {
     )
   }
 
-  const overallScore = metrics ? Math.round([
-    calculateGrade(metrics.lcp, [2500, 4000, 6000, 8000]).score,
-    calculateGrade(metrics.fcp, [1800, 3000, 4500, 6000]).score,
-    calculateGrade(metrics.ttfb, [200, 500, 800, 1200]).score,
-    calculateGrade(metrics.loadTime, [3000, 5000, 8000, 12000]).score
-  ].reduce((a, b) => a + b, 0) / 4) : 0
+  const overallScore = metrics ? (() => {
+    const scores = [
+      calculateGrade(metrics.lcp, [2500, 4000, 6000, 8000]).score,
+      calculateGrade(metrics.fcp, [1800, 3000, 4500, 6000]).score,
+      calculateGrade(metrics.ttfb, [200, 500, 800, 1200]).score,
+      calculateGrade(metrics.loadTime, [3000, 5000, 8000, 12000]).score
+    ].filter(s => s >= 0)
+    return scores.length > 0 ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0
+  })() : 0
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-slate-900">
