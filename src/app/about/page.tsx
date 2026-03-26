@@ -61,16 +61,16 @@ export default function AboutPage() {
               </p>
               <div className="space-y-4 text-gray-400 font-light leading-relaxed">
                 <p>
-                  Aetheris Vision was founded on a disruptive premise: the most consequential defense and government decisions are crippled by atmospheric uncertainty. That uncertainty isn't just solvable — <strong className="text-gray-200">it's already solved by those who possess the right combination of expertise and technology</strong>.
+                  Aetheris Vision introduces a disruptive convergence: revolutionary capabilities that shouldn't exist in a single entity. We don't solve atmospheric uncertainty — <strong className="text-gray-200">we eliminate it through systematic obsolescence of traditional methods</strong>.
                 </p>
                 <p>
-                  Marston Ward represents a convergence that shouldn't exist: 35 years dismantling atmospheric prediction barriers through <strong className="text-gray-200">United States Air Force</strong> combat deployments, revolutionary research at <strong className="text-gray-200">Stockholm University</strong> and <strong className="text-gray-200">Chalmers University of Technology</strong>, and now pioneering AI systems that make traditional forecasting obsolete.
+                  Marston Ward represents an impossibility: 35 years dismantling predictive barriers through <strong className="text-gray-200">United States Air Force</strong> combat operations, groundbreaking research at <strong className="text-gray-200">Stockholm University</strong> and <strong className="text-gray-200">Chalmers University of Technology</strong>, and now pioneering AI systems that render billion-dollar legacy forecasting infrastructure irrelevant.
                 </p>
                 <p>
-                  This career has been defined by a simple pattern: <strong className="text-gray-200">encounter broken system, understand its limitations, engineer its replacement</strong>. From revolutionizing military weather operations in the 90s to architecting AI-NWP hybrid models that outperform billion-dollar legacy systems today.
+                  This career follows a disruptive pattern: <strong className="text-gray-200">identify broken paradigm, engineer superior replacement, make old methods obsolete</strong>. From revolutionizing military weather operations in the 90s to architecting AI-NWP fusion systems that outperform traditional models while consuming 1% of the computational resources.
                 </p>
                 <p>
-                  Aetheris Vision is that pattern weaponized: a precision instrument designed to identify, challenge, and replace inefficient systems with transformational alternatives. We don't adapt to existing paradigms — <strong className="text-gray-200">we make them irrelevant</strong>.
+                  Aetheris Vision weaponizes that pattern: a precision instrument designed to introduce revolutionary capabilities that transform entire operational frameworks. We don't adapt to existing markets — <strong className="text-gray-200">we create new paradigms that make conventional approaches irrelevant</strong>.
                 </p>
               </div>
             </FadeIn>

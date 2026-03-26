@@ -108,7 +108,7 @@ export default function WebServicesPage() {
               </span>
             </h1>
             <p className="max-w-2xl text-lg text-gray-400 font-light leading-relaxed mb-10">
-              We engineer custom digital systems that transform Oklahoma businesses into market dominators. No templates, no compromise, no operational inefficiencies. Strategic technology deployment designed to make your competitors obsolete.
+              We engineer revolutionary digital systems that transform organizations into market dominators. No templates, no compromise, no operational inefficiencies. This website showcases our methodology: strategic technology deployment designed to make conventional approaches obsolete.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a

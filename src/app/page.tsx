@@ -83,7 +83,7 @@ export default async function Home() {
             
             <FadeIn delay={0.3}>
               <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-10 leading-relaxed font-light">
-                Transforming Oklahoma businesses with custom digital solutions that eliminate operational friction — while revolutionizing federal defense systems with AI that makes traditional forecasting obsolete. This is targeted disruption. Veteran-owned. Mustang, OK.
+                We engineer solutions that eliminate operational uncertainty — custom digital systems that revolutionize business efficiency, and AI-powered atmospheric intelligence that makes traditional forecasting obsolete. This website exemplifies our approach: precision-built technology designed for transformational impact.
               </p>
             </FadeIn>
             

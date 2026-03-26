@@ -6,7 +6,7 @@ export const SITE = {
   logoUrl: "https://aetherisvision.com/logo/aetheris-logo.png",
   email: "contact@aetherisvision.com",
   description:
-    "Revolutionary digital solutions for Oklahoma businesses — and AI systems that make traditional meteorology obsolete for federal missions.",
+    "Revolutionary solutions that eliminate operational uncertainty — custom digital systems and AI-powered atmospheric intelligence that make traditional approaches obsolete.",
   ogDescription:
-    "Aetheris Vision eliminates operational inefficiencies through custom digital solutions and AI-powered atmospheric intelligence. Veteran-owned disruption. Based in Mustang, OK.",
+    "Aetheris Vision introduces revolutionary capabilities: precision digital solutions and AI atmospheric intelligence that eliminate uncertainty and operational inefficiencies. Veteran-owned innovation from Mustang, OK.",
 } as const;
