@@ -1,11 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Metadata } from 'next'
 import { ChartBarIcon, BoltIcon, ClockIcon, EyeIcon } from '@heroicons/react/24/outline'
-
-// Note: metadata export is not supported in client components
-// Will add metadata in layout.tsx instead
 
 interface PerformanceMetrics {
   lcp: number | null

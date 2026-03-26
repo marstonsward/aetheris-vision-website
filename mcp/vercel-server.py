@@ -37,11 +37,28 @@ except ImportError:
 # Add the parent directory to the path so we can import MCP modules
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# MCP imports
+# Load .env.local from the project root (one level up from this file's directory)
+_env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), ".env.local")
+if os.path.exists(_env_path):
+    with open(_env_path) as _f:
+        for _line in _f:
+            _line = _line.strip()
+            if _line and not _line.startswith("#") and "=" in _line:
+                _k, _, _v = _line.partition("=")
+                os.environ.setdefault(_k.strip(), _v.strip().strip('"').strip("'"))
+
+# MCP imports — insert site-packages before the local mcp/ dir to avoid shadowing
+import site
+import sys
+for sp in site.getsitepackages():
+    if sp not in sys.path:
+        sys.path.insert(0, sp)
+
 from mcp.server import Server
 from mcp.server.models import InitializationOptions
 from mcp.server.stdio import stdio_server
-from mcp.types import Tool, TextContent, CallResult
+from mcp.server.lowlevel.server import NotificationOptions
+from mcp.types import Tool, TextContent, CallToolResult
 from pydantic import BaseModel
 
 # Configure logging
@@ -350,7 +367,7 @@ async def list_tools() -> List[Tool]:
     ]
 
 @server.call_tool()
-async def call_tool(name: str, arguments: Dict[str, Any]) -> CallResult:
+async def call_tool(name: str, arguments: Dict[str, Any]) -> CallToolResult:
     """Handle tool calls"""
     global vercel_client
     
@@ -358,7 +375,7 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallResult:
         try:
             vercel_client = VercelClient()
         except ValueError as e:
-            return CallResult(
+            return CallToolResult(
                 content=[TextContent(
                     type="text",
                     text=f"❌ **Configuration Error**: {str(e)}\n\nPlease set VERCEL_TOKEN environment variable."
@@ -401,13 +418,13 @@ async def call_tool(name: str, arguments: Dict[str, Any]) -> CallResult:
         else:
             result = f"❌ Unknown tool: {name}"
         
-        return CallResult(
+        return CallToolResult(
             content=[TextContent(type="text", text=result)]
         )
         
     except Exception as e:
         logger.error(f"Error executing {name}: {e}")
-        return CallResult(
+        return CallToolResult(
             content=[TextContent(
                 type="text", 
                 text=f"❌ **Error executing {name}**: {str(e)}"
@@ -425,8 +442,8 @@ async def main():
                 server_name="vercel-deployment-monitor",
                 server_version="1.0.0",
                 capabilities=server.get_capabilities(
-                    notification_options=None,
-                    experimental_capabilities=None
+                    notification_options=NotificationOptions(),
+                    experimental_capabilities={}
                 )
             )
         )
