@@ -13,6 +13,9 @@ const navLinks = [
   { label: "Portfolio", href: "/portfolio" },
   { label: "Blog", href: "/blog" },
   { label: "Capabilities", href: "/capabilities" },
+  { label: "Performance", href: "/performance" },
+  { label: "API Docs", href: "/api-docs" },
+  { label: "Metrics", href: "/metrics" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -44,6 +47,9 @@ export default function Navbar() {
     if (href === "/blog") return pathname.startsWith("/blog");
     if (href === "/about") return pathname === "/about";
     if (href === "/capabilities") return pathname === "/capabilities";
+    if (href === "/performance") return pathname === "/performance";
+    if (href === "/api-docs") return pathname === "/api-docs";
+    if (href === "/metrics") return pathname === "/metrics";
     if (href === "/portfolio") return pathname.startsWith("/portfolio");
     if (href === "/contact") return pathname === "/contact";
     if (href === "/services/web") return pathname.startsWith("/services");
