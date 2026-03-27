@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  GITLAB_REPO: https://gitlab.com/aetheris-vision-group/aetheris-vision-project.git
+
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -16,6 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -37,3 +42,9 @@ jobs:
         env:
           NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ID }}
           PREVIEW_PASSWORD: ${{ secrets.PREVIEW_PASSWORD }}
+
+      - name: Mirror to GitLab
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@${GITLAB_REPO#https://}
+          git push gitlab main --force
