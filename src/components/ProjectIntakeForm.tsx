@@ -584,6 +584,13 @@ export default function ProjectIntakeForm() {
                 </label>
               ))}
             </div>
+            {(formData.complianceNeeds.includes("cmmc") || formData.complianceNeeds.includes("fisma")) && (
+              <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-950/20 p-4">
+                <p className="text-sm text-amber-200 leading-relaxed">
+                  <strong>Scoping consultation required:</strong> CMMC Level 2 and FISMA compliance involve infrastructure changes (AWS GovCloud, isolated VPCs) and documentation packages (SSP, POA&M, ATO) that cannot be priced from this form. These engagements typically start at $40,000. We will reach out to schedule a dedicated scoping call before any proposal is issued.
+                </p>
+              </div>
+            )}
           </div>
 
           <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4">
