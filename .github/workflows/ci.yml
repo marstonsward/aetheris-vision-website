@@ -88,6 +88,9 @@ jobs:
         env:
           NEXT_PUBLIC_FORMSPREE_ID: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ID }}
           PREVIEW_PASSWORD: ${{ secrets.PREVIEW_PASSWORD }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          NEXTAUTH_URL: https://aetherisvision.com
 
       - name: Mirror to GitLab
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
