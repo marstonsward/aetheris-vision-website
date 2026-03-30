@@ -11,7 +11,7 @@ export async function GET(request: NextRequest) {
   }
 
   const projects = await sql`
-    SELECT id, name, status, start_date, signed_at, docuseal_submission_id,
+    SELECT id, name, status, start_date, signed_at, docuseal_submission_id, signed_doc_url,
            current_phase, phase_proposal_date, phase_kickoff_date, phase_design_date,
            phase_development_date, phase_review_date, phase_launched_date, preview_url
     FROM projects
