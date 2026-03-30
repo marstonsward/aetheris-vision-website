@@ -31,6 +31,7 @@ export async function GET(request: NextRequest) {
         i.client_id,
         i.project_id,
         i.pro_bono,
+        i.platform_preference,
         i.submitted_at
       FROM intake_submissions i
       ORDER BY i.submitted_at DESC

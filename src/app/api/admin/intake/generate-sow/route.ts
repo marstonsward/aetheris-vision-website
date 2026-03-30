@@ -119,6 +119,7 @@ You are drafting a Statement of Work (SOW) for Aetheris Vision LLC, a technology
 - **Contact:** ${submission.contact_name}${submission.contact_title ? `, ${submission.contact_title}` : ''} — ${submission.contact_email}${submission.contact_phone ? ` / ${submission.contact_phone}` : ''}
 - **Budget Range:** ${submission.budget_range ?? 'Not specified'}
 - **Timeline:** ${submission.timeline ?? 'Not specified'}
+- **Platform Preference:** ${submission.platform_preference ?? 'No preference stated — recommend based on scope'}
 - **Objectives:** ${Array.isArray(submission.objectives) && submission.objectives.length > 0 ? (submission.objectives as string[]).join(', ') : 'Not specified'}
 - **Special Requirements:** ${submission.special_requirements ?? 'None'}
 - **Questions for Us:** ${submission.questions_for_us ?? 'None'}
@@ -131,7 +132,7 @@ Draft a complete, professional Statement of Work. Structure it exactly as follow
 
 1. **Project Overview** — 2-3 sentences summarizing what we are building and why, written for this specific client's industry and situation.
 
-2. **Recommended Approach** — A paragraph analyzing the client's needs and explaining the technical approach Aetheris Vision will take. Be specific to their industry (${submission.industry ?? 'their industry'}). Mention any patterns or risks relevant to their type of business.
+2. **Recommended Approach** — A paragraph analyzing the client's needs and explaining the technical approach Aetheris Vision will take. Be specific to their industry (${submission.industry ?? 'their industry'}). Mention any patterns or risks relevant to their type of business. Address the platform preference (${submission.platform_preference ?? 'no preference stated'}): if the client chose a specific stack, confirm it is appropriate for their goals and note why; if they chose "decide", recommend the best-fit stack (Next.js for performance-critical or brand-differentiated sites; Headless WordPress for content-heavy editorial/publication sites; Managed WordPress for clients who need the familiar WP dashboard) and explain the reasoning.
 
 3. **Service Tier: ${tier}**
 ${TIER_DETAILS[tier as keyof typeof TIER_DETAILS]}

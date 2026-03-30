@@ -27,6 +27,13 @@ const dark = {
   dangerBorder: 'rgba(220,38,38,0.25)',
 }
 
+const PLATFORM_LABELS: Record<string, string> = {
+  'nextjs': 'Next.js (Custom)',
+  'headless-wp': 'Headless WordPress',
+  'managed-wp': 'Managed WordPress',
+  'decide': 'Help me decide',
+}
+
 const STATUS_OPTIONS = ['new', 'in_review', 'sow_sent', 'won', 'lost'] as const
 type Status = typeof STATUS_OPTIONS[number]
 
@@ -65,6 +72,7 @@ interface Submission {
   client_id: number | null
   project_id: number | null
   pro_bono: boolean
+  platform_preference: string | null
   submitted_at: string
 }
 
@@ -295,6 +303,7 @@ export default function AdminIntakePage() {
                         { label: 'Revenue', value: sub.revenue },
                         { label: 'Timeline', value: sub.timeline },
                         { label: 'Budget', value: sub.budget_range },
+                        { label: 'Stack Preference', value: sub.platform_preference ? (PLATFORM_LABELS[sub.platform_preference] ?? sub.platform_preference) : null },
                       ].map(({ label, value }) => value ? (
                         <div key={label}>
                           <p style={{ fontSize: '11px', fontWeight: '700', color: dark.textDim, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 3px' }}>{label}</p>

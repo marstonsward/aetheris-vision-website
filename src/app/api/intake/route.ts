@@ -54,6 +54,7 @@ interface IntakeFormData {
   uptimeRequirements: string;
   backupNeeds: string;
   supportRequirements: string;
+  platformPreference: string;
   timeline: string;
   targetDate: string;
   budgetRange: string;
@@ -190,7 +191,7 @@ export async function POST(request: NextRequest) {
           client_id, project_id, company_name, industry, location, revenue,
           contact_name, contact_title, contact_email, contact_phone,
           budget_range, timeline, objectives, special_requirements,
-          questions_for_us, raw_data
+          questions_for_us, platform_preference, raw_data
         ) VALUES (
           ${clientId}, ${projectId}, ${formData.companyName}, ${formData.industry ?? null},
           ${formData.location ?? null}, ${formData.revenue ?? null},
@@ -198,7 +199,8 @@ export async function POST(request: NextRequest) {
           ${formData.contactEmail}, ${formData.contactPhone ?? null},
           ${formData.budgetRange ?? null}, ${formData.timeline ?? null},
           ${formData.objectives ?? []}, ${formData.specialRequirements ?? null},
-          ${formData.questionsForUs ?? null}, ${JSON.stringify(formData)}
+          ${formData.questionsForUs ?? null}, ${formData.platformPreference ?? null},
+          ${JSON.stringify(formData)}
         )
       `;
     } catch (dbError) {
