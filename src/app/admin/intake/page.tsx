@@ -73,6 +73,8 @@ export default function AdminIntakePage() {
   const [generatingSow, setGeneratingSow] = useState<number | null>(null)
   const [sowDrafts, setSowDrafts] = useState<Record<number, { tier: string; content: string; title: string }>>({})
   const [copySuccess, setCopySuccess] = useState<number | null>(null)
+  const [sendingSignature, setSendingSignature] = useState<number | null>(null)
+  const [signatureSent, setSignatureSent] = useState<Record<number, boolean>>({})
 
   async function fetchSubmissions() {
     const r = await fetch('/api/admin/intake')
@@ -108,6 +110,30 @@ export default function AdminIntakePage() {
     await navigator.clipboard.writeText(draft.content)
     setCopySuccess(id)
     setTimeout(() => setCopySuccess(null), 2000)
+  }
+
+  async function sendForSignature(id: number) {
+    const draft = sowDrafts[id]
+    if (!draft) return
+    setSendingSignature(id)
+    try {
+      const r = await fetch('/api/admin/intake/send-for-signature', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ intake_id: id, sow_content: draft.content }),
+      })
+      const data = await r.json()
+      if (data.success) {
+        setSignatureSent(prev => ({ ...prev, [id]: true }))
+        setSubmissions(subs => subs.map(s => s.id === id ? { ...s, status: 'sow_sent' } : s))
+      } else {
+        alert(`Failed: ${data.detail ?? data.error}`)
+      }
+    } catch (e) {
+      console.error('Send for signature failed:', e)
+      alert('Send for signature failed — check console')
+    }
+    setSendingSignature(null)
   }
 
   async function updateStatus(id: number, status: Status) {
@@ -326,6 +352,32 @@ export default function AdminIntakePage() {
                             </>
                           ) : sowDrafts[sub.id] ? '↻ Regenerate SOW' : '✦ Generate SOW Draft'}
                         </button>
+                        {sowDrafts[sub.id] && !signatureSent[sub.id] && (
+                          <button
+                            onClick={() => sendForSignature(sub.id)}
+                            disabled={sendingSignature === sub.id}
+                            style={{
+                              padding: '7px 14px', borderRadius: '7px', fontSize: '13px', fontWeight: '600',
+                              border: '1px solid rgba(16,185,129,0.4)',
+                              background: sendingSignature === sub.id ? 'rgba(16,185,129,0.08)' : 'rgba(16,185,129,0.15)',
+                              color: sendingSignature === sub.id ? 'rgba(110,231,183,0.5)' : '#6ee7b7',
+                              cursor: sendingSignature === sub.id ? 'not-allowed' : 'pointer',
+                              display: 'flex', alignItems: 'center', gap: '6px',
+                            }}
+                          >
+                            {sendingSignature === sub.id ? (
+                              <>
+                                <span style={{ display: 'inline-block', width: '10px', height: '10px', border: '2px solid rgba(110,231,183,0.3)', borderTopColor: '#6ee7b7', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+                                Sending…
+                              </>
+                            ) : '✉ Send for Signature'}
+                          </button>
+                        )}
+                        {signatureSent[sub.id] && (
+                          <span style={{ fontSize: '13px', fontWeight: '600', color: '#6ee7b7', padding: '7px 0' }}>
+                            ✓ Sent to client
+                          </span>
+                        )}
                         {sub.client_id && (
                           <Link href="/admin/clients" style={{
                             padding: '7px 13px', borderRadius: '7px', fontSize: '13px', fontWeight: '500',
