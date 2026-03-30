@@ -36,6 +36,11 @@ export function proxy(request: NextRequest) {
     return NextResponse.next()
   }
 
+  // Webhooks must be reachable by external services regardless of site-lock state
+  if (pathname.startsWith('/api/webhooks/')) {
+    return NextResponse.next()
+  }
+
   // Site-wide basic-auth lock (preview mode)
   const auth = request.headers.get('authorization')
   if (auth?.startsWith('Basic ')) {
