@@ -2,8 +2,10 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 const NAV = [
+  { href: '/admin/intake',    label: 'Intake' },
   { href: '/admin/clients',   label: 'Clients' },
   { href: '/admin/projects',  label: 'Projects' },
   { href: '/admin/documents', label: 'Documents' },
@@ -25,6 +27,20 @@ const dark = {
   activeNav: 'rgba(59,130,246,0.15)',
 }
 
+function useNewIntakeCount() {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    fetch('/api/admin/intake')
+      .then(r => r.json())
+      .then(data => {
+        const newCount = (data.submissions ?? []).filter((s: { status: string }) => s.status === 'new').length
+        setCount(newCount)
+      })
+      .catch(() => {})
+  }, [])
+  return count
+}
+
 async function handleLogout() {
   await fetch('/api/admin/auth', { method: 'DELETE' })
   window.location.href = '/admin/login'
@@ -33,6 +49,7 @@ async function handleLogout() {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isLoginPage = pathname === '/admin/login'
+  const newIntakeCount = useNewIntakeCount()
 
   if (isLoginPage) {
     return <>{children}</>
@@ -66,6 +83,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <nav style={{ display: 'flex', gap: '4px' }}>
               {NAV.map(n => {
                 const active = pathname.startsWith(n.href)
+                const showBadge = n.href === '/admin/intake' && newIntakeCount > 0
                 return (
                   <Link key={n.href} href={n.href} style={{
                     padding: '6px 12px', borderRadius: '6px', fontSize: '14px',
@@ -73,8 +91,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     color: active ? dark.blue : dark.textMuted,
                     background: active ? dark.activeNav : 'transparent',
                     textDecoration: 'none', transition: 'all 0.15s',
+                    display: 'flex', alignItems: 'center', gap: '5px',
                   }}>
                     {n.label}
+                    {showBadge && (
+                      <span style={{
+                        background: '#3b82f6', color: '#fff',
+                        borderRadius: '999px', fontSize: '10px', fontWeight: '800',
+                        minWidth: '16px', height: '16px', display: 'inline-flex',
+                        alignItems: 'center', justifyContent: 'center', padding: '0 4px',
+                      }}>
+                        {newIntakeCount}
+                      </span>
+                    )}
                   </Link>
                 )
               })}

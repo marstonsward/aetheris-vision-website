@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { generateComplianceScoping, REGULATED_FRAMEWORKS } from '@/lib/compliance-agent';
+import { sql } from '@/lib/db';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -155,6 +156,54 @@ export async function POST(request: NextRequest) {
       industry: formData.industry,
       ...analyticsData,
     }));
+
+    // --- Persist to DB ---
+    let clientId: number | null = null;
+    let projectId: number | null = null;
+    try {
+      // Upsert client by email
+      const existingClients = await sql`
+        SELECT id FROM clients WHERE email = ${formData.contactEmail} LIMIT 1
+      `;
+      if (existingClients.length > 0) {
+        clientId = existingClients[0].id;
+      } else {
+        const newClient = await sql`
+          INSERT INTO clients (name, contact_name, email, phone)
+          VALUES (${formData.companyName}, ${formData.contactName}, ${formData.contactEmail}, ${formData.contactPhone ?? null})
+          RETURNING id
+        `;
+        clientId = newClient[0].id;
+      }
+
+      // Create project record
+      const newProject = await sql`
+        INSERT INTO projects (client_id, name, status)
+        VALUES (${clientId}, ${`${formData.companyName} — Website Project`}, 'intake')
+        RETURNING id
+      `;
+      projectId = newProject[0].id;
+
+      // Save intake submission
+      await sql`
+        INSERT INTO intake_submissions (
+          client_id, project_id, company_name, industry, location, revenue,
+          contact_name, contact_title, contact_email, contact_phone,
+          budget_range, timeline, objectives, special_requirements,
+          questions_for_us, raw_data
+        ) VALUES (
+          ${clientId}, ${projectId}, ${formData.companyName}, ${formData.industry ?? null},
+          ${formData.location ?? null}, ${formData.revenue ?? null},
+          ${formData.contactName}, ${formData.contactTitle ?? null},
+          ${formData.contactEmail}, ${formData.contactPhone ?? null},
+          ${formData.budgetRange ?? null}, ${formData.timeline ?? null},
+          ${formData.objectives ?? []}, ${formData.specialRequirements ?? null},
+          ${formData.questionsForUs ?? null}, ${JSON.stringify(formData)}
+        )
+      `;
+    } catch (dbError) {
+      console.error('DB persistence failed (non-fatal):', dbError);
+    }
 
     const emailContent = generateEmailContent(formData, analyticsData);
 
