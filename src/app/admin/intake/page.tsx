@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 const dark = {
   bg: '#070f1e',
@@ -77,6 +79,7 @@ export default function AdminIntakePage() {
   const [savingDraft, setSavingDraft] = useState<number | null>(null)
   const [savedDraft, setSavedDraft] = useState<number | null>(null)
   const [copySuccess, setCopySuccess] = useState<number | null>(null)
+  const [sowPreviewMode, setSowPreviewMode] = useState<Record<number, boolean>>({})
   const [sendingSignature, setSendingSignature] = useState<number | null>(null)
   const [signatureSent, setSignatureSent] = useState<Record<number, boolean>>({})
   const [togglingProBono, setTogglingProBono] = useState<number | null>(null)
@@ -325,21 +328,40 @@ export default function AdminIntakePage() {
                     {/* SOW Draft */}
                     {sowDrafts[sub.id] && (
                       <div style={{ marginBottom: '20px', borderRadius: '10px', border: `1px solid rgba(16,185,129,0.25)`, background: 'rgba(16,185,129,0.05)', overflow: 'hidden' }}>
-                        <div style={{ padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid rgba(16,185,129,0.15)` }}>
+                        {/* SOW toolbar */}
+                        <div style={{ padding: '10px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid rgba(16,185,129,0.15)` }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <span style={{ fontSize: '13px', fontWeight: '700', color: '#6ee7b7' }}>✓ SOW Draft</span>
                             <span style={{ fontSize: '11px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', borderRadius: '5px', padding: '2px 7px', fontWeight: '600' }}>
                               {sowDrafts[sub.id].tier} Tier
                             </span>
+                            {/* Edit / Preview toggle */}
+                            <div style={{ display: 'flex', borderRadius: '6px', border: `1px solid ${dark.border}`, overflow: 'hidden', marginLeft: '4px' }}>
+                              {(['Edit', 'Preview'] as const).map(mode => {
+                                const isActive = mode === 'Preview' ? !!sowPreviewMode[sub.id] : !sowPreviewMode[sub.id]
+                                return (
+                                  <button key={mode}
+                                    onClick={() => setSowPreviewMode(prev => ({ ...prev, [sub.id]: mode === 'Preview' }))}
+                                    style={{
+                                      padding: '4px 10px', fontSize: '11px', fontWeight: '600', border: 'none',
+                                      background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
+                                      color: isActive ? dark.text : dark.textDim, cursor: 'pointer',
+                                    }}
+                                  >{mode}</button>
+                                )
+                              })}
+                            </div>
                           </div>
                           <div style={{ display: 'flex', gap: '6px' }}>
-                            <button
-                              onClick={() => saveDraft(sub.id)}
-                              disabled={savingDraft === sub.id}
-                              style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', border: `1px solid rgba(16,185,129,0.3)`, background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', cursor: 'pointer' }}
-                            >
-                              {savingDraft === sub.id ? 'Saving…' : savedDraft === sub.id ? '✓ Saved' : 'Save Draft'}
-                            </button>
+                            {!sowPreviewMode[sub.id] && (
+                              <button
+                                onClick={() => saveDraft(sub.id)}
+                                disabled={savingDraft === sub.id}
+                                style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', border: `1px solid rgba(16,185,129,0.3)`, background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', cursor: 'pointer' }}
+                              >
+                                {savingDraft === sub.id ? 'Saving…' : savedDraft === sub.id ? '✓ Saved' : 'Save Draft'}
+                              </button>
+                            )}
                             <button
                               onClick={() => copySow(sub.id)}
                               style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', border: `1px solid rgba(16,185,129,0.3)`, background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', cursor: 'pointer' }}
@@ -348,19 +370,52 @@ export default function AdminIntakePage() {
                             </button>
                           </div>
                         </div>
-                        <textarea
-                          value={sowEdits[sub.id] ?? sowDrafts[sub.id].content}
-                          onChange={e => setSowEdits(prev => ({ ...prev, [sub.id]: e.target.value }))}
-                          style={{
-                            display: 'block', width: '100%', boxSizing: 'border-box',
-                            margin: 0, padding: '16px', minHeight: '360px', maxHeight: '560px',
-                            fontSize: '12px', color: dark.text, background: 'transparent',
-                            border: 'none', outline: 'none', resize: 'vertical',
-                            fontFamily: 'ui-monospace, monospace', lineHeight: '1.7',
-                            whiteSpace: 'pre-wrap', wordBreak: 'break-word',
-                          }}
-                          spellCheck={false}
-                        />
+
+                        {/* Edit mode — raw textarea */}
+                        {!sowPreviewMode[sub.id] && (
+                          <textarea
+                            value={sowEdits[sub.id] ?? sowDrafts[sub.id].content}
+                            onChange={e => setSowEdits(prev => ({ ...prev, [sub.id]: e.target.value }))}
+                            style={{
+                              display: 'block', width: '100%', boxSizing: 'border-box',
+                              margin: 0, padding: '16px', minHeight: '360px', maxHeight: '560px',
+                              fontSize: '12px', color: dark.text, background: 'transparent',
+                              border: 'none', outline: 'none', resize: 'vertical',
+                              fontFamily: 'ui-monospace, monospace', lineHeight: '1.7',
+                              whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+                            }}
+                            spellCheck={false}
+                          />
+                        )}
+
+                        {/* Preview mode — rendered markdown */}
+                        {sowPreviewMode[sub.id] && (
+                          <div style={{
+                            padding: '20px 24px', maxHeight: '560px', overflowY: 'auto',
+                            fontSize: '13px', lineHeight: '1.7', color: dark.text,
+                          }}>
+                            <style>{`
+                              .sow-preview h1 { font-size: 18px; font-weight: 700; color: #f1f5f9; margin: 20px 0 8px; }
+                              .sow-preview h2 { font-size: 14px; font-weight: 700; color: #93c5fd; margin: 18px 0 6px; padding-bottom: 4px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+                              .sow-preview h3 { font-size: 13px; font-weight: 600; color: #f1f5f9; margin: 14px 0 4px; }
+                              .sow-preview p { margin: 6px 0; color: rgba(255,255,255,0.75); }
+                              .sow-preview ul, .sow-preview ol { margin: 6px 0 6px 20px; color: rgba(255,255,255,0.75); }
+                              .sow-preview li { margin: 3px 0; }
+                              .sow-preview strong { color: #f1f5f9; font-weight: 600; }
+                              .sow-preview hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0; }
+                              .sow-preview table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
+                              .sow-preview th { background: rgba(59,130,246,0.12); color: #93c5fd; padding: 7px 10px; text-align: left; border: 1px solid rgba(255,255,255,0.08); font-weight: 600; }
+                              .sow-preview td { padding: 6px 10px; border: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
+                              .sow-preview blockquote { border-left: 3px solid rgba(59,130,246,0.4); margin: 8px 0; padding: 6px 12px; background: rgba(59,130,246,0.05); color: rgba(255,255,255,0.6); font-style: italic; }
+                              .sow-preview code { background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
+                            `}</style>
+                            <div className="sow-preview">
+                              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {sowEdits[sub.id] ?? sowDrafts[sub.id].content}
+                              </ReactMarkdown>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
 

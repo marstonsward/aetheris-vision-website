@@ -165,17 +165,26 @@ Do not include a payment schedule. Do not include add-on pricing. Close with a s
 - Optional add-ons if relevant (e.g., content writing, SEO audit, ongoing retainer)`
 }
 
-8. **Out of Scope**
+8. **Hosting & Maintenance (Optional Add-On)**
+Include a brief section describing Aetheris Vision's optional post-launch hosting and maintenance retainer. Format as:
+
+- **Managed Hosting:** Starting at $75/mo — includes Vercel/cloud hosting management, domain/DNS oversight, SSL renewal, and uptime monitoring
+- **Monthly Maintenance Retainer:** Starting at $150/mo — includes software updates, security patches, content updates (up to 2 hrs/mo), and priority support
+- **Custom SLA packages available** for Business and Enterprise clients requiring guaranteed response times or dedicated support hours
+
+Note that these are optional add-ons, separate from the project fee. Encourage the client to ask about bundling at project kick-off.
+
+9. **Out of Scope**
 List 4-6 items clearly excluded (e.g., logo design, copywriting, third-party licensing fees, ongoing hosting fees after launch).
 ${wantsEcommerce
   ? `IMPORTANT: The client expressed interest in e-commerce. Do NOT list "e-commerce" as a blanket exclusion. Instead, include this nuanced item: "E-commerce functionality (live shopping cart, payment processing, online ordering) is not included in this ${tier} tier engagement. This capability is available as an upgrade to the Business or Enterprise tier and can be scoped as a future phase — contact Aetheris Vision to discuss options."`
   : 'Include "E-commerce functionality" as a standard OOS item for this tier.'
 }
 
-9. **Change Order Policy**
+10. **Change Order Policy**
 Standard 1-paragraph policy: changes to agreed scope require written change order with revised timeline and cost estimate.
 
-10. **Acceptance & Warranty**
+11. **Acceptance & Warranty**
 Standard clause: client has 5 business days to review each milestone. 30-day post-launch bug fix warranty for defects in delivered work.
 
 Write in clean professional prose. Use markdown formatting (## headings, **bold**, bullet lists). Do not include signature blocks — those will be added separately via DocuSeal. Do not add preamble or meta-commentary — output the SOW directly.
