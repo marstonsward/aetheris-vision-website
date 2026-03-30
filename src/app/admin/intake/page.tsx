@@ -71,7 +71,10 @@ export default function AdminIntakePage() {
   const [expanded, setExpanded] = useState<number | null>(null)
   const [updating, setUpdating] = useState<number | null>(null)
   const [generatingSow, setGeneratingSow] = useState<number | null>(null)
-  const [sowDrafts, setSowDrafts] = useState<Record<number, { tier: string; content: string; title: string }>>({})
+  const [sowDrafts, setSowDrafts] = useState<Record<number, { tier: string; content: string; title: string; documentId?: number }>>({})
+  const [sowEdits, setSowEdits] = useState<Record<number, string>>({})
+  const [savingDraft, setSavingDraft] = useState<number | null>(null)
+  const [savedDraft, setSavedDraft] = useState<number | null>(null)
   const [copySuccess, setCopySuccess] = useState<number | null>(null)
   const [sendingSignature, setSendingSignature] = useState<number | null>(null)
   const [signatureSent, setSignatureSent] = useState<Record<number, boolean>>({})
@@ -95,7 +98,8 @@ export default function AdminIntakePage() {
       })
       const data = await r.json()
       if (data.content) {
-        setSowDrafts(prev => ({ ...prev, [id]: { tier: data.tier, content: data.content, title: data.title } }))
+        setSowDrafts(prev => ({ ...prev, [id]: { tier: data.tier, content: data.content, title: data.title, documentId: data.document_id } }))
+        setSowEdits(prev => ({ ...prev, [id]: data.content }))
         setSubmissions(subs => subs.map(s => s.id === id ? { ...s, status: 'in_review' } : s))
       }
     } catch (e) {
@@ -105,22 +109,45 @@ export default function AdminIntakePage() {
   }
 
   async function copySow(id: number) {
-    const draft = sowDrafts[id]
-    if (!draft) return
-    await navigator.clipboard.writeText(draft.content)
+    const content = sowEdits[id] ?? sowDrafts[id]?.content
+    if (!content) return
+    await navigator.clipboard.writeText(content)
     setCopySuccess(id)
     setTimeout(() => setCopySuccess(null), 2000)
+  }
+
+  async function saveDraft(id: number) {
+    const draft = sowDrafts[id]
+    const content = sowEdits[id]
+    if (!draft || !content) return
+    setSavingDraft(id)
+    try {
+      if (draft.documentId) {
+        await fetch(`/api/admin/documents/${draft.documentId}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ content }),
+        })
+      }
+      setSowDrafts(prev => ({ ...prev, [id]: { ...prev[id], content } }))
+      setSavedDraft(id)
+      setTimeout(() => setSavedDraft(null), 2000)
+    } catch (e) {
+      console.error('Save draft failed:', e)
+    }
+    setSavingDraft(null)
   }
 
   async function sendForSignature(id: number) {
     const draft = sowDrafts[id]
     if (!draft) return
+    const content = sowEdits[id] ?? draft.content
     setSendingSignature(id)
     try {
       const r = await fetch('/api/admin/intake/send-for-signature', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ intake_id: id, sow_content: draft.content }),
+        body: JSON.stringify({ intake_id: id, sow_content: content }),
       })
       const data = await r.json()
       if (data.success) {
@@ -282,21 +309,40 @@ export default function AdminIntakePage() {
                       <div style={{ marginBottom: '20px', borderRadius: '10px', border: `1px solid rgba(16,185,129,0.25)`, background: 'rgba(16,185,129,0.05)', overflow: 'hidden' }}>
                         <div style={{ padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid rgba(16,185,129,0.15)` }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                            <span style={{ fontSize: '13px', fontWeight: '700', color: '#6ee7b7' }}>✓ SOW Draft Generated</span>
+                            <span style={{ fontSize: '13px', fontWeight: '700', color: '#6ee7b7' }}>✓ SOW Draft</span>
                             <span style={{ fontSize: '11px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', borderRadius: '5px', padding: '2px 7px', fontWeight: '600' }}>
                               {sowDrafts[sub.id].tier} Tier
                             </span>
                           </div>
-                          <button
-                            onClick={() => copySow(sub.id)}
-                            style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', border: `1px solid rgba(16,185,129,0.3)`, background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', cursor: 'pointer' }}
-                          >
-                            {copySuccess === sub.id ? '✓ Copied!' : 'Copy'}
-                          </button>
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            <button
+                              onClick={() => saveDraft(sub.id)}
+                              disabled={savingDraft === sub.id}
+                              style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', border: `1px solid rgba(16,185,129,0.3)`, background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', cursor: 'pointer' }}
+                            >
+                              {savingDraft === sub.id ? 'Saving…' : savedDraft === sub.id ? '✓ Saved' : 'Save Draft'}
+                            </button>
+                            <button
+                              onClick={() => copySow(sub.id)}
+                              style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', border: `1px solid rgba(16,185,129,0.3)`, background: 'rgba(16,185,129,0.1)', color: '#6ee7b7', cursor: 'pointer' }}
+                            >
+                              {copySuccess === sub.id ? '✓ Copied!' : 'Copy'}
+                            </button>
+                          </div>
                         </div>
-                        <pre style={{ margin: 0, padding: '16px', fontSize: '12px', color: dark.textMuted, whiteSpace: 'pre-wrap', wordBreak: 'break-word', maxHeight: '320px', overflowY: 'auto', fontFamily: 'ui-monospace, monospace', lineHeight: '1.6' }}>
-                          {sowDrafts[sub.id].content}
-                        </pre>
+                        <textarea
+                          value={sowEdits[sub.id] ?? sowDrafts[sub.id].content}
+                          onChange={e => setSowEdits(prev => ({ ...prev, [sub.id]: e.target.value }))}
+                          style={{
+                            display: 'block', width: '100%', boxSizing: 'border-box',
+                            margin: 0, padding: '16px', minHeight: '360px', maxHeight: '560px',
+                            fontSize: '12px', color: dark.text, background: 'transparent',
+                            border: 'none', outline: 'none', resize: 'vertical',
+                            fontFamily: 'ui-monospace, monospace', lineHeight: '1.7',
+                            whiteSpace: 'pre-wrap', wordBreak: 'break-word',
+                          }}
+                          spellCheck={false}
+                        />
                       </div>
                     )}
 
