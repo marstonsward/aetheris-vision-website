@@ -1,29 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
-import { sendForSigning } from '@/lib/docuseal';
+import { sendForSigning, buildSignatureBlock } from '@/lib/docuseal';
 
 function isAdmin(req: NextRequest): boolean {
   return req.cookies.get('av-admin-session')?.value === 'authenticated';
 }
 
-// Convert markdown SOW to a clean, styled HTML document
-function markdownToHtml(markdown: string, title: string): string {
-  // Basic markdown → HTML conversion for SOW content
-  let html = markdown
-    // Headers
+// Convert markdown SOW to a full HTML document with embedded DocuSeal field tags
+function markdownToHtml(markdown: string, title: string, signerName: string, isSelfSign: boolean): string {
+  const body = markdown
     .replace(/^## (.+)$/gm, '<h2>$1</h2>')
     .replace(/^### (.+)$/gm, '<h3>$1</h3>')
     .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    // Bold
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    // Bullet lists — collect consecutive lines starting with -
     .replace(/^- (.+)$/gm, '<li>$1</li>')
     .replace(/(<li>[^]*?<\/li>\n?)+/gm, (match) => `<ul>${match}</ul>`)
-    // Numbered lists
     .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
-    // Horizontal rules
     .replace(/^---$/gm, '<hr>')
-    // Paragraphs — double newlines
     .replace(/\n\n/g, '</p><p>')
 
   return `<!DOCTYPE html>
@@ -33,20 +26,8 @@ function markdownToHtml(markdown: string, title: string): string {
   <title>${title}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 11pt;
-      line-height: 1.6;
-      color: #1a1a1a;
-      padding: 48px 56px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .header {
-      border-bottom: 2px solid #1e3a5f;
-      padding-bottom: 20px;
-      margin-bottom: 32px;
-    }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; padding: 48px 56px; max-width: 800px; margin: 0 auto; }
+    .header { border-bottom: 2px solid #1e3a5f; padding-bottom: 20px; margin-bottom: 32px; }
     .header h1 { font-size: 22pt; color: #1e3a5f; font-weight: 700; margin-bottom: 4px; }
     .header .meta { font-size: 10pt; color: #555; }
     h1 { font-size: 18pt; color: #1e3a5f; margin: 28px 0 8px; }
@@ -57,20 +38,7 @@ function markdownToHtml(markdown: string, title: string): string {
     li { margin: 4px 0; }
     strong { color: #1a1a1a; }
     hr { border: none; border-top: 1px solid #dde4ed; margin: 20px 0; }
-    .footer {
-      margin-top: 48px;
-      padding-top: 20px;
-      border-top: 2px solid #1e3a5f;
-      font-size: 9pt;
-      color: #777;
-    }
-    .signature-block {
-      margin-top: 48px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-    }
-    .signature-field { border-top: 1px solid #333; padding-top: 6px; font-size: 9pt; color: #555; }
+    .footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid #dde4ed; font-size: 9pt; color: #777; }
   </style>
 </head>
 <body>
@@ -81,11 +49,8 @@ function markdownToHtml(markdown: string, title: string): string {
       marston@aetherisvision.com &nbsp;·&nbsp; aetherisvision.com
     </div>
   </div>
-
-  <div class="content">
-    <p>${html}</p>
-  </div>
-
+  <div class="content"><p>${body}</p></div>
+  ${buildSignatureBlock(isSelfSign, signerName)}
   <div class="footer">
     This Statement of Work is confidential and intended solely for the named parties.
     Aetheris Vision LLC · EIN 33-4818538 · Oklahoma LLC
@@ -124,21 +89,26 @@ export async function POST(request: NextRequest) {
 
     const { contact_name, contact_email, company_name, client_id, project_id, project_name } = rows[0];
 
-    // Convert SOW markdown → HTML → base64
+    const isSelfSign = contact_email.toLowerCase() === 'marston@aetherisvision.com';
     const title = `SOW — ${company_name}`;
-    const htmlDoc = markdownToHtml(sow_content, title);
-    const htmlBase64 = Buffer.from(htmlDoc).toString('base64');
+    // Convert SOW markdown → HTML with embedded DocuSeal field tags
+    const htmlDoc = markdownToHtml(sow_content, title, contact_name, isSelfSign);
 
-    // Send to Docuseal
+    // Send to DocuSeal via /submissions/html (one-shot — no pre-existing template needed)
     const submission = await sendForSigning({
-      pdfBase64: htmlBase64,
-      fileName: `${title}.html`,
+      html: htmlDoc,
+      fileName: title,
       signerName: contact_name,
       signerEmail: contact_email,
     });
 
-    const submissionId = String(submission.id ?? submission.submission_id ?? submission.data?.id ?? '');
+    // /submissions/html returns an array of submitter objects; submission_id is on each entry
+    const firstSubmitter = Array.isArray(submission) ? submission[0] : submission;
+    const submissionId = String(
+      firstSubmitter?.submission_id ?? firstSubmitter?.id ?? submission?.id ?? ''
+    );
     if (!submissionId) {
+      console.error('Docuseal raw response:', JSON.stringify(submission));
       throw new Error('Docuseal did not return a submission ID');
     }
 

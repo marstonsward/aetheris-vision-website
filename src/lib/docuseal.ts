@@ -2,43 +2,53 @@ const DOCUSEAL_API_URL = 'https://api.docuseal.com'
 const DOCUSEAL_API_KEY = process.env.DOCUSEAL_API_KEY!
 const MARSTON_EMAIL = 'marston@aetherisvision.com'
 
-// Send a PDF for signing via Docuseal
+// Build the HTML signature block with embedded DocuSeal field tags
+export function buildSignatureBlock(isSelfSign: boolean, signerName: string): string {
+  if (isSelfSign) {
+    return `
+      <div class="signature-block" style="margin-top:48px;padding-top:20px;border-top:2px solid #1e3a5f;">
+        <div style="max-width:320px;">
+          <p style="font-weight:700;margin-bottom:8px;">Aetheris Vision LLC</p>
+          <signature-field name="signature" role="Signer" required="true" style="display:block;margin:8px 0;"></signature-field>
+          <date-field name="date" role="Signer" style="display:block;margin:8px 0;"></date-field>
+          <p style="font-size:9pt;color:#555;">Marston Ward, Principal</p>
+        </div>
+      </div>`
+  }
+  return `
+    <div class="signature-block" style="margin-top:48px;padding-top:20px;border-top:2px solid #1e3a5f;display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+      <div>
+        <p style="font-weight:700;margin-bottom:8px;">Client — ${signerName}</p>
+        <signature-field name="signature" role="Signer" required="true" style="display:block;margin:8px 0;"></signature-field>
+        <date-field name="date" role="Signer" style="display:block;margin:8px 0;"></date-field>
+      </div>
+      <div>
+        <p style="font-weight:700;margin-bottom:8px;">Aetheris Vision LLC</p>
+        <signature-field name="countersignature" role="Countersigner" required="true" style="display:block;margin:8px 0;"></signature-field>
+        <date-field name="counterdate" role="Countersigner" style="display:block;margin:8px 0;"></date-field>
+        <p style="font-size:9pt;color:#555;">Marston Ward, Principal</p>
+      </div>
+    </div>`
+}
+
+// Send an HTML document for signing via POST /submissions/html
+// DocuSeal creates the template + submission in one shot from the raw HTML.
+// Field tags (<signature-field>, <date-field>) are embedded directly in the HTML.
 export async function sendForSigning({
-  pdfBase64,
+  html,
   fileName,
   signerName,
   signerEmail,
   ccEmail,
 }: {
-  pdfBase64: string
+  html: string        // full HTML document with embedded DocuSeal field tags
   fileName: string
   signerName: string
   signerEmail: string
   ccEmail?: string
 }) {
-  // If the client IS Marston, DocuSeal rejects having the same email in both
-  // Signer and Countersigner roles. Use a single-signer flow in that case —
-  // Marston signs once directly (as himself) with no countersign step.
+  // If the client IS Marston, single-signer flow to avoid duplicate-email error
   const isSelfSign = signerEmail.toLowerCase() === MARSTON_EMAIL.toLowerCase()
-
-  const templateSubmitters = isSelfSign
-    ? [{ name: 'Aetheris Vision', role: 'Signer' }]
-    : [
-        { name: 'Client', role: 'Signer' },
-        { name: 'Aetheris Vision', role: 'Countersigner' },
-      ]
-
-  const templateFields = isSelfSign
-    ? [
-        { name: 'signature', type: 'signature', role: 'Signer' },
-        { name: 'date', type: 'date', role: 'Signer' },
-      ]
-    : [
-        { name: 'signature', type: 'signature', role: 'Signer' },
-        { name: 'date', type: 'date', role: 'Signer' },
-        { name: 'countersignature', type: 'signature', role: 'Countersigner' },
-        { name: 'counterdate', type: 'date', role: 'Countersigner' },
-      ]
 
   const submitters = isSelfSign
     ? [{ name: signerName, email: signerEmail, role: 'Signer', send_email: true }]
@@ -47,22 +57,18 @@ export async function sendForSigning({
         { name: 'Marston Ward', email: MARSTON_EMAIL, role: 'Countersigner', send_email: true },
       ]
 
-  const response = await fetch(`${DOCUSEAL_API_URL}/submissions`, {
+  const response = await fetch(`${DOCUSEAL_API_URL}/submissions/html`, {
     method: 'POST',
     headers: {
       'X-Auth-Token': DOCUSEAL_API_KEY,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      template: {
-        name: fileName,
-        documents: [{ name: fileName, file: pdfBase64 }],
-        schema: [{ attachment_uuid: null, name: fileName }],
-        submitters: templateSubmitters,
-        fields: templateFields,
-      },
+      name: fileName,
+      send_email: true,
+      documents: [{ name: fileName, html }],
       submitters,
-      ...(ccEmail && { message: { cc: ccEmail } }),
+      ...(ccEmail && { message: { subject: 'Please review and sign your Statement of Work', body: ccEmail } }),
     }),
   })
 
