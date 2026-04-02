@@ -4,7 +4,9 @@ import { NextResponse } from 'next/server'
 export async function GET() {
   const rows = await sql`SELECT account, email FROM oauth_tokens WHERE account IN ('biz', 'per')`
 
-  const map = Object.fromEntries(rows.map((r: { account: string; email: string | null }) => [r.account, r.email]))
+  const map = Object.fromEntries(
+    (rows as { account: string; email: string | null }[]).map(r => [r.account, r.email])
+  )
 
   return NextResponse.json({
     biz: { connected: 'biz' in map, email: map.biz ?? null },

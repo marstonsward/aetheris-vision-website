@@ -212,7 +212,7 @@ export async function GET(request: NextRequest) {
   // Load refresh tokens from DB (set via /admin/gmail)
   const tokenRows = await sql`SELECT account, refresh_token FROM oauth_tokens WHERE account IN ('biz', 'per')`
   const tokenMap = Object.fromEntries(
-    tokenRows.map((r: { account: string; refresh_token: string }) => [r.account, r.refresh_token])
+    (tokenRows as { account: string; refresh_token: string }[]).map(r => [r.account, r.refresh_token])
   )
 
   if (!tokenMap.biz && !tokenMap.per) {
