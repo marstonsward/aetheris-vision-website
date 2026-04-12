@@ -117,6 +117,37 @@ export async function createTables() {
     )
   `
 
+  // documents table — used by /api/admin/documents and /api/client/documents
+  await sql`
+    CREATE TABLE IF NOT EXISTS documents (
+      id          SERIAL PRIMARY KEY,
+      client_id   INTEGER REFERENCES clients(id) ON DELETE CASCADE,
+      project_id  INTEGER REFERENCES projects(id) ON DELETE SET NULL,
+      name        TEXT NOT NULL,
+      content     TEXT,
+      type        TEXT,
+      created_at  TIMESTAMPTZ DEFAULT NOW()
+    )
+  `
+
+  // Project phase tracking columns
+  await sql`
+    ALTER TABLE projects
+    ADD COLUMN IF NOT EXISTS current_phase          TEXT,
+    ADD COLUMN IF NOT EXISTS phase_proposal_date    DATE,
+    ADD COLUMN IF NOT EXISTS phase_kickoff_date     DATE,
+    ADD COLUMN IF NOT EXISTS phase_design_date      DATE,
+    ADD COLUMN IF NOT EXISTS phase_development_date DATE,
+    ADD COLUMN IF NOT EXISTS phase_review_date      DATE,
+    ADD COLUMN IF NOT EXISTS phase_launched_date    DATE
+  `
+
+  // platform_preference on intake_submissions
+  await sql`
+    ALTER TABLE intake_submissions
+    ADD COLUMN IF NOT EXISTS platform_preference TEXT
+  `
+
   console.log('Tables created successfully')
 }
 
