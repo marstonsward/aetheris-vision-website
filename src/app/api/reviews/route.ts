@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { Resend } from 'resend'
-import { createReview, getApprovedReviews } from '@/lib/db/reviews'
+import { createReview, getApprovedReviews, ensureReviewsTable } from '@/lib/db/reviews'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -21,6 +21,7 @@ function isRateLimited(ip: string): boolean {
 
 export async function GET() {
   try {
+    await ensureReviewsTable()
     const reviews = await getApprovedReviews()
     return NextResponse.json({ reviews })
   } catch (err) {
@@ -76,6 +77,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    await ensureReviewsTable()
     const review = await createReview({ client_name, client_role, client_company, rating, body: reviewBody })
 
     // Send notification email to admin (non-fatal)

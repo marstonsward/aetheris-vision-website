@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAllReviews } from '@/lib/db/reviews'
+import { getAllReviews, ensureReviewsTable } from '@/lib/db/reviews'
 
 function isAdmin(req: NextRequest) {
   return req.cookies.get('av-admin-session')?.value === 'authenticated'
@@ -9,6 +9,7 @@ export async function GET(req: NextRequest) {
   if (!isAdmin(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
+    await ensureReviewsTable()
     const reviews = await getAllReviews()
     return NextResponse.json({ reviews })
   } catch (err) {

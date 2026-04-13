@@ -1,5 +1,25 @@
 import { sql } from '@/lib/db'
 
+// Auto-migrate: create the table if it doesn't exist yet.
+// Safe to call multiple times (IF NOT EXISTS). Runs once per cold start.
+let migrated = false
+export async function ensureReviewsTable() {
+  if (migrated) return
+  await sql`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id SERIAL PRIMARY KEY,
+      client_name TEXT NOT NULL,
+      client_role TEXT,
+      client_company TEXT,
+      rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+      body TEXT NOT NULL,
+      approved BOOLEAN NOT NULL DEFAULT false,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    )
+  `
+  migrated = true
+}
+
 export type Review = {
   id: number
   client_name: string
