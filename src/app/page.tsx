@@ -5,6 +5,7 @@ import { SITE } from "@/lib/constants";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
+import type { Review } from "@/lib/db/reviews";
 
 export const revalidate = 3600;
 
@@ -58,6 +59,75 @@ const WHY_AV = [
     body: "Custom web development for local businesses + AI-powered atmospheric intelligence for government agencies. Rare combination — by design.",
   },
 ];
+
+async function ReviewsSection() {
+  let reviews: Review[] = []
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL ?? 'https://aetherisvision.com'}/api/reviews`,
+      { next: { revalidate: 3600 } }
+    )
+    if (res.ok) {
+      const data = await res.json()
+      reviews = data.reviews ?? []
+    }
+  } catch {
+    // Non-fatal — just render nothing
+  }
+
+  if (reviews.length === 0) return null
+
+  return (
+    <section className="py-24 bg-[#0d0c0f] border-t border-white/5">
+      <div className="mx-auto max-w-5xl px-6">
+        <FadeIn>
+          <p className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-3">Client Feedback</p>
+          <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-12">
+            What clients say
+          </h2>
+        </FadeIn>
+
+        <div className={`grid grid-cols-1 gap-6 ${reviews.length === 1 ? '' : 'md:grid-cols-2'} ${reviews.length >= 3 ? 'lg:grid-cols-3' : ''}`}>
+          {reviews.map((review, i) => (
+            <FadeIn key={review.id} delay={i * 0.06} direction="up">
+              <div className="rounded-xl border border-white/5 bg-white/[0.02] p-6 h-full flex flex-col hover:bg-white/[0.04] transition">
+                {/* Stars */}
+                <div className="flex gap-0.5 mb-4">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <span
+                      key={s}
+                      style={{
+                        color: s <= review.rating ? '#f59e0b' : 'rgba(255,255,255,0.12)',
+                        fontSize: '16px',
+                      }}
+                    >
+                      ★
+                    </span>
+                  ))}
+                </div>
+
+                {/* Body */}
+                <p className="text-gray-400 font-light text-sm leading-relaxed flex-1 mb-5">
+                  &ldquo;{review.body}&rdquo;
+                </p>
+
+                {/* Attribution */}
+                <div className="border-t border-white/5 pt-4">
+                  <p className="text-white font-medium text-sm">{review.client_name}</p>
+                  {(review.client_role || review.client_company) && (
+                    <p className="text-gray-500 text-xs mt-0.5">
+                      {[review.client_role, review.client_company].filter(Boolean).join(' · ')}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function Home() {
   return (
@@ -400,6 +470,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        {/* ── CLIENT REVIEWS ───────────────────────────────────────────── */}
+        <ReviewsSection />
 
         {/* ── LEAD CAPTURE ─────────────────────────────────────────────── */}
         <section className="py-24 bg-[#0d0c0f] border-t border-white/5">
