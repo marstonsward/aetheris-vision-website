@@ -28,8 +28,8 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  activeNav: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  activeNav: 'rgba(91,168,217,0.15)',
 }
 
 function useMoreDropdown() {
@@ -89,9 +89,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginRight: '8px' }}>
               <div style={{
                 width: '28px', height: '28px', borderRadius: '7px',
-                background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+                background: 'linear-gradient(135deg, #29426C, #5BA8D9)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 2px 8px rgba(59,130,246,0.3)',
+                boxShadow: '0 2px 8px rgba(91,168,217,0.3)',
               }}>
                 <span style={{ color: '#fff', fontSize: '11px', fontWeight: '800' }}>AV</span>
               </div>
@@ -114,7 +114,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     {n.label}
                     {showBadge && (
                       <span style={{
-                        background: '#3b82f6', color: '#fff',
+                        background: '#5BA8D9', color: '#fff',
                         borderRadius: '999px', fontSize: '10px', fontWeight: '800',
                         minWidth: '16px', height: '16px', display: 'inline-flex',
                         alignItems: 'center', justifyContent: 'center', padding: '0 4px',

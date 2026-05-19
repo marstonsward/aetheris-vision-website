@@ -11,8 +11,8 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueTag: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueTag: 'rgba(91,168,217,0.15)',
   blueTagText: '#93c5fd',
   green: 'rgba(34,197,94,0.15)',
   greenText: '#86efac',
@@ -34,6 +34,19 @@ type ReceiptRunResult =
       error?: string
     }
   | Record<string, unknown>
+
+type AccountRunSummary = {
+  logged?: number
+  skipped?: number
+  queried?: number
+  error?: string
+}
+
+function hasRunResults(
+  data: ReceiptRunResult
+): data is { results: Record<string, AccountRunSummary>; lookbackDays?: number } {
+  return typeof data === 'object' && data !== null && 'results' in data
+}
 
 function GmailPageInner() {
   const searchParams = useSearchParams()
@@ -61,8 +74,8 @@ function GmailPageInner() {
   }
 
   const summary = (() => {
-    if (!runData || typeof runData !== 'object' || !('results' in runData)) return null
-    const results = (runData as any).results as Record<string, any> | undefined
+    if (!runData || !hasRunResults(runData)) return null
+    const results = runData.results
     if (!results) return null
 
     const entries = Object.entries(results).map(([k, v]) => {
@@ -131,7 +144,7 @@ function GmailPageInner() {
           <button
             onClick={runNow}
             disabled={running}
-            style={{ background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', padding: '9px 18px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: running ? 'not-allowed' : 'pointer', opacity: running ? 0.6 : 1 }}
+            style={{ background: 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', padding: '9px 18px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: running ? 'not-allowed' : 'pointer', opacity: running ? 0.6 : 1 }}
           >
             {running ? 'Running...' : 'Run scanner now'}
           </button>
@@ -142,9 +155,9 @@ function GmailPageInner() {
                 <div style={{ color: dark.text, fontSize: '13px', fontWeight: 700 }}>
                   Last run summary
                 </div>
-                {runData && typeof runData === 'object' && 'lookbackDays' in runData && (
+                {runData && hasRunResults(runData) && (
                   <div style={{ color: dark.textMuted, fontSize: '12px' }}>
-                    Lookback: {(runData as any).lookbackDays ?? '?'} days
+                    Lookback: {runData.lookbackDays ?? '?'} days
                   </div>
                 )}
               </div>
@@ -236,7 +249,7 @@ function AccountCard({ label, expectedEmail, account, connected, email }: {
       </div>
       <a
         href={`/api/auth/gmail/start?account=${account}`}
-        style={{ background: connected ? 'transparent' : 'linear-gradient(135deg, #2563eb, #3b82f6)', color: connected ? dark.textMuted : '#fff', padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', border: connected ? `1px solid ${dark.border}` : 'none', textDecoration: 'none', whiteSpace: 'nowrap' }}
+        style={{ background: connected ? 'transparent' : 'linear-gradient(135deg, #486890, #5BA8D9)', color: connected ? dark.textMuted : '#fff', padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', border: connected ? `1px solid ${dark.border}` : 'none', textDecoration: 'none', whiteSpace: 'nowrap' }}
       >
         {connected ? 'Reconnect' : 'Connect'}
       </a>

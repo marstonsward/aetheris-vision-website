@@ -44,14 +44,14 @@ export default function OGImage() {
               width: "10px",
               height: "10px",
               borderRadius: "50%",
-              background: "#3b82f6",
+              background: "#5BA8D9",
             }}
           />
           <span
             style={{
               fontSize: "18px",
               letterSpacing: "4px",
-              color: "#3b82f6",
+              color: "#5BA8D9",
               textTransform: "uppercase",
               fontWeight: 600,
             }}

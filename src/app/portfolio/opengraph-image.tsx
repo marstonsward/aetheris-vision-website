@@ -32,8 +32,8 @@ export default function OGImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "24px" }}>
-          <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#3b82f6" }} />
-          <span style={{ fontSize: "18px", letterSpacing: "4px", color: "#3b82f6", textTransform: "uppercase", fontWeight: 600 }}>
+          <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#5BA8D9" }} />
+          <span style={{ fontSize: "18px", letterSpacing: "4px", color: "#5BA8D9", textTransform: "uppercase", fontWeight: 600 }}>
             {SITE.name}
           </span>
         </div>

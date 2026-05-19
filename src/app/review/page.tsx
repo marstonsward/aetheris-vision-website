@@ -25,7 +25,7 @@ export default function ReviewPage() {
                 fontWeight: '700',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: '#3b82f6',
+                color: '#5BA8D9',
                 marginBottom: '12px',
               }}
             >

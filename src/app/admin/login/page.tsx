@@ -7,12 +7,12 @@ const dark = {
   bg: '#070f1e',
   surface: '#0d1b2e',
   border: 'rgba(255,255,255,0.08)',
-  borderFocus: '#3b82f6',
+  borderFocus: '#5BA8D9',
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueGlow: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueGlow: 'rgba(91,168,217,0.15)',
 }
 
 function LoginForm() {
@@ -95,10 +95,10 @@ function LoginForm() {
         disabled={loading}
         style={{
           width: '100%', padding: '14px', borderRadius: '10px',
-          background: loading ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+          background: loading ? 'rgba(91,168,217,0.4)' : 'linear-gradient(135deg, #486890, #5BA8D9)',
           color: '#fff', fontWeight: '700', fontSize: '15px',
           border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-          boxShadow: loading ? 'none' : '0 4px 16px rgba(59,130,246,0.35)',
+          boxShadow: loading ? 'none' : '0 4px 16px rgba(91,168,217,0.35)',
           transition: 'all 0.2s', letterSpacing: '0.02em',
         }}
       >
@@ -127,10 +127,10 @@ export default function AdminLoginPage() {
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{
             width: '46px', height: '46px', borderRadius: '12px',
-            background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+            background: 'linear-gradient(135deg, #29426C, #5BA8D9)',
             margin: '0 auto 14px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(59,130,246,0.3)',
+            boxShadow: '0 4px 16px rgba(91,168,217,0.3)',
           }}>
             <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800' }}>AV</span>
           </div>

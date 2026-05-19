@@ -1,0 +1,30 @@
+/**
+ * Aetheris Vision brand tokens — keep in sync with
+ * aetherisvision/brand/colors/tokens.json
+ */
+export const BRAND = {
+  navy: "#29426C",
+  navyPrint: "#1e3a5f",
+  mid: "#486890",
+  light: "#7EABCA",
+  accent: "#5BA8D9",
+  cyan: "#6EC4D6",
+  siteBackground: "#0d0c0f",
+  siteForeground: "#eae8ec",
+} as const;
+
+export const BRAND_LOGO = {
+  horizontal: "/logo/av-logo-horizontal.png",
+  mark: "/logo/av-mark-globe.png",
+  mark192: "/logo/av-mark-globe-192.png",
+  mark512: "/logo/av-mark-globe-512.png",
+  favicon32: "/logo/favicon-32.png",
+} as const;
+
+/** rgba glow for accent (accent = #5BA8D9) */
+export const brandAccentGlow = "rgba(91, 168, 217, 0.35)";
+export const brandAccentMuted = "rgba(91, 168, 217, 0.12)";
+export const brandAccentBorder = "rgba(91, 168, 217, 0.25)";
+
+export const brandGradient = `linear-gradient(135deg, ${BRAND.navy}, ${BRAND.accent})`;
+export const brandGradientButton = `linear-gradient(135deg, ${BRAND.mid}, ${BRAND.accent})`;

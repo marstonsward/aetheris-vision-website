@@ -35,7 +35,7 @@ export async function sendMagicLink(email: string): Promise<void> {
           This link expires in 24 hours and can only be used once.
         </p>
         <a href="${confirmUrl}"
-           style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;
+           style="display:inline-block;background:#29426C;color:#fff;text-decoration:none;
                   padding:14px 28px;border-radius:6px;font-size:16px;font-weight:600;">
           Log in to Client Portal
         </a>

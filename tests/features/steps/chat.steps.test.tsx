@@ -101,7 +101,7 @@ describe("Feature: AI Chat Widget", () => {
       await userEvent.click(closeBtn);
 
       // Then: the chat panel should be closed
-      expect(screen.queryByRole("region", { name: /chat/i })).not.toBeVisible();
+      expect(screen.queryByRole("region", { name: /chat/i })).toBeNull();
     });
   });
 

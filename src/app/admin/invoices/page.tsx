@@ -8,8 +8,8 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  activeNav: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  activeNav: 'rgba(91,168,217,0.15)',
   successText: '#6ee7b7',
   success: 'rgba(16,185,129,0.12)',
   successBorder: 'rgba(16,185,129,0.25)',
@@ -163,7 +163,7 @@ export default function AdminInvoicesPage() {
   return (
     <div style={{ maxWidth: '960px', margin: '0 auto', padding: '40px 24px', position: 'relative' }}>
       {toast && (
-        <div style={{ position: 'fixed', bottom: '24px', right: '24px', background: '#1e3a5f', border: `1px solid ${dark.blue}`, color: dark.text, padding: '12px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '500', zIndex: 100, boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
+        <div style={{ position: 'fixed', bottom: '24px', right: '24px', background: '#29426C', border: `1px solid ${dark.blue}`, color: dark.text, padding: '12px 20px', borderRadius: '10px', fontSize: '14px', fontWeight: '500', zIndex: 100, boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}>
           {toast}
         </div>
       )}
@@ -175,7 +175,7 @@ export default function AdminInvoicesPage() {
         </div>
         <button
           onClick={() => setShowNew(v => !v)}
-          style={{ padding: '9px 20px', borderRadius: '8px', background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', fontWeight: '600', fontSize: '14px', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(59,130,246,0.3)' }}
+          style={{ padding: '9px 20px', borderRadius: '8px', background: 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', fontWeight: '600', fontSize: '14px', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(91,168,217,0.3)' }}
         >
           + New Invoice
         </button>
@@ -217,7 +217,7 @@ export default function AdminInvoicesPage() {
             <button
               onClick={handleCreate}
               disabled={creating || !form.client_id || !form.description || !form.amount}
-              style={{ padding: '9px 22px', borderRadius: '8px', background: creating ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', fontWeight: '600', fontSize: '14px', border: 'none', cursor: 'pointer' }}
+              style={{ padding: '9px 22px', borderRadius: '8px', background: creating ? 'rgba(91,168,217,0.4)' : 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', fontWeight: '600', fontSize: '14px', border: 'none', cursor: 'pointer' }}
             >
               {creating ? 'Creating…' : 'Create Invoice'}
             </button>
@@ -260,7 +260,7 @@ export default function AdminInvoicesPage() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                   {inv.stripe_invoice_url && (
                     <a href={inv.stripe_invoice_url} target="_blank" rel="noopener noreferrer"
-                      style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '13px', fontWeight: '500', color: dark.blue, background: dark.activeNav, border: `1px solid rgba(59,130,246,0.25)`, textDecoration: 'none' }}>
+                      style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '13px', fontWeight: '500', color: dark.blue, background: dark.activeNav, border: `1px solid rgba(91,168,217,0.25)`, textDecoration: 'none' }}>
                       View →
                     </a>
                   )}
@@ -269,7 +269,7 @@ export default function AdminInvoicesPage() {
                     <button
                       onClick={() => handleSend(inv.id)}
                       disabled={sending === inv.id}
-                      style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '13px', fontWeight: '600', background: sending === inv.id ? 'rgba(59,130,246,0.3)' : 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', border: 'none', cursor: 'pointer' }}
+                      style={{ padding: '7px 14px', borderRadius: '7px', fontSize: '13px', fontWeight: '600', background: sending === inv.id ? 'rgba(91,168,217,0.3)' : 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', border: 'none', cursor: 'pointer' }}
                     >
                       {sending === inv.id ? 'Sending…' : inv.status === 'draft' ? 'Send to Client' : 'Resend'}
                     </button>

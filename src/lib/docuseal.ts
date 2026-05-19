@@ -6,7 +6,7 @@ const MARSTON_EMAIL = 'marston@aetherisvision.com'
 export function buildSignatureBlock(isSelfSign: boolean, signerName: string): string {
   if (isSelfSign) {
     return `
-      <div class="signature-block" style="margin-top:48px;padding-top:20px;border-top:2px solid #1e3a5f;">
+      <div class="signature-block" style="margin-top:48px;padding-top:20px;border-top:2px solid #29426C;">
         <div style="max-width:320px;">
           <p style="font-weight:700;margin-bottom:8px;">Aetheris Vision LLC</p>
           <signature-field name="signature" role="Signer" required="true" style="display:block;margin:8px 0;"></signature-field>
@@ -16,7 +16,7 @@ export function buildSignatureBlock(isSelfSign: boolean, signerName: string): st
       </div>`
   }
   return `
-    <div class="signature-block" style="margin-top:48px;padding-top:20px;border-top:2px solid #1e3a5f;display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+    <div class="signature-block" style="margin-top:48px;padding-top:20px;border-top:2px solid #29426C;display:grid;grid-template-columns:1fr 1fr;gap:40px;">
       <div>
         <p style="font-weight:700;margin-bottom:8px;">Client — ${signerName}</p>
         <signature-field name="signature" role="Signer" required="true" style="display:block;margin:8px 0;"></signature-field>

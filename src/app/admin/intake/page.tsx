@@ -14,8 +14,8 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueGlow: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueGlow: 'rgba(91,168,217,0.15)',
   success: 'rgba(16,185,129,0.12)',
   successBorder: 'rgba(16,185,129,0.25)',
   successText: '#6ee7b7',
@@ -46,7 +46,7 @@ const STATUS_LABELS: Record<Status, string> = {
 }
 
 const STATUS_COLORS: Record<Status, { bg: string; border: string; color: string }> = {
-  new: { bg: 'rgba(59,130,246,0.12)', border: 'rgba(59,130,246,0.3)', color: '#93c5fd' },
+  new: { bg: 'rgba(91,168,217,0.12)', border: 'rgba(91,168,217,0.3)', color: '#93c5fd' },
   in_review: { bg: 'rgba(245,158,11,0.12)', border: 'rgba(245,158,11,0.3)', color: '#fcd34d' },
   sow_sent: { bg: 'rgba(139,92,246,0.12)', border: 'rgba(139,92,246,0.3)', color: '#c4b5fd' },
   won: { bg: 'rgba(16,185,129,0.12)', border: 'rgba(16,185,129,0.3)', color: '#6ee7b7' },
@@ -253,7 +253,7 @@ export default function AdminIntakePage() {
             </h1>
             {newCount > 0 && (
               <span style={{
-                background: 'rgba(59,130,246,0.2)', border: '1px solid rgba(59,130,246,0.4)',
+                background: 'rgba(91,168,217,0.2)', border: '1px solid rgba(91,168,217,0.4)',
                 color: '#93c5fd', borderRadius: '999px', padding: '2px 10px',
                 fontSize: '12px', fontWeight: '700',
               }}>
@@ -271,8 +271,8 @@ export default function AdminIntakePage() {
           rel="noopener noreferrer"
           style={{
             padding: '8px 16px', borderRadius: '8px', fontSize: '13px', fontWeight: '600',
-            background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff',
-            textDecoration: 'none', boxShadow: '0 4px 12px rgba(59,130,246,0.3)',
+            background: 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff',
+            textDecoration: 'none', boxShadow: '0 4px 12px rgba(91,168,217,0.3)',
           }}
         >
           View intake form ↗
@@ -357,7 +357,7 @@ export default function AdminIntakePage() {
                           <p style={{ fontSize: '11px', fontWeight: '700', color: dark.textDim, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 6px' }}>Objectives</p>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                             {sub.objectives.map(obj => (
-                              <span key={obj} style={{ fontSize: '12px', background: dark.blueGlow, border: `1px solid rgba(59,130,246,0.2)`, color: '#93c5fd', borderRadius: '5px', padding: '3px 8px' }}>{obj}</span>
+                              <span key={obj} style={{ fontSize: '12px', background: dark.blueGlow, border: `1px solid rgba(91,168,217,0.2)`, color: '#93c5fd', borderRadius: '5px', padding: '3px 8px' }}>{obj}</span>
                             ))}
                           </div>
                         </div>
@@ -455,9 +455,9 @@ export default function AdminIntakePage() {
                               .sow-preview strong { color: #f1f5f9; font-weight: 600; }
                               .sow-preview hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 16px 0; }
                               .sow-preview table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 12px; }
-                              .sow-preview th { background: rgba(59,130,246,0.12); color: #93c5fd; padding: 7px 10px; text-align: left; border: 1px solid rgba(255,255,255,0.08); font-weight: 600; }
+                              .sow-preview th { background: rgba(91,168,217,0.12); color: #93c5fd; padding: 7px 10px; text-align: left; border: 1px solid rgba(255,255,255,0.08); font-weight: 600; }
                               .sow-preview td { padding: 6px 10px; border: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.7); }
-                              .sow-preview blockquote { border-left: 3px solid rgba(59,130,246,0.4); margin: 8px 0; padding: 6px 12px; background: rgba(59,130,246,0.05); color: rgba(255,255,255,0.6); font-style: italic; }
+                              .sow-preview blockquote { border-left: 3px solid rgba(91,168,217,0.4); margin: 8px 0; padding: 6px 12px; background: rgba(91,168,217,0.05); color: rgba(255,255,255,0.6); font-style: italic; }
                               .sow-preview code { background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 3px; font-size: 11px; }
                             `}</style>
                             <div className="sow-preview">
@@ -583,8 +583,8 @@ export default function AdminIntakePage() {
                           href={`mailto:${sub.contact_email}`}
                           style={{
                             padding: '7px 13px', borderRadius: '7px', fontSize: '13px', fontWeight: '600',
-                            background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff',
-                            textDecoration: 'none', boxShadow: '0 2px 8px rgba(59,130,246,0.3)',
+                            background: 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff',
+                            textDecoration: 'none', boxShadow: '0 2px 8px rgba(91,168,217,0.3)',
                           }}
                         >
                           Email {sub.contact_name.split(' ')[0]}

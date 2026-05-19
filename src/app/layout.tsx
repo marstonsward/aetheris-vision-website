@@ -17,8 +17,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   manifest: "/manifest.json",
   icons: {
-    icon: "/logo/aetheris-logo.svg",
-    apple: "/logo/aetheris-logo.png",
+    icon: [
+      { url: "/logo/av-mark-favicon.svg", type: "image/svg+xml" },
+      { url: "/logo/favicon-32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/logo/av-mark-globe-192.png",
   },
   openGraph: {
     title: `${SITE.name} | ${SITE.tagline}`,

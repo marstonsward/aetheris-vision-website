@@ -1,6 +1,9 @@
 import "@testing-library/jest-dom/vitest";
 import { vi } from "vitest";
 
+// jsdom does not implement scrollIntoView (used by ChatWidget, Navbar, ContactForm).
+Element.prototype.scrollIntoView = vi.fn();
+
 // framer-motion uses IntersectionObserver which jsdom doesn't support.
 // Stub it so components using FadeIn render correctly in tests.
 vi.mock("framer-motion", () => ({

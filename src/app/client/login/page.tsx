@@ -8,13 +8,13 @@ const dark = {
   surface: '#0d1b2e',
   surfaceHover: '#112338',
   border: 'rgba(255,255,255,0.08)',
-  borderFocus: '#3b82f6',
+  borderFocus: '#5BA8D9',
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueGlow: 'rgba(59,130,246,0.15)',
-  navy: '#1e3a5f',
+  blue: '#5BA8D9',
+  blueGlow: 'rgba(91,168,217,0.15)',
+  navy: '#29426C',
 }
 
 function LoginForm() {
@@ -41,7 +41,7 @@ function LoginForm() {
       <div style={{ textAlign: 'center' }}>
         <div style={{
           width: '60px', height: '60px', borderRadius: '50%',
-          background: dark.blueGlow, border: `1px solid rgba(59,130,246,0.3)`,
+          background: dark.blueGlow, border: `1px solid rgba(91,168,217,0.3)`,
           margin: '0 auto 20px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
         }}>
@@ -114,11 +114,11 @@ function LoginForm() {
           style={{
             width: '100%', padding: '14px', borderRadius: '10px',
             background: loading
-              ? 'rgba(59,130,246,0.4)'
-              : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+              ? 'rgba(91,168,217,0.4)'
+              : 'linear-gradient(135deg, #486890, #5BA8D9)',
             color: '#fff', fontWeight: '700', fontSize: '15px',
             border: 'none', cursor: loading ? 'not-allowed' : 'pointer',
-            boxShadow: loading ? 'none' : '0 4px 16px rgba(59,130,246,0.35)',
+            boxShadow: loading ? 'none' : '0 4px 16px rgba(91,168,217,0.35)',
             transition: 'all 0.2s', letterSpacing: '0.02em',
           }}
         >
@@ -149,7 +149,7 @@ export default function ClientLoginPage() {
       <div style={{
         position: 'absolute', bottom: '-200px', right: '-200px',
         width: '500px', height: '500px', borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(91,168,217,0.12) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -166,9 +166,9 @@ export default function ClientLoginPage() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '60px' }}>
             <div style={{
               width: '36px', height: '36px', borderRadius: '9px',
-              background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+              background: 'linear-gradient(135deg, #29426C, #5BA8D9)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 4px 12px rgba(59,130,246,0.3)',
+              boxShadow: '0 4px 12px rgba(91,168,217,0.3)',
             }}>
               <span style={{ color: '#fff', fontSize: '14px', fontWeight: '800' }}>AV</span>
             </div>
@@ -187,7 +187,7 @@ export default function ClientLoginPage() {
             <div key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '12px' }}>
               <div style={{
                 width: '20px', height: '20px', borderRadius: '50%',
-                background: dark.blueGlow, border: '1px solid rgba(59,130,246,0.3)',
+                background: dark.blueGlow, border: '1px solid rgba(91,168,217,0.3)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
               }}>
                 <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
@@ -213,10 +213,10 @@ export default function ClientLoginPage() {
           <div style={{ textAlign: 'center', marginBottom: '36px' }}>
             <div style={{
               width: '46px', height: '46px', borderRadius: '12px',
-              background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+              background: 'linear-gradient(135deg, #29426C, #5BA8D9)',
               margin: '0 auto 14px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 4px 16px rgba(59,130,246,0.3)',
+              boxShadow: '0 4px 16px rgba(91,168,217,0.3)',
             }}>
               <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800' }}>AV</span>
             </div>

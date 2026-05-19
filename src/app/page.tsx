@@ -1,4 +1,4 @@
-import { ArrowRightIcon, CheckCircleIcon, CodeBracketIcon, GlobeAltIcon, ShieldCheckIcon, CpuChipIcon } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, CheckCircleIcon, CodeBracketIcon, GlobeAltIcon, ShieldCheckIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/constants";
@@ -200,7 +200,7 @@ export default function Home() {
                 Two areas. Deep expertise.
               </h2>
               <p className="text-gray-400 font-light mb-14 max-w-xl">
-                Choose the track that fits your situation — or <a href="/book" className="text-blue-400 hover:text-blue-300 transition">book a consultation</a> and we'll figure it out together.
+                Choose the track that fits your situation — or <a href="/book" className="text-blue-400 hover:text-blue-300 transition">book a consultation</a> and we&apos;ll figure it out together.
               </p>
             </FadeIn>
 
@@ -290,7 +290,7 @@ export default function Home() {
               <FadeIn delay={0.05}>
                 <p className="text-sm font-semibold tracking-widest text-blue-500 uppercase mb-3">Sound Familiar?</p>
                 <h2 className="text-2xl md:text-3xl font-semibold text-white tracking-tight mb-8">
-                  What's holding your business back online
+                  What&apos;s holding your business back online
                 </h2>
                 <ul className="space-y-4">
                   {WEB_PROBLEMS.map((item) => (
@@ -441,7 +441,7 @@ export default function Home() {
                     <span className="text-gray-500">Not for portfolios.</span>
                   </h3>
                   <p className="text-gray-400 font-light leading-relaxed">
-                    Tropical Hut OKC came to us with a basic site that didn't reflect their catalog or culture. We built a modern storefront with a full product database, department pages, weekly specials, and an AI assistant — all within weeks.
+                    Tropical Hut OKC came to us with a basic site that didn&apos;t reflect their catalog or culture. We built a modern storefront with a full product database, department pages, weekly specials, and an AI assistant — all within weeks.
                   </p>
                   <ul className="space-y-3">
                     {[
@@ -482,7 +482,7 @@ export default function Home() {
                     Not sure where to start?
                   </h2>
                   <p className="text-gray-400 font-light leading-relaxed mb-6">
-                    Book a free 30-minute call. No sales pitch — just an honest conversation about what you need and whether we're the right fit. We respond within one business day.
+                    Book a free 30-minute call. No sales pitch — just an honest conversation about what you need and whether we&apos;re the right fit. We respond within one business day.
                   </p>
                   <ul className="space-y-2 text-sm text-gray-400 font-light">
                     {[

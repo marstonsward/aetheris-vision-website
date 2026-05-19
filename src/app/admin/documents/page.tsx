@@ -10,8 +10,8 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueTag: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueTag: 'rgba(91,168,217,0.15)',
   blueTagText: '#93c5fd',
   danger: 'rgba(220,38,38,0.15)',
   dangerText: '#f87171',
@@ -115,9 +115,9 @@ export default function AdminDocumentsPage() {
             onClick={() => { setCreating(true); setEditing(null) }}
             style={{
               padding: '7px 13px', borderRadius: '8px', fontSize: '13px', fontWeight: '600',
-              background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+              background: 'linear-gradient(135deg, #486890, #5BA8D9)',
               color: '#fff', border: 'none', cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(59,130,246,0.3)',
+              boxShadow: '0 4px 12px rgba(91,168,217,0.3)',
             }}
           >
             + New
@@ -137,7 +137,7 @@ export default function AdminDocumentsPage() {
                   style={{
                     padding: '12px 14px', paddingRight: '40px', borderRadius: '9px', cursor: 'pointer',
                     border: `1px solid ${editing?.id === doc.id ? dark.blue : dark.border}`,
-                    background: editing?.id === doc.id ? 'rgba(59,130,246,0.08)' : dark.surface,
+                    background: editing?.id === doc.id ? 'rgba(91,168,217,0.08)' : dark.surface,
                     transition: 'all 0.15s',
                   }}
                 >
@@ -215,7 +215,7 @@ export default function AdminDocumentsPage() {
                   disabled={saving || !newForm.client_id || !newForm.title}
                   style={{
                     padding: '10px 20px', borderRadius: '8px', fontSize: '14px', fontWeight: '600',
-                    background: saving ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                    background: saving ? 'rgba(91,168,217,0.4)' : 'linear-gradient(135deg, #486890, #5BA8D9)',
                     color: '#fff', border: 'none', cursor: saving ? 'not-allowed' : 'pointer',
                     opacity: !newForm.client_id || !newForm.title ? 0.5 : 1,
                   }}
@@ -254,9 +254,9 @@ export default function AdminDocumentsPage() {
                   disabled={saving}
                   style={{
                     padding: '9px 18px', borderRadius: '8px', fontSize: '13px', fontWeight: '600',
-                    background: saving ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                    background: saving ? 'rgba(91,168,217,0.4)' : 'linear-gradient(135deg, #486890, #5BA8D9)',
                     color: '#fff', border: 'none', cursor: saving ? 'not-allowed' : 'pointer',
-                    boxShadow: saving ? 'none' : '0 4px 12px rgba(59,130,246,0.25)',
+                    boxShadow: saving ? 'none' : '0 4px 12px rgba(91,168,217,0.25)',
                   }}
                 >
                   {saving ? 'Saving…' : 'Save'}
@@ -302,8 +302,8 @@ function EditPreview({ content, onChange }: { content: string; onChange: (c: str
   const tabStyle = (active: boolean): React.CSSProperties => ({
     padding: '6px 14px', borderRadius: '6px', fontSize: '13px', fontWeight: '500', cursor: 'pointer',
     border: 'none',
-    background: active ? 'rgba(59,130,246,0.15)' : 'transparent',
-    color: active ? '#3b82f6' : 'rgba(255,255,255,0.4)',
+    background: active ? 'rgba(91,168,217,0.15)' : 'transparent',
+    color: active ? '#5BA8D9' : 'rgba(255,255,255,0.4)',
     transition: 'all 0.15s',
   })
 

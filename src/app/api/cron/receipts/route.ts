@@ -85,6 +85,7 @@ async function gmailGet(token: string, path: string) {
     headers: { Authorization: `Bearer ${token}` },
   })
   const text = await res.text()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Gmail API JSON
   let data: any
   try {
     data = text ? JSON.parse(text) : {}
@@ -107,7 +108,9 @@ async function gmailGetAttachment(token: string, userId: string, msgId: string, 
   )
   const data = await res.json()
   if (!res.ok) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Gmail API error payload
     const msg = typeof (data as any)?.error === 'object'
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Gmail API error payload
       ? `${(data as any).error.message ?? 'Gmail API error'}`
       : `Gmail API error`
     throw new Error(`${msg} (status ${res.status})`)
@@ -281,6 +284,7 @@ export async function GET(request: NextRequest) {
   const rawDays = process.env.GMAIL_RECEIPT_LOOKBACK_DAYS
   const parsed = rawDays ? parseInt(rawDays, 10) : 30
   const daysBack = Number.isFinite(parsed) ? Math.min(90, Math.max(1, parsed)) : 30
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- per-account cron results
   const results: Record<string, any> = {}
 
   if (tokenMap.biz) {
