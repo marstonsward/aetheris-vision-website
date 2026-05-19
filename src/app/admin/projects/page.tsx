@@ -9,9 +9,9 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueDeep: '#1e3a5f',
-  activeNav: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueDeep: '#29426C',
+  activeNav: 'rgba(91,168,217,0.15)',
   successText: '#6ee7b7',
   danger: 'rgba(220,38,38,0.12)',
   dangerText: '#f87171',
@@ -144,9 +144,9 @@ export default function AdminProjectsPage() {
                     disabled={saving === p.id}
                     style={{
                       padding: '8px 18px', borderRadius: '8px',
-                      background: saving === p.id ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+                      background: saving === p.id ? 'rgba(91,168,217,0.4)' : 'linear-gradient(135deg, #486890, #5BA8D9)',
                       color: '#fff', fontWeight: '600', fontSize: '13px', border: 'none', cursor: 'pointer',
-                      boxShadow: saving === p.id ? 'none' : '0 4px 12px rgba(59,130,246,0.3)',
+                      boxShadow: saving === p.id ? 'none' : '0 4px 12px rgba(91,168,217,0.3)',
                     }}
                   >
                     {saving === p.id ? 'Saving…' : 'Save'}

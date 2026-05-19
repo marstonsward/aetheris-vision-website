@@ -16,9 +16,9 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueGlow: 'rgba(59,130,246,0.15)',
-  navy: '#1e3a5f',
+  blue: '#5BA8D9',
+  blueGlow: 'rgba(91,168,217,0.15)',
+  navy: '#29426C',
 }
 
 interface Project {
@@ -64,7 +64,7 @@ const PHASES = [
 ]
 
 const STATUS = {
-  active:  { label: 'In Progress',        color: '#60a5fa', bg: 'rgba(59,130,246,0.12)',  border: 'rgba(59,130,246,0.25)',  dot: '#3b82f6' },
+  active:  { label: 'In Progress',        color: '#7EABCA', bg: 'rgba(91,168,217,0.12)',  border: 'rgba(91,168,217,0.25)',  dot: '#5BA8D9' },
   signed:  { label: 'Signed',             color: '#34d399', bg: 'rgba(52,211,153,0.1)',   border: 'rgba(52,211,153,0.25)', dot: '#10b981' },
   pending: { label: 'Awaiting Signature', color: '#fbbf24', bg: 'rgba(251,191,36,0.1)',   border: 'rgba(251,191,36,0.25)',  dot: '#f59e0b' },
   closed:  { label: 'Closed',             color: 'rgba(255,255,255,0.4)', bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', dot: 'rgba(255,255,255,0.25)' },
@@ -88,7 +88,7 @@ function ProjectTimeline({ project }: { project: Project }) {
         <span style={{ fontSize: '12px', fontWeight: '600', color: dark.blue }}>{progressPct}% complete</span>
       </div>
       <div style={{ height: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '999px', marginBottom: '28px', overflow: 'hidden' }}>
-        <div style={{ height: '100%', width: `${progressPct}%`, background: 'linear-gradient(90deg, #1e3a5f, #3b82f6)', borderRadius: '999px', transition: 'width 0.6s ease', boxShadow: '0 0 8px rgba(59,130,246,0.5)' }} />
+        <div style={{ height: '100%', width: `${progressPct}%`, background: 'linear-gradient(90deg, #29426C, #5BA8D9)', borderRadius: '999px', transition: 'width 0.6s ease', boxShadow: '0 0 8px rgba(91,168,217,0.5)' }} />
       </div>
       <div style={{ position: 'relative' }}>
         <div style={{ position: 'absolute', left: '11px', top: '12px', bottom: '12px', width: '2px', background: 'rgba(255,255,255,0.06)', zIndex: 0 }} />
@@ -100,7 +100,7 @@ function ProjectTimeline({ project }: { project: Project }) {
             return (
               <div key={phase.key} style={{ display: 'flex', gap: '16px', position: 'relative', zIndex: 1, paddingBottom: idx < PHASES.length - 1 ? '22px' : '0' }}>
                 <div style={{ flexShrink: 0, width: '24px', paddingTop: '1px' }}>
-                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: done ? dark.navy : active ? dark.blue : 'rgba(255,255,255,0.04)', border: `2px solid ${done ? '#2563eb' : active ? dark.blue : 'rgba(255,255,255,0.12)'}`, boxShadow: active ? `0 0 0 4px ${dark.blueGlow}, 0 0 12px rgba(59,130,246,0.3)` : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}>
+                  <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: done ? dark.navy : active ? dark.blue : 'rgba(255,255,255,0.04)', border: `2px solid ${done ? '#486890' : active ? dark.blue : 'rgba(255,255,255,0.12)'}`, boxShadow: active ? `0 0 0 4px ${dark.blueGlow}, 0 0 12px rgba(91,168,217,0.3)` : 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}>
                     {done && <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                     {active && <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#fff' }} />}
                     {!done && !active && <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'rgba(255,255,255,0.15)' }} />}
@@ -111,7 +111,7 @@ function ProjectTimeline({ project }: { project: Project }) {
                     <span style={{ fontSize: '14px', fontWeight: active ? '700' : done ? '600' : '500', color: active ? dark.text : done ? 'rgba(255,255,255,0.7)' : dark.textDim }}>
                       {phase.label}
                     </span>
-                    {active && <span style={{ fontSize: '10px', fontWeight: '700', padding: '2px 8px', borderRadius: '999px', background: dark.blueGlow, border: '1px solid rgba(59,130,246,0.3)', color: dark.blue, textTransform: 'uppercase', letterSpacing: '0.06em' }}>In progress</span>}
+                    {active && <span style={{ fontSize: '10px', fontWeight: '700', padding: '2px 8px', borderRadius: '999px', background: dark.blueGlow, border: '1px solid rgba(91,168,217,0.3)', color: dark.blue, textTransform: 'uppercase', letterSpacing: '0.06em' }}>In progress</span>}
                     {done && date && <span style={{ fontSize: '12px', color: dark.textDim }}>{date}</span>}
                   </div>
                   <p style={{ fontSize: '13px', margin: 0, lineHeight: '1.5', color: active ? dark.textMuted : done ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.18)' }}>
@@ -176,7 +176,7 @@ export default function ClientDashboard() {
     return (
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: dark.bg }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ width: '36px', height: '36px', border: `2px solid rgba(59,130,246,0.3)`, borderTopColor: dark.blue, borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
+          <div style={{ width: '36px', height: '36px', border: `2px solid rgba(91,168,217,0.3)`, borderTopColor: dark.blue, borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
           <p style={{ color: dark.textDim, fontSize: '14px', margin: 0 }}>Loading your portal…</p>
         </div>
         <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
@@ -191,13 +191,13 @@ export default function ClientDashboard() {
     <div style={{ minHeight: '100vh', background: dark.bg, fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif', display: 'flex', flexDirection: 'column' }}>
       {/* Background glows */}
       <div style={{ position: 'fixed', top: '-200px', left: '-200px', width: '700px', height: '700px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(30,58,95,0.35) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
-      <div style={{ position: 'fixed', bottom: '-200px', right: '-200px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'fixed', bottom: '-200px', right: '-200px', width: '500px', height: '500px', borderRadius: '50%', background: 'radial-gradient(circle, rgba(91,168,217,0.08) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* Nav */}
       <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(7,15,30,0.9)', backdropFilter: 'blur(16px)', borderBottom: `1px solid ${dark.border}`, padding: '0 24px', flexShrink: 0 }}>
         <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '60px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ width: '30px', height: '30px', borderRadius: '7px', background: 'linear-gradient(135deg, #29426C, #5BA8D9)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <span style={{ color: '#fff', fontSize: '12px', fontWeight: '800' }}>AV</span>
             </div>
             <div>
@@ -228,7 +228,7 @@ export default function ClientDashboard() {
             <div style={{ padding: '0 12px 8px' }}>
               <button
                 onClick={goOverview}
-                style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 12px', borderRadius: '8px', cursor: 'pointer', border: 'none', background: view === 'overview' ? 'rgba(59,130,246,0.12)' : 'transparent', transition: 'background 0.15s', textAlign: 'left' }}
+                style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px', padding: '9px 12px', borderRadius: '8px', cursor: 'pointer', border: 'none', background: view === 'overview' ? 'rgba(91,168,217,0.12)' : 'transparent', transition: 'background 0.15s', textAlign: 'left' }}
               >
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
                   <rect x="3" y="3" width="7" height="7" rx="1" stroke={view === 'overview' ? dark.blue : dark.textDim} strokeWidth="1.8"/>
@@ -250,7 +250,7 @@ export default function ClientDashboard() {
                     <button
                       key={doc.id}
                       onClick={() => selectDoc(doc)}
-                      style={{ width: '100%', display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 12px', borderRadius: '8px', cursor: 'pointer', border: 'none', background: isActive ? 'rgba(59,130,246,0.12)' : 'transparent', transition: 'background 0.15s', textAlign: 'left' }}
+                      style={{ width: '100%', display: 'flex', alignItems: 'flex-start', gap: '10px', padding: '10px 12px', borderRadius: '8px', cursor: 'pointer', border: 'none', background: isActive ? 'rgba(91,168,217,0.12)' : 'transparent', transition: 'background 0.15s', textAlign: 'left' }}
                     >
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: '1px' }}>
                         <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke={isActive ? dark.blue : dark.textDim} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
@@ -314,7 +314,7 @@ export default function ClientDashboard() {
                     const s = STATUS[p.status as keyof typeof STATUS] ?? STATUS.active
                     return (
                       <div key={p.id} style={{ background: dark.surface, borderRadius: '16px', border: `1px solid ${dark.border}`, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
-                        <div style={{ height: '3px', background: 'linear-gradient(90deg, #1e3a5f, #3b82f6, #60a5fa)' }} />
+                        <div style={{ height: '3px', background: 'linear-gradient(90deg, #29426C, #5BA8D9, #7EABCA)' }} />
                         <div style={{ padding: '28px 32px' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px', marginBottom: '8px' }}>
                             <div>
@@ -327,7 +327,7 @@ export default function ClientDashboard() {
                                 {s.label}
                               </span>
                               {p.docuseal_submission_id && !p.signed_at && (
-                                <a href={`https://docuseal.com/s/${p.docuseal_submission_id}`} target="_blank" rel="noopener noreferrer" style={{ padding: '9px 18px', borderRadius: '8px', background: 'linear-gradient(135deg, #1e3a5f, #2563eb)', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '700', boxShadow: '0 4px 16px rgba(59,130,246,0.3)', letterSpacing: '0.02em' }}>
+                                <a href={`https://docuseal.com/s/${p.docuseal_submission_id}`} target="_blank" rel="noopener noreferrer" style={{ padding: '9px 18px', borderRadius: '8px', background: 'linear-gradient(135deg, #29426C, #486890)', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '700', boxShadow: '0 4px 16px rgba(91,168,217,0.3)', letterSpacing: '0.02em' }}>
                                   Sign document →
                                 </a>
                               )}
@@ -347,7 +347,7 @@ export default function ClientDashboard() {
                                   <p style={{ fontSize: '11px', fontWeight: '700', color: dark.textDim, textTransform: 'uppercase', letterSpacing: '0.1em', margin: '0 0 3px' }}>Site in Development</p>
                                   <p style={{ fontSize: '13px', color: dark.textMuted, margin: 0 }}>View the current state of your website.</p>
                                 </div>
-                                <a href={p.preview_url} target="_blank" rel="noopener noreferrer" style={{ padding: '9px 18px', borderRadius: '8px', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.25)', color: dark.blue, textDecoration: 'none', fontSize: '13px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                <a href={p.preview_url} target="_blank" rel="noopener noreferrer" style={{ padding: '9px 18px', borderRadius: '8px', background: 'rgba(91,168,217,0.1)', border: '1px solid rgba(91,168,217,0.25)', color: dark.blue, textDecoration: 'none', fontSize: '13px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
                                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                                   View Site →
                                 </a>
@@ -400,7 +400,7 @@ export default function ClientDashboard() {
                             <span style={{ fontSize: '20px', fontWeight: '800', color: isPaid ? '#34d399' : dark.text }}>{amount}</span>
                             {!isPaid && inv.stripe_invoice_url && (
                               <a href={inv.stripe_invoice_url} target="_blank" rel="noopener noreferrer"
-                                style={{ padding: '9px 20px', borderRadius: '8px', background: 'linear-gradient(135deg, #1e3a5f, #2563eb)', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '700', boxShadow: '0 4px 16px rgba(59,130,246,0.3)', whiteSpace: 'nowrap' }}>
+                                style={{ padding: '9px 20px', borderRadius: '8px', background: 'linear-gradient(135deg, #29426C, #486890)', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: '700', boxShadow: '0 4px 16px rgba(91,168,217,0.3)', whiteSpace: 'nowrap' }}>
                                 Pay Now →
                               </a>
                             )}
@@ -428,7 +428,7 @@ export default function ClientDashboard() {
             <div style={{ padding: '40px 48px 80px', maxWidth: '820px' }}>
               {docLoading ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', color: dark.textDim, fontSize: '14px', marginTop: '40px' }}>
-                  <div style={{ width: '18px', height: '18px', border: `2px solid rgba(59,130,246,0.3)`, borderTopColor: dark.blue, borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+                  <div style={{ width: '18px', height: '18px', border: `2px solid rgba(91,168,217,0.3)`, borderTopColor: dark.blue, borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
                   Loading document…
                   <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
                 </div>

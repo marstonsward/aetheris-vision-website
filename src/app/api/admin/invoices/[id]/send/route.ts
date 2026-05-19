@@ -102,14 +102,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
         </div>
 
         <a href="${invoiceUrl}"
-           style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;
+           style="display:inline-block;background:#29426C;color:#fff;text-decoration:none;
                   padding:14px 32px;border-radius:6px;font-size:16px;font-weight:600;margin-bottom:28px;">
           View &amp; Pay Invoice →
         </a>
 
         <p style="color:#94a3b8;font-size:13px;margin-top:24px;">
           Questions? Reply to this email or contact us at
-          <a href="mailto:marston@aetherisvision.com" style="color:#3b82f6;">marston@aetherisvision.com</a><br>
+          <a href="mailto:marston@aetherisvision.com" style="color:#5BA8D9;">marston@aetherisvision.com</a><br>
           Aetheris Vision LLC · 210 N Mustang Mall Terrace PMB 29, Mustang, OK 73064
         </p>
       </div>

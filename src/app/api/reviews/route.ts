@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
             </div>
 
             <a href="${adminUrl}"
-               style="display:inline-block;background:#1e3a5f;color:#fff;text-decoration:none;
+               style="display:inline-block;background:#29426C;color:#fff;text-decoration:none;
                       padding:12px 28px;border-radius:6px;font-size:15px;font-weight:600;">
               Review in Admin →
             </a>

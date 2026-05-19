@@ -7,11 +7,21 @@ html {
 :root {
   --background: #0d0c0f;
   --foreground: #eae8ec;
+  --av-navy: #29426c;
+  --av-mid: #486890;
+  --av-accent: #5ba8d9;
+  --av-light: #7eabca;
+  --av-cyan: #6ec4d6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-av-navy: var(--av-navy);
+  --color-av-mid: var(--av-mid);
+  --color-av-accent: var(--av-accent);
+  --color-av-light: var(--av-light);
+  --color-av-cyan: var(--av-cyan);
 }
 
 body {
@@ -27,7 +37,7 @@ body {
 .doc-viewer h2 { font-size: 18px; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 8px; }
 .doc-viewer h3 { font-size: 15px; }
 .doc-viewer p { color: rgba(255,255,255,0.7); margin: 0 0 1em; line-height: 1.8; }
-.doc-viewer a { color: #3b82f6; text-decoration: none; }
+.doc-viewer a { color: var(--av-accent); text-decoration: none; }
 .doc-viewer a:hover { text-decoration: underline; }
 .doc-viewer ul, .doc-viewer ol { color: rgba(255,255,255,0.7); margin: 0 0 1em 1.4em; line-height: 1.8; }
 .doc-viewer li { margin-bottom: 4px; }
@@ -48,8 +58,8 @@ body {
 .doc-viewer th { text-align: left; padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,0.12); color: #f1f5f9; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
 .doc-viewer td { padding: 10px 12px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.65); }
 .doc-viewer blockquote {
-  border-left: 3px solid #3b82f6; margin: 0 0 1em;
-  padding: 8px 16px; background: rgba(59,130,246,0.06);
+  border-left: 3px solid var(--av-accent); margin: 0 0 1em;
+  padding: 8px 16px; background: rgba(91, 168, 217, 0.06);
   border-radius: 0 6px 6px 0;
 }
 .doc-viewer blockquote p { color: rgba(255,255,255,0.6); margin: 0; }
@@ -67,6 +77,6 @@ body {
 .md-preview th { padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); color: #f1f5f9; text-align: left; }
 .md-preview td { padding: 6px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); color: rgba(255,255,255,0.6); }
 .md-preview strong { color: #f1f5f9; }
-.md-preview a { color: #3b82f6; }
-.md-preview blockquote { border-left: 3px solid #3b82f6; padding: 6px 12px; margin: 0 0 0.8em; background: rgba(59,130,246,0.06); border-radius: 0 4px 4px 0; }
+.md-preview a { color: var(--av-accent); }
+.md-preview blockquote { border-left: 3px solid var(--av-accent); padding: 6px 12px; margin: 0 0 0.8em; background: rgba(91, 168, 217, 0.06); border-radius: 0 4px 4px 0; }
 .md-preview blockquote p { color: rgba(255,255,255,0.55); margin: 0; }

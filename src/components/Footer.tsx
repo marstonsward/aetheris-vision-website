@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SITE } from "@/lib/constants";
+import { BRAND_LOGO } from "@/lib/brand";
 import { ShieldCheckIcon, LockClosedIcon, ChatBubbleLeftRightIcon, ServerIcon } from "@heroicons/react/24/outline";
 
 const footerLinks = [
@@ -20,17 +21,14 @@ export default function Footer() {
         {/* Top row: logo + nav */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-10">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center shrink-0">
             <Image
-              src="/logo/aetheris-logo.svg"
-              alt={`${SITE.name} Logo`}
-              width={32}
-              height={32}
-              className="h-8 w-8"
+              src={BRAND_LOGO.horizontal}
+              alt={SITE.name}
+              width={160}
+              height={40}
+              className="h-8 w-auto"
             />
-            <div className="text-lg font-bold tracking-tight text-white">
-              <span className="font-light text-gray-500">Aetheris</span>Vision
-            </div>
           </Link>
 
           {/* Nav links */}

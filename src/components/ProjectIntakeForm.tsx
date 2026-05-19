@@ -91,7 +91,7 @@ export default function ProjectIntakeForm() {
             autoComplete="name"
             value={formData.name}
             onChange={(e) => handleInputChange("name", e.target.value)}
-            className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-av-accent focus:outline-none focus:ring-1 focus:ring-av-accent"
             placeholder="Jane Smith"
           />
         </div>
@@ -103,7 +103,7 @@ export default function ProjectIntakeForm() {
             autoComplete="email"
             value={formData.email}
             onChange={(e) => handleInputChange("email", e.target.value)}
-            className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-av-accent focus:outline-none focus:ring-1 focus:ring-av-accent"
             placeholder="jane@yourbusiness.com"
           />
         </div>
@@ -119,7 +119,7 @@ export default function ProjectIntakeForm() {
           autoComplete="tel"
           value={formData.phone}
           onChange={(e) => handleInputChange("phone", e.target.value)}
-          className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-av-accent focus:outline-none focus:ring-1 focus:ring-av-accent"
           placeholder="(405) 555-1234"
         />
       </div>
@@ -135,7 +135,7 @@ export default function ProjectIntakeForm() {
           value={formData.projectDescription}
           onChange={(e) => handleInputChange("projectDescription", e.target.value)}
           rows={5}
-          className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none"
+          className="w-full rounded-md border border-white/10 bg-white/5 px-3 py-2.5 text-white placeholder-gray-500 focus:border-av-accent focus:outline-none focus:ring-1 focus:ring-av-accent resize-none"
           placeholder="Example: I run a landscaping company in Edmond. I need a website that shows my work, lets customers request quotes, and comes up on Google when people search for landscapers nearby. I currently have nothing."
         />
       </div>
@@ -148,7 +148,7 @@ export default function ProjectIntakeForm() {
         <select
           value={formData.budgetRange}
           onChange={(e) => handleInputChange("budgetRange", e.target.value)}
-          className="w-full rounded-md border border-white/10 bg-[#1a1a1f] px-3 py-2.5 text-white focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+          className="w-full rounded-md border border-white/10 bg-[#1a1a1f] px-3 py-2.5 text-white focus:border-av-accent focus:outline-none focus:ring-1 focus:ring-av-accent"
         >
           <option value="">Not sure yet</option>
           <option value="under-2k">Under $2,000</option>

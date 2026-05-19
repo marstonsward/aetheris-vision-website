@@ -27,11 +27,11 @@ function markdownToHtml(markdown: string, title: string, signerName: string, isS
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11pt; line-height: 1.6; color: #1a1a1a; padding: 48px 56px; max-width: 800px; margin: 0 auto; }
-    .header { border-bottom: 2px solid #1e3a5f; padding-bottom: 20px; margin-bottom: 32px; }
-    .header h1 { font-size: 22pt; color: #1e3a5f; font-weight: 700; margin-bottom: 4px; }
+    .header { border-bottom: 2px solid #29426C; padding-bottom: 20px; margin-bottom: 32px; }
+    .header h1 { font-size: 22pt; color: #29426C; font-weight: 700; margin-bottom: 4px; }
     .header .meta { font-size: 10pt; color: #555; }
-    h1 { font-size: 18pt; color: #1e3a5f; margin: 28px 0 8px; }
-    h2 { font-size: 13pt; color: #1e3a5f; margin: 24px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #dde4ed; }
+    h1 { font-size: 18pt; color: #29426C; margin: 28px 0 8px; }
+    h2 { font-size: 13pt; color: #29426C; margin: 24px 0 8px; padding-bottom: 4px; border-bottom: 1px solid #dde4ed; }
     h3 { font-size: 11pt; color: #2c3e50; margin: 16px 0 6px; }
     p { margin: 8px 0; }
     ul { margin: 8px 0 8px 24px; }
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Intake not found or missing client/project' }, { status: 404 });
     }
 
-    const { contact_name, contact_email, company_name, client_id, project_id, project_name } = rows[0];
+    const { contact_name, contact_email, company_name, project_id } = rows[0];
 
     const isSelfSign = contact_email.toLowerCase() === 'marston@aetherisvision.com';
     const title = `SOW — ${company_name}`;

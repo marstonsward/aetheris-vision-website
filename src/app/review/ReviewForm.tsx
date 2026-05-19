@@ -22,7 +22,7 @@ function StarSelector({
           onClick={() => onChange(star)}
           onMouseEnter={() => setHovered(star)}
           onMouseLeave={() => setHovered(0)}
-          className="text-3xl leading-none transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded"
+          className="text-3xl leading-none transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-av-accent rounded"
           style={{
             color: star <= (hovered || value) ? '#f59e0b' : 'rgba(255,255,255,0.15)',
             cursor: 'pointer',
@@ -259,14 +259,14 @@ export default function ReviewForm() {
           padding: '13px 28px',
           borderRadius: '8px',
           background: submitting
-            ? 'rgba(59,130,246,0.4)'
-            : 'linear-gradient(135deg, #2563eb, #3b82f6)',
+            ? 'rgba(91,168,217,0.4)'
+            : 'linear-gradient(135deg, #486890, #5BA8D9)',
           color: '#fff',
           fontWeight: '600',
           fontSize: '15px',
           border: 'none',
           cursor: submitting ? 'not-allowed' : 'pointer',
-          boxShadow: submitting ? 'none' : '0 4px 14px rgba(59,130,246,0.3)',
+          boxShadow: submitting ? 'none' : '0 4px 14px rgba(91,168,217,0.3)',
           transition: 'all 0.15s',
           alignSelf: 'flex-start',
         }}

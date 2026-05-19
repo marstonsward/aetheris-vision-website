@@ -22,7 +22,7 @@ export default function IntakePage() {
           {/* Header */}
           <FadeIn>
             <div className="mb-10">
-              <p className="text-xs font-semibold tracking-widest text-blue-500 uppercase mb-3">Start a Project</p>
+              <p className="text-xs font-semibold tracking-widest text-av-accent uppercase mb-3">Start a Project</p>
               <h1 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-3">
                 Tell us what you need
               </h1>
@@ -31,7 +31,7 @@ export default function IntakePage() {
               </p>
               <p className="text-sm text-gray-600 mt-3">
                 Prefer to talk first?{" "}
-                <Link href="/book" className="text-blue-400 hover:text-blue-300 transition">
+                <Link href="/book" className="text-av-light hover:text-blue-300 transition">
                   Book a free 30-minute consultation →
                 </Link>
               </p>

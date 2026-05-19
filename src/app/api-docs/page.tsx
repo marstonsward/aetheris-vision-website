@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { CodeBracketIcon, PlayIcon } from '@heroicons/react/24/outline'
+import { PlayIcon } from '@heroicons/react/24/outline'
 
 const apiEndpoints = [
   {
@@ -19,7 +19,6 @@ const apiEndpoints = [
 ]
 
 export default function ApiDocsPage() {
-  const [selectedEndpoint, setSelectedEndpoint] = useState(apiEndpoints[0])
   const [responses, setResponses] = useState<Record<string, { status: number; data: unknown }>>({})
   const [loading, setLoading] = useState<string | null>(null)
 

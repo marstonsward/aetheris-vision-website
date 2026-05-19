@@ -8,12 +8,12 @@ const dark = {
   surfaceAlt: 'rgba(255,255,255,0.03)',
   border: 'rgba(255,255,255,0.08)',
   borderLight: 'rgba(255,255,255,0.05)',
-  borderFocus: '#3b82f6',
+  borderFocus: '#5BA8D9',
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.25)',
-  blue: '#3b82f6',
-  blueTag: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueTag: 'rgba(91,168,217,0.15)',
   blueTagText: '#93c5fd',
   danger: 'rgba(220,38,38,0.12)',
   dangerText: '#f87171',
@@ -196,7 +196,7 @@ export default function ExpensesPage() {
     border: `1px solid ${dark.borderFocus}`,
     borderRadius: '5px', padding: '5px 8px',
     fontSize: '13px', color: dark.text,
-    background: 'rgba(59,130,246,0.07)', outline: 'none',
+    background: 'rgba(91,168,217,0.07)', outline: 'none',
   }
 
   const labelStyle: React.CSSProperties = {
@@ -241,7 +241,7 @@ export default function ExpensesPage() {
             </button>
             <button
               onClick={() => setShowForm(!showForm)}
-              style={{ background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', padding: '9px 16px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(59,130,246,0.3)' }}
+              style={{ background: 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', padding: '9px 16px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: 'pointer', boxShadow: '0 4px 12px rgba(91,168,217,0.3)' }}
             >
               + Add Expense
             </button>
@@ -320,7 +320,7 @@ export default function ExpensesPage() {
                 Cancel
               </button>
               <button type="submit" disabled={submitting}
-                style={{ background: submitting ? 'rgba(59,130,246,0.4)' : 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', padding: '9px 18px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: submitting ? 'not-allowed' : 'pointer' }}>
+                style={{ background: submitting ? 'rgba(91,168,217,0.4)' : 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', padding: '9px 18px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', border: 'none', cursor: submitting ? 'not-allowed' : 'pointer' }}>
                 {submitting ? 'Saving...' : 'Save Expense'}
               </button>
             </div>
@@ -374,7 +374,7 @@ export default function ExpensesPage() {
               {expenses.map((e, i) => {
                 const isEditing = editingId === e.id
                 return (
-                  <tr key={e.id} style={{ borderTop: i === 0 ? 'none' : `1px solid ${dark.borderLight}`, background: isEditing ? 'rgba(59,130,246,0.04)' : 'transparent' }}>
+                  <tr key={e.id} style={{ borderTop: i === 0 ? 'none' : `1px solid ${dark.borderLight}`, background: isEditing ? 'rgba(91,168,217,0.04)' : 'transparent' }}>
                     <td style={{ padding: isEditing ? '8px 14px' : '11px 14px', color: dark.textMuted, whiteSpace: 'nowrap' }}>
                       {isEditing ? (
                         <DatePicker
@@ -415,7 +415,7 @@ export default function ExpensesPage() {
                           <button
                             onClick={() => saveEdit(e.id)}
                             disabled={savingEdit}
-                            style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', background: 'linear-gradient(135deg, #2563eb, #3b82f6)', color: '#fff', border: 'none', cursor: 'pointer' }}
+                            style={{ padding: '5px 12px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', background: 'linear-gradient(135deg, #486890, #5BA8D9)', color: '#fff', border: 'none', cursor: 'pointer' }}
                           >
                             {savingEdit ? '…' : 'Save'}
                           </button>

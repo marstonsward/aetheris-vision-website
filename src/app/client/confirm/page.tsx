@@ -10,8 +10,8 @@ const dark = {
   text: '#f1f5f9',
   textMuted: 'rgba(255,255,255,0.5)',
   textDim: 'rgba(255,255,255,0.2)',
-  blue: '#3b82f6',
-  blueGlow: 'rgba(59,130,246,0.15)',
+  blue: '#5BA8D9',
+  blueGlow: 'rgba(91,168,217,0.15)',
 }
 
 function ConfirmForm() {
@@ -39,9 +39,9 @@ function ConfirmForm() {
         </p>
         <a href="/client/login" style={{
           display: 'inline-block', padding: '11px 24px', borderRadius: '9px',
-          background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+          background: 'linear-gradient(135deg, #29426C, #5BA8D9)',
           color: '#fff', textDecoration: 'none', fontSize: '14px', fontWeight: '600',
-          boxShadow: '0 4px 14px rgba(59,130,246,0.3)',
+          boxShadow: '0 4px 14px rgba(91,168,217,0.3)',
         }}>
           Back to login
         </a>
@@ -53,7 +53,7 @@ function ConfirmForm() {
     <div style={{ textAlign: 'center' }}>
       <div style={{
         width: '60px', height: '60px', borderRadius: '50%',
-        background: dark.blueGlow, border: '1px solid rgba(59,130,246,0.25)',
+        background: dark.blueGlow, border: '1px solid rgba(91,168,217,0.25)',
         margin: '0 auto 20px',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
@@ -82,10 +82,10 @@ function ConfirmForm() {
         <input type="hidden" name="email" value={email} />
         <button type="submit" style={{
           padding: '13px 36px', borderRadius: '10px',
-          background: 'linear-gradient(135deg, #2563eb, #3b82f6)',
+          background: 'linear-gradient(135deg, #486890, #5BA8D9)',
           color: '#fff', border: 'none', cursor: 'pointer',
           fontSize: '15px', fontWeight: '700',
-          boxShadow: '0 4px 20px rgba(59,130,246,0.4)',
+          boxShadow: '0 4px 20px rgba(91,168,217,0.4)',
           letterSpacing: '0.02em', transition: 'all 0.2s',
         }}>
           Access my portal →
@@ -119,7 +119,7 @@ export default function ConfirmPage() {
       <div style={{
         position: 'absolute', bottom: '-100px', left: '50%', transform: 'translateX(-50%)',
         width: '400px', height: '300px', borderRadius: '50%',
-        background: 'radial-gradient(ellipse, rgba(59,130,246,0.08) 0%, transparent 70%)',
+        background: 'radial-gradient(ellipse, rgba(91,168,217,0.08) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 
@@ -128,10 +128,10 @@ export default function ConfirmPage() {
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>
           <div style={{
             width: '46px', height: '46px', borderRadius: '12px',
-            background: 'linear-gradient(135deg, #1e3a5f, #3b82f6)',
+            background: 'linear-gradient(135deg, #29426C, #5BA8D9)',
             margin: '0 auto 12px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 4px 16px rgba(59,130,246,0.3)',
+            boxShadow: '0 4px 16px rgba(91,168,217,0.3)',
           }}>
             <span style={{ color: '#fff', fontSize: '18px', fontWeight: '800' }}>AV</span>
           </div>
